@@ -1,3 +1,4 @@
+# Mac OS background noise files
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -24,5 +25,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Node modules
 node_modules
+
+# WebStorm
 .idea
