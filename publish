@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+echo 'publishing to openshift...'
+
+git push -q openshift master
+
+if [ $? -ne 0 ]; then
+    echo "FAILED"
+else
+    echo "done"
+fi
