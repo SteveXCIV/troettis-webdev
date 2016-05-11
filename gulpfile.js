@@ -46,4 +46,4 @@ gulp.task('watch', function() {
 });
 
 // the default task copies all dependencies
-gulp.task('default', ['css', 'js', 'fonts']);
+gulp.task('default', ['css', 'fonts']);
