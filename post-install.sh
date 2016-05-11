@@ -6,9 +6,9 @@ bower=$(npm bin)'/bower'
 gulp=$(npm bin)'/gulp'
 
 if [ -z $OPENSHIFT_REPO_DIR ]; then
-    echo 'not on openshift'
+    echo 'not on openshift - using default node directory'
 else
-    echo 'on openshift'
+    echo 'on openshift - using app-root/runtime directory'
     HOME=$HOME/app-root/runtime
 fi
 
