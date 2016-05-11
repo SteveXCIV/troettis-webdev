@@ -1,0 +1,21 @@
+{
+  "name": "web-dev",
+  "description": "CS4550 Project at Northeastern University, S1 2016",
+  "main": "server.js",
+  "authors": [
+    "Steve Troetti"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/SteveXCIV/troettis-webdev",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6"
+  }
+}

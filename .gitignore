@@ -30,3 +30,10 @@ node_modules
 
 # WebStorm
 .idea
+
+# Bower components
+bower_components
+
+# Temporarily ignoring these until I have a better deployment process
+public/fonts
+public/js

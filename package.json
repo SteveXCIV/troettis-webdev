@@ -8,7 +8,12 @@
     "express": "^4.13.4",
     "mongoose": "^4.4.15"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "gulp": "^3.9.1",
+    "gulp-bower": "0.0.13",
+    "gulp-sass": "^2.3.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
