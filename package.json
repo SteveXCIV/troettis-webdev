@@ -16,7 +16,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "preinstall": "./pre-install.sh",
+    "postinstall": "./post-install.sh"
   },
   "author": "Steve Troetti",
   "license": "ISC"
