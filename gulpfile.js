@@ -40,9 +40,9 @@ gulp.task('fonts', function() {
 // this task watches for changes to custom stylesheets and re-runs the css task
 gulp.task('watch', function() {
     var watch_files = [
-        './css/app.scss',
+        './css/*.scss',
     ];
-    gulp.watch(watch_files, 'css');
+    gulp.watch(watch_files, ['css']);
 });
 
 // the default task copies all dependencies
