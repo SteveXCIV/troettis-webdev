@@ -25,9 +25,9 @@ gulp.task('css', function() {
         .pipe(gulp.dest(config.publicDir + '/css'));
 });
 
-// this task moves a copy of jquery.min.js into ./public/js
+// this task moves a copy of bootstrap.min.js into ./public/js
 gulp.task('js', function() {
-    return gulp.src(config.jsDir + '/dist/jquery.min.js')
+    return gulp.src(config.bootstrapDir + '/assets/javascripts/bootstrap.min.js')
         .pipe(gulp.dest(config.publicDir + '/js'));
 });
 
@@ -46,4 +46,4 @@ gulp.task('watch', function() {
 });
 
 // the default task copies all dependencies
-gulp.task('default', ['css', 'fonts']);
+gulp.task('default', ['css', 'js', 'fonts']);
