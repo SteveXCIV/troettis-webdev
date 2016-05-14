@@ -28,6 +28,9 @@ Temporary Items
 # Node modules
 node_modules
 
+# Node logs
+npm-debug.log
+
 # WebStorm
 .idea
 
