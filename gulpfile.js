@@ -6,6 +6,7 @@ Made using this tutorial:
 */
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var errPipe = require('pipe-error-stop');
 
 var config = {
     // point to bootstrap-sass bower component
@@ -14,14 +15,23 @@ var config = {
     jsDir: './bower_components/jquery',
     // this is where we'll output built dependencies
     publicDir: './public',
+    // the file(s) to build to the public directory
+    sassFile: './css/!(_)*.scss',
 };
+
+function handleError(e) {
+    console.log(e.message);
+}
 
 // this task compiles all SASS files into CSS and puts them in ./public/css
 gulp.task('css', function() {
-    return gulp.src('./css/app.scss')
+    return gulp.src(config.sassFile)
        .pipe(sass({
            includePaths: [config.bootstrapDir + '/assets/stylesheets'],
     }))
+        .pipe(errPipe({
+            errorCallback: handleError,
+        }))
         .pipe(gulp.dest(config.publicDir + '/css'));
 });
 
