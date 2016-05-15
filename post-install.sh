@@ -17,4 +17,22 @@ echo 'running bower...'
 $bower install
 echo 'running gulp...'
 $gulp
+
+echo 'deployment build complete, starting cleanup...'
+echo 'removing bower_components...'
+rm -r ./bower_components
+echo 'uninstalling bower...'
+npm uninstall bower
+echo 'removing bower.json...'
+rm ./bower.json
+echo 'uninstalling gulp...'
+npm uninstall gulp
+echo 'removing gulpfile.js'
+rm ./gulpfile.js
+echo 'removing sass source...'
+rm -r ./css
+echo 'removing deployment script...'
+rm ./deploy
+echo 'cleanup complete'
+
 echo 'done'
