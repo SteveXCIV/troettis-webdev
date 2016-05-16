@@ -3,8 +3,8 @@
 /*
     Colors
 */
-$gray-base:              darken($material-light-blue-900, 30%);
-$gray-darker:            lighten($gray-base, 13.5%) !default;
+$gray-base:              darken($material-light-blue-900, 30.5%);
+$gray-darker:            lighten($gray-base, 10%) !default;
 $gray-dark:              lighten($gray-base, 20%) !default;
 $gray:                   lighten($gray-base, 33.5%) !default;
 $gray-light:             lighten($gray-base, 46.7%) !default;
@@ -29,3 +29,8 @@ $link-hover-decoration: none;
 $border-radius-base:        0px;
 $border-radius-large:       0px;
 $border-radius-small:       0px;
+
+/*
+    Forms
+*/
+$input-color:               $gray-darker;
