@@ -1,0 +1,31 @@
+@import "palettes/material";
+
+/*
+    Colors
+*/
+$gray-base:              darken($material-light-blue-900, 30%);
+$gray-darker:            lighten($gray-base, 13.5%) !default;
+$gray-dark:              lighten($gray-base, 20%) !default;
+$gray:                   lighten($gray-base, 33.5%) !default;
+$gray-light:             lighten($gray-base, 46.7%) !default;
+$gray-lighter:           lighten($gray-base, 93.5%) !default;
+
+$brand-primary:         $material-light-blue-500;
+$brand-success:         $material-light-green-600;
+$brand-info:            $material-teal-400;
+$brand-warning:         $material-orange-700;
+$brand-danger:          $material-red-600;
+
+/*
+    Scaffolding
+*/
+$body-bg:               #fff !default;
+$text-color:            $gray-darker;
+$link-hover-decoration: none;
+
+/*
+    Components
+*/
+$border-radius-base:        0px;
+$border-radius-large:       0px;
+$border-radius-small:       0px;
