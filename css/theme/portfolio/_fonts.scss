@@ -1,0 +1,10 @@
+@import url(https://fonts.googleapis.com/css?family=Tauri|Roboto+Condensed:300,400);
+
+@mixin title-font-style() {
+    font-family: 'Tauri', Helvetica, Arial, sans-serif;
+}
+
+@mixin body-font-style() {
+    font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
+    font-weight: 300;
+}

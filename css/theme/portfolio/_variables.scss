@@ -1,0 +1,22 @@
+@import "palettes/material";
+
+/*
+    Colors
+*/
+$gray-base:              darken($material-deep-orange-900, 35%);
+$gray-darker:            lighten($gray-base, 13.5%) !default;
+$gray-dark:              lighten($gray-base, 20%) !default;
+$gray:                   lighten($gray-base, 33.5%) !default;
+$gray-light:             lighten($gray-base, 46.7%) !default;
+$gray-lighter:           lighten($gray-base, 93.5%) !default;
+
+$brand-primary:         $material-deep-orange-400;
+$brand-success:         #5cb85c !default;
+$brand-info:            #5bc0de !default;
+$brand-warning:         #f0ad4e !default;
+$brand-danger:          #d9534f !default;
+
+/*
+    Typography
+*/
+$font-size-base: 16px;
