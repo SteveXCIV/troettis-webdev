@@ -1,0 +1,26 @@
+@import "theme/portfolio/variables";
+
+@import "bootstrap";
+@import "theme/portfolio/buttons";
+@import "theme/portfolio/fonts";
+@import "theme/portfolio/sections";
+
+/*
+    Core Modifications
+*/
+html, body {
+    height: 100%;
+}
+
+body {
+    @include body-font-style;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+    @include title-font-style;
+}
