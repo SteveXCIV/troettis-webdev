@@ -1,5 +1,9 @@
-body {
-    padding-top: $navbar-height * 1.33;
+body.with-navbar-fixed-top {
+    padding-top: $navbar-height + $navbar-margin-bottom;
+}
+
+body.with-navbar-fixed-bottom {
+    padding-bottom: $navbar-height;
 }
 
 body::after {

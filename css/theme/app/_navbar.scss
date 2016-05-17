@@ -1,0 +1,8 @@
+.navbar-inverse {
+    color: $gray-lighter;
+
+    .btn-link,
+    .navbar-brand {
+        color: inherit;
+    }
+}
