@@ -3,7 +3,7 @@
 
     border-color: $input-border;
     border-width: 0px;
-    border-bottom-width: 3px;
+    border-bottom-width: $form-border-width;
     @include transition(border-color ease-in-out .3s);
 
     &:focus {
@@ -14,5 +14,5 @@
 // override to outline a textarea fully
 textarea.form-control {
     border-width: 1px;
-    border-bottom-width: 3px;
+    border-bottom-width: $form-border-width;
 }
