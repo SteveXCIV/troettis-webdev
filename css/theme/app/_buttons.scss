@@ -69,18 +69,25 @@
 .btn-icon-responsive {
     text-transform: uppercase;
 
-    .fa,
-    .glyphicon {
-        display: none;
+    @media (min-width: $screen-sm-min) {
+        .text {
+            display: inline;
+        }
+        
+        .fa,
+        .glyphicon {
+            display: none;
+        }
     }
 
     @media (max-width: $screen-xs-max) {
-        font-size: 0em;
+        .text {
+            display: none;
+        }
 
         .fa,
         .glyphicon {
-            display: inherit;
-            font-size: initial;
+            display: inline;
         }
     }
 }
