@@ -70,7 +70,10 @@ $btn-link-disabled-color:        $gray-light !default;
 //
 // Forms
 //
-$input-color:          $text-color;
+$input-color:               $text-color;
+$input-color-placeholder:   #999;
+$input-border:              $input-color-placeholder;
+$input-border-focus:        $brand-primary;
 
 //
 // Dropdowns

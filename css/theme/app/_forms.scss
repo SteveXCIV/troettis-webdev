@@ -1,0 +1,18 @@
+.form-control {
+    @include box-shadow(none);
+
+    border-color: $input-border;
+    border-width: 0px;
+    border-bottom-width: 3px;
+    @include transition(border-color ease-in-out .3s);
+
+    &:focus {
+        @include box-shadow(none);
+    }
+}
+
+// override to outline a textarea fully
+textarea.form-control {
+    border-width: 1px;
+    border-bottom-width: 3px;
+}
