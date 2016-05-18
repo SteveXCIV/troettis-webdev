@@ -2,9 +2,12 @@
     @include box-shadow(none);
 
     border-color: $input-border;
-    border-width: 0px;
-    border-bottom-width: $form-border-width;
     @include transition(border-color ease-in-out .3s);
+
+    &:not(.btn) {
+        border-width: 0px;
+        border-bottom-width: $form-border-width;
+    }
 
     &:focus {
         @include box-shadow(none);
@@ -13,6 +16,6 @@
 
 // override to outline a textarea fully
 textarea.form-control {
-    border-width: 1px;
-    border-bottom-width: $form-border-width;
+    border-width: 1px !important;
+    border-bottom-width: $form-border-width !important;
 }
