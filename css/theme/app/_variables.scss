@@ -1,36 +1,120 @@
 @import "palettes/material";
+@import "fonts";
 
-/*
-    Colors
-*/
-$gray-base:              darken($material-light-blue-900, 30.5%);
-$gray-darker:            lighten($gray-base, 10%) !default;
-$gray-dark:              lighten($gray-base, 20%) !default;
-$gray:                   lighten($gray-base, 33.5%) !default;
-$gray-light:             lighten($gray-base, 46.7%) !default;
-$gray-lighter:           lighten($gray-base, 93.5%) !default;
+//
+// Colors
+//
+$gray-base:             darken($material-blue-grey-900, 18%);
+$gray-darker:           lighten($gray-base, 5%);
+$gray-dark:             lighten($gray-base, 15%);
+$gray:                  lighten($gray-base, 30%);
+$gray-light:            lighten($gray-base, 60%);
+$gray-lighter:          lighten($gray-base, 85%);
+$gray-lightest:         $material-white;
 
-$brand-primary:         $material-light-blue-500;
+$brand-primary:         $material-blue-800;
 $brand-success:         $material-light-green-600;
 $brand-info:            $material-teal-400;
-$brand-warning:         $material-orange-700;
-$brand-danger:          $material-red-600;
+$brand-warning:         $material-orange-500;
+$brand-danger:          $material-red-500;
 
-/*
-    Scaffolding
-*/
-$body-bg:               #fff !default;
+//
+// Scaffolding
+//
 $text-color:            $gray-darker;
 $link-hover-decoration: none;
 
-/*
-    Components
-*/
+//
+// Typography
+//
+$font-family-sans-serif: 'Roboto', Helvetica, sans-serif;
+
+//
+// Components
+//
 $border-radius-base:        0px;
 $border-radius-large:       0px;
 $border-radius-small:       0px;
 
-/*
-    Forms
-*/
-$input-color:               $gray-darker;
+//
+// Buttons
+//
+$btn-font-weight:                normal !default;
+
+$btn-default-color:              $gray-lightest;
+$btn-default-bg:                 $gray-dark;
+$btn-default-border:             darken($btn-default-bg, 5%);
+
+$btn-primary-color:              $gray-lightest;
+$btn-primary-bg:                 $brand-primary !default;
+$btn-primary-border:             darken($btn-primary-bg, 5%) !default;
+
+$btn-success-color:              $gray-lightest;
+$btn-success-bg:                 $brand-success !default;
+$btn-success-border:             darken($btn-success-bg, 5%) !default;
+
+$btn-info-color:                 $gray-lightest;
+$btn-info-bg:                    $brand-info !default;
+$btn-info-border:                darken($btn-info-bg, 5%) !default;
+
+$btn-warning-color:              $gray-lightest;
+$btn-warning-bg:                 $brand-warning !default;
+$btn-warning-border:             darken($btn-warning-bg, 5%) !default;
+
+$btn-danger-color:               $gray-lightest;
+$btn-danger-bg:                  $brand-danger !default;
+$btn-danger-border:              darken($btn-danger-bg, 5%) !default;
+
+$btn-link-disabled-color:        $gray-light !default;
+
+//
+// Forms
+//
+$input-color:          $text-color;
+
+//
+// Dropdowns
+//
+$dropdown-link-hover-color:    $gray-lightest;
+$dropdown-link-hover-bg:       $brand-primary;
+
+$dropdown-header-color:        $gray;
+
+//
+// Navbar
+//
+$navbar-inverse-link-color:            $gray-lightest;
+$navbar-inverse-link-active-color:     $navbar-inverse-link-color;
+$navbar-inverse-link-hover-color:      $gray-light;
+$navbar-inverse-bg:                    $gray-darker;
+
+//
+// Panels
+//
+$panel-default-heading-bg:    $gray-dark;
+$panel-default-border:        $panel-default-heading-bg;
+$panel-default-text:          $gray-lightest;
+
+$panel-success-heading-bg:        $brand-success;
+$panel-success-border:            $panel-success-heading-bg;
+$panel-success-text:              $gray-lightest;
+
+$panel-info-heading-bg:           $brand-info;
+$panel-info-border:               $panel-info-heading-bg;
+$panel-info-text:                 $gray-lightest;
+
+$panel-warning-heading-bg:           $brand-warning;
+$panel-warning-border:               $panel-warning-heading-bg;
+$panel-warning-text:                 $gray-lightest;
+
+$panel-danger-heading-bg:           $brand-danger;
+$panel-danger-border:               $panel-danger-heading-bg;
+$panel-danger-text:                 $gray-lightest;
+
+//
+// Badges
+//
+$badge-bg:                $brand-primary;
+$badge-color:             $gray-lightest;
+$badge-active-color:      $brand-primary;
+$badge-active-bg:         $gray-lightest;

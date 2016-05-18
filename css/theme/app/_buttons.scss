@@ -1,0 +1,85 @@
+// This mixin duplicates the behavior of the bootstrap link button
+@mixin link-button-variant($color) {
+    color: $color;
+    font-weight: normal;
+    border-radius: 0;
+
+    &,
+    &:active,
+    &.active,
+    &[disabled],
+    fieldset[disabled] & {
+      background-color: transparent;
+      @include box-shadow(none);
+    }
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      border-color: transparent;
+    }
+    &:hover,
+    &:focus {
+      color: darken($color, 15%);
+      text-decoration: $link-hover-decoration;
+      background-color: transparent;
+    }
+    &[disabled],
+    fieldset[disabled] & {
+      &:hover,
+      &:focus {
+        color: $btn-link-disabled-color;
+        text-decoration: none;
+      }
+    }
+}
+
+// Remove borders from buttons
+.btn {
+    border-width: 0px;
+}
+
+.btn-link-default {
+    @include link-button-variant($btn-default-bg);
+}
+
+.btn-link-primary {
+    @include link-button-variant($btn-primary-bg);
+}
+
+.btn-link-success {
+    @include link-button-variant($btn-success-bg);
+}
+
+.btn-link-info {
+    @include link-button-variant($btn-info-bg);
+}
+
+.btn-link-warning {
+    @include link-button-variant($btn-warning-bg);
+}
+
+.btn-link-danger {
+    @include link-button-variant($btn-danger-bg);
+}
+
+// Special button type that is an icon on mobile and becomes uppercase text on
+// larger screens
+.btn-icon-responsive {
+    text-transform: uppercase;
+
+    .fa,
+    .glyphicon {
+        display: none;
+    }
+
+    @media (max-width: $screen-xs-max) {
+        font-size: 0em;
+
+        .fa,
+        .glyphicon {
+            display: inherit;
+            font-size: initial;
+        }
+    }
+}
