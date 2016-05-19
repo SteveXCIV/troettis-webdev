@@ -3,5 +3,5 @@ body.with-navbar-fixed-top {
 }
 
 body.with-navbar-fixed-bottom {
-    padding-bottom: $navbar-height;
+    padding-bottom: $navbar-height + $navbar-margin-bottom;
 }
