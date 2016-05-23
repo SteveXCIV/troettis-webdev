@@ -1,0 +1,41 @@
+.widget {
+    @extend .panel;
+
+    position: relative;
+    padding: 0 floor($grid-gutter-width / 2);
+    margin-bottom: 0.2em;
+    z-index: 0;
+
+    &.editor {
+        @extend .panel-card;
+        @include transition(box-shadow ease-in-out .3s);
+
+        &:hover {
+            @extend .active;
+            z-index: 9999;
+        }
+    }
+
+    > .config {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: $body-bg;
+        padding-left: floor($padding-base-horizontal / 2);
+        border-bottom-left-radius: 4px;
+        // HACK: this makes the config box show up over responsive video embeds
+        // need a better solution because this might mess with the navbar z-stacking
+        z-index: 1299;
+        @include box-shadow(-1px 1px 1px 0px rgba(50, 50, 50, 0.25));
+
+        > .btn {
+            padding-left: floor($padding-base-horizontal / 2);
+            padding-right: floor($padding-base-horizontal / 2);
+        }
+    }
+
+    > .widget-img {
+        width: 100%;
+        height: auto;
+    }
+}

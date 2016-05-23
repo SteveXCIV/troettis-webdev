@@ -1,16 +1,7 @@
-body {
-    padding-top: $navbar-height * 1.33;
+body.with-navbar-fixed-top {
+    padding-top: $navbar-height + $navbar-margin-bottom;
 }
 
-body::after {
-  content: "";
-  /* Background pattern from subtlepatterns.com */
-  background: url(img/escheresque.png) repeat;
-  opacity: 0.7;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: fixed;
-  z-index: -1;
+body.with-navbar-fixed-bottom {
+    padding-bottom: $navbar-height + $navbar-margin-bottom;
 }

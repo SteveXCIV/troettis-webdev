@@ -50,7 +50,7 @@ gulp.task('fonts', function() {
 // this task watches for changes to custom stylesheets and re-runs the css task
 gulp.task('watch', function() {
     var watch_files = [
-        './css/*.scss',
+        './css/**/*.scss',
     ];
     gulp.watch(watch_files, ['css']);
 });
