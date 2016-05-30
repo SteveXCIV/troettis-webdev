@@ -1,87 +1,70 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Widget Edit</title>
-    <link rel="stylesheet" href="/css/app.css" title="app" charset="utf-8">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-</head>
-
-<body class="with-navbar-fixed-top with-navbar-fixed-bottom">
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-
-            <div class="navbar-btn pull-left">
-                <a href="widget-list.html" class="btn btn-link btn-icon-responsive">
-                    <span class="fa fa-chevron-left"></span>
-                    <span class="text">Cancel</span>
-                </a>
-            </div>
-
-            <div class="navbar-brand">
-                <span>Widget Edit</span>
-            </div>
-
-            <div class="navbar-btn pull-right">
-                <a href="widget-list.html" class="btn btn-link btn-icon-responsive">
-                    <span class="fa fa-check"></span>
-                    <span class="text">Done</span>
-                </a>
-            </div>
-
-        </div>
-    </nav>
-
-
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <form>
-                    <div class="form-group">
-                        <label for="widget_name">Name</label>
-                        <input type="text" class="form-control" name="widget_name" placeholder="Widget name" tabindex="1" />
-                    </div>
-                    <div class="form-group">
-                        <label for="widget_text">Text</label>
-                        <input type="text" class="form-control" name="widget_text" placeholder="Widget title" tabindex="2" />
-                    </div>
-                    <div class="form-group">
-                        <label for="widget_url">URL</label>
-                        <input type="text" class="form-control" name="widget_url" placeholder="URL" value="https://www.placekitten.com/300/200" tabindex="3" />
-                    </div>
-                    <div class="form-group">
-                        <label for="widget_width">Width</label>
-                        <input type="text" class="form-control" name="widget_width" placeholder="Width" value="100%" tabindex="4" />
-                    </div>
-                    <div class="form-group">
-                        <label for="widget_file">Upload</label>
-                        <input type="file" name="widget_file" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <a href="#" class="form-control btn btn-block btn-primary">Upload Image</a>
-                    </div>
-                    <div class="form-group">
-                        <a href="widget-list.html" class="form-control btn btn-block btn-danger">Delete</a>
-                    </div>
-                </form>
-            </div>
+
+        <div class="navbar-btn pull-left">
+            <a href="widget-list.html" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-chevron-left"></span>
+                <span class="text">Cancel</span>
+            </a>
+        </div>
+
+        <div class="navbar-brand">
+            <span>Widget Edit</span>
+        </div>
+
+        <div class="navbar-btn pull-right">
+            <a href="widget-list.html" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-check"></span>
+                <span class="text">Done</span>
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <form>
+                <div class="form-group">
+                    <label for="widget_name">Name</label>
+                    <input type="text" class="form-control" name="widget_name" placeholder="Widget name" tabindex="1" />
+                </div>
+                <div class="form-group">
+                    <label for="widget_text">Text</label>
+                    <input type="text" class="form-control" name="widget_text" placeholder="Widget title" tabindex="2" />
+                </div>
+                <div class="form-group">
+                    <label for="widget_url">URL</label>
+                    <input type="text" class="form-control" name="widget_url" placeholder="URL" value="https://www.placekitten.com/300/200" tabindex="3" />
+                </div>
+                <div class="form-group">
+                    <label for="widget_width">Width</label>
+                    <input type="text" class="form-control" name="widget_width" placeholder="Width" value="100%" tabindex="4" />
+                </div>
+                <div class="form-group">
+                    <label for="widget_file">Upload</label>
+                    <input type="file" name="widget_file" class="form-control">
+                </div>
+                <div class="form-group">
+                    <a href="#" class="form-control btn btn-block btn-primary">Upload Image</a>
+                </div>
+                <div class="form-group">
+                    <a href="widget-list.html" class="form-control btn btn-block btn-danger">Delete</a>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <nav class="navbar navbar-inverse navbar-fixed-bottom">
-        <div class="container-fluid">
-            <div class="navbar-btn pull-right">
-                <a href="profile.html" class="btn btn-link btn-icon-responsive">
-                    <span class="fa fa-user"></span>
-                    <span class="text">Profile</span>
-                </a>
-            </div>
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-btn pull-right">
+            <a href="profile.html" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-user"></span>
+                <span class="text">Profile</span>
+            </a>
         </div>
-    </nav>
-
-</body>
-
-</html>
+    </div>
+</nav>
