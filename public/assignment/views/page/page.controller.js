@@ -10,10 +10,12 @@
     }
 
     function NewPageController() {
+        var vm = this;
 
     }
 
     function EditPageController() {
-
+        var vm = this;
+        
     }
 })();

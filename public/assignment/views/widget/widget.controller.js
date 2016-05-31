@@ -14,6 +14,7 @@
     }
 
     function EditWidgetController() {
-
+        var vm = this;
+        
     }
 })();

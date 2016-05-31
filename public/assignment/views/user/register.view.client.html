@@ -6,13 +6,13 @@
                     <h2>Register</h2>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="username" placeholder="Username" tabindex="1" />
+                    <input ng-model="model.user.username" type="text" class="form-control" name="username" placeholder="Username" tabindex="1" />
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password" placeholder="Password" tabindex="2" />
+                    <input ng-model="model.user.password" type="password" class="form-control" name="password" placeholder="Password" tabindex="2" />
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="verify_password" placeholder="Verify password" tabindex="3" />
+                    <input ng-model="model.user.password" type="password" class="form-control" name="verify_password" placeholder="Verify password" tabindex="3" />
                 </div>
                 <div class="form-group">
                     <a href="#/user/!USER_ID" class="btn btn-primary btn-block btn-lg">Register</a>
