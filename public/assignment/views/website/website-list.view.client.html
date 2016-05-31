@@ -19,50 +19,19 @@
         <div class="col-xs-12">
 
             <div class="list-group-menu">
-                <div class="list-group-item">
+
+                <div ng-repeat="website in model.websites" class="list-group-item">
                     <div class="list-group-control">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID" class="btn btn-link btn-icon-responsive">
+                        <a href="#/user/{{website.developerId}}/website/{{website._id}}" class="btn btn-link btn-icon-responsive">
                             <span class="fa fa-cog"></span>
                             <span class="text">Edit</span>
                         </a>
                     </div>
                     <div class="list-group-label">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page" class="btn btn-link">Blogging App</a>
+                        <a href="#/user/{{website.developerId}}/website/{{website._id}}/page" class="btn btn-link">{{website.name}}</a>
                     </div>
                 </div>
-                <div class="list-group-item">
-                    <div class="list-group-control">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID" class="btn btn-link btn-icon-responsive">
-                            <span class="fa fa-cog"></span>
-                            <span class="text">Edit</span>
-                        </a>
-                    </div>
-                    <div class="list-group-label">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page" class="btn btn-link">Address Book App</a>
-                    </div>
-                </div>
-                <div class="list-group-item">
-                    <div class="list-group-control">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID" class="btn btn-link btn-icon-responsive">
-                            <span class="fa fa-cog"></span>
-                            <span class="text">Edit</span>
-                        </a>
-                    </div>
-                    <div class="list-group-label">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page" class="btn btn-link">Script Testing App</a>
-                    </div>
-                </div>
-                <div class="list-group-item">
-                    <div class="list-group-control">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID" class="btn btn-link btn-icon-responsive">
-                            <span class="fa fa-cog"></span>
-                            <span class="text">Edit</span>
-                        </a>
-                    </div>
-                    <div class="list-group-label">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page" class="btn btn-link">Blogger</a>
-                    </div>
-                </div>
+
             </div>
 
         </div>

@@ -5,8 +5,18 @@
         .controller('NewWidgetController', NewWidgetController)
         .controller('EditWidgetController', EditWidgetController);
 
-    function WidgetListController() {
+    function WidgetListController($routeParams, WidgetService) {
+        var vm = this;
+        // /user/:uid/website/:wid/page/:pid/widget
+        vm.userId = $routeParams['uid'];
+        vm.websiteId = $routeParams['wid'];
+        vm.pageId = $routeParams['pid'];
 
+        function init() {
+            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+            console.log('widgets ' + JSON.stringify(vm.widgets));
+        }
+        init();
     }
 
     function NewWidgetController() {

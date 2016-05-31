@@ -22,110 +22,19 @@
 
 
 <div class="container-fluid with-navbar-fixed-top with-navbar-fixed-bottom">
-    <div class="widget">
-        <div class="config">
-            <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID/widget/!WIDGET_ID" class="btn btn-link">
-                <span class="fa fa-cog"></span>
-            </a>
-            <a href="#" class="btn btn-link-default">
-                <span class="fa fa-bars"></span>
-            </a>
-        </div>
-        <h1>HEADING</h1>
-    </div>
 
-    <div class="widget">
-        <div class="config">
-            <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID/widget/!WIDGET_ID" class="btn btn-link">
-                <span class="fa fa-cog"></span>
-            </a>
-            <a href="#" class="btn btn-link-default">
-                <span class="fa fa-bars"></span>
-            </a>
+    <div class="widget" ng-repeat="widget in model.widgets" ng-switch="widget.widgetType">
+        <div ng-switch-when="HEADER">
+            <ng-include src="'views/widget/widget-heading.view.client.html'" />
         </div>
-        <h3>Smaller Heading</h3>
-    </div>
-
-    <div class="widget">
-        <div class="config">
-            <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID/widget/!WIDGET_ID" class="btn btn-link">
-                <span class="fa fa-cog"></span>
-            </a>
-            <a href="#" class="btn btn-link-default">
-                <span class="fa fa-bars"></span>
-            </a>
+        <div ng-switch-when="IMAGE">
+            <ng-include src="'views/widget/widget-image.view.client.html'" />
         </div>
-        <img src="https://placekitten.com/400/300" alt="Image widget" class="widget-img">
-    </div>
-
-    <div class="widget">
-        <div class="config">
-            <a href="#" class="btn btn-link">
-                <span class="fa fa-cog"></span>
-            </a>
-            <a href="#" class="btn btn-link-default">
-                <span class="fa fa-bars"></span>
-            </a>
-        </div>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            <a href="#">Etiam lacinia venenatis nibh</a>, ut lobortis ipsum aliquet nec.
-            Mauris eu libero elementum, blandit turpis nec, aliquet ex.
-            Morbi at rutrum nunc. Phasellus ac dictum sem, sit amet luctus libero.
-            Fusce id tortor dolor. Praesent quis tellus ligula.
-            Cras nec lectus ac elit pretium aliquam. <a href="#">Donec consequat tellus dolor, at mollis neque venenatis non.</a>
-            Quisque quam lectus, ultrices ut ultrices ut, sodales a felis.
-            Aliquam nec sodales enim. Aenean in vestibulum arcu.
-            Duis consectetur, est id sollicitudin molestie, sem mi malesuada odio, at interdum turpis nisl vitae nunc.</p>
-    </div>
-
-    <div class="widget">
-        <div class="config">
-            <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID/widget/!WIDGET_ID" class="btn btn-link">
-                <span class="fa fa-cog"></span>
-            </a>
-            <a href="#" class="btn btn-link-default">
-                <span class="fa fa-bars"></span>
-            </a>
-        </div>
-        <h3>Another Smaller Heading</h3>
-    </div>
-
-    <div class="widget">
-        <div class="config">
-            <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID/widget/!WIDGET_ID" class="btn btn-link">
-                <span class="fa fa-cog"></span>
-            </a>
-            <a href="#" class="btn btn-link-default">
-                <span class="fa fa-bars"></span>
-            </a>
-        </div>
-        <div class="embed-responsive embed-responsive-16by9">
-            <iframe src="https://www.youtube.com/embed/x3BHSt42L0Y" frameborder="0" allowfullscreen></iframe>
+        <div ng-switch-when="YOUTUBE">
+            <ng-include src="'views/widget/widget-youtube.view.client.html'" />
         </div>
     </div>
 
-    <div class="widget">
-        <div class="config">
-            <a href="#" class="btn btn-link">
-                <span class="fa fa-cog"></span>
-            </a>
-            <a href="#" class="btn btn-link-default">
-                <span class="fa fa-bars"></span>
-            </a>
-        </div>
-        <p>
-            Cat ipsum dolor sit amet, have secret plans make muffins and see owner, run in terror for meow.
-            Chase red laser dot sniff other cat's butt and hang jaw half open thereafter and walk on car
-            leaving trail of paw prints on hood and windshield for this human feeds me, I should be a god
-            put toy mouse in food bowl run out of litter box at full speed nap all day.
-            Eat from dog's food burrow under covers flop over, for spread kitty litter all over house.
-            Hack up furballs make muffins. Drink water out of the faucet. Stare at the wall, play with food
-            and get confused by dust stretch, for lay on arms while you're using the keyboard. Curl into a
-            furry donut all of a sudden cat goes crazy chew iPad power cord, or I like big cats and I can not lie and chirp at birds.
-            Rub face on everything hunt by meowing loudly at 5am next to human slave food dispenser.
-        </p>
-    </div>
 </div>
 
 <nav class="navbar navbar-inverse navbar-fixed-bottom">

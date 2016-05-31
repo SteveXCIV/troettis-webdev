@@ -26,61 +26,19 @@
         <div class="col-xs-12">
 
             <div class="list-group-menu">
-                <div class="list-group-item">
+
+                <div ng-repeat="page in model.pages" class="list-group-item">
                     <div class="list-group-control">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID" class="btn btn-link btn-icon-responsive">
+                        <a href="#/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}" class="btn btn-link btn-icon-responsive">
                             <span class="fa fa-cog"></span>
                             <span class="text">Edit</span>
                         </a>
                     </div>
                     <div class="list-group-label">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID/widget" class="btn btn-link">Blog Post</a>
+                        <a href="#/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}/widget" class="btn btn-link">{{page.name}}</a>
                     </div>
                 </div>
-                <div class="list-group-item">
-                    <div class="list-group-control">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID" class="btn btn-link btn-icon-responsive">
-                            <span class="fa fa-cog"></span>
-                            <span class="text">Edit</span>
-                        </a>
-                    </div>
-                    <div class="list-group-label">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID/widget" class="btn btn-link">Blogs</a>
-                    </div>
-                </div>
-                <div class="list-group-item">
-                    <div class="list-group-control">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID" class="btn btn-link btn-icon-responsive">
-                            <span class="fa fa-cog"></span>
-                            <span class="text">Edit</span>
-                        </a>
-                    </div>
-                    <div class="list-group-label">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID/widget" class="btn btn-link">Home</a>
-                    </div>
-                </div>
-                <div class="list-group-item">
-                    <div class="list-group-control">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID" class="btn btn-link btn-icon-responsive">
-                            <span class="fa fa-cog"></span>
-                            <span class="text">Edit</span>
-                        </a>
-                    </div>
-                    <div class="list-group-label">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID/widget" class="btn btn-link">About</a>
-                    </div>
-                </div>
-                <div class="list-group-item">
-                    <div class="list-group-control">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID" class="btn btn-link btn-icon-responsive">
-                            <span class="fa fa-cog"></span>
-                            <span class="text">Edit</span>
-                        </a>
-                    </div>
-                    <div class="list-group-label">
-                        <a href="#/user/!USER_ID/website/!WEBSITE_ID/page/!PAGE_ID/widget" class="btn btn-link">Contact Us</a>
-                    </div>
-                </div>
+
             </div>
 
         </div>
