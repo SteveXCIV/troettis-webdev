@@ -1,0 +1,50 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-brand pull-left">
+            <span>Websites</span>
+        </div>
+
+        <div class="navbar-btn pull-right">
+            <a href="#/user/{{model.userId}}/website/new" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-plus"></span>
+                <span class="text">New</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid with-navbar-fixed-top with-navbar-fixed-bottom">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="list-group-menu">
+
+                <div ng-repeat="website in model.websites" class="list-group-item">
+                    <div class="list-group-control">
+                        <a href="#/user/{{website.developerId}}/website/{{website._id}}" class="btn btn-link btn-icon-responsive">
+                            <span class="fa fa-cog"></span>
+                            <span class="text">Edit</span>
+                        </a>
+                    </div>
+                    <div class="list-group-label">
+                        <a href="#/user/{{website.developerId}}/website/{{website._id}}/page" class="btn btn-link">{{website.name}}</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-btn pull-right">
+            <a href="#/user/{{model.userId}}" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-user"></span>
+                <span class="text">Profile</span>
+            </a>
+        </div>
+    </div>
+</nav>

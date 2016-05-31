@@ -1,57 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="WebAppMaker">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Assignment Home Page</title>
     <link rel="stylesheet" href="/css/app.css" title="app" charset="utf-8">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+    <script src="services/page.service.client.js"></script>
+    <script src="services/user.service.client.js"></script>
+    <script src="services/website.service.client.js"></script>
+    <script src="services/widget.service.client.js"></script>
+    <script src="views/page/page.controller.js"></script>
+    <script src="views/user/user.controller.js"></script>
+    <script src="views/website/website.controller.js"></script>
+    <script src="views/widget/widget.controller.js"></script>
 </head>
 <body>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h1>Assignment Home Page</h1>
-            </div>
-            <div class="col-xs-12">
-                <p>The links below lead to the required UI wireframes, by category.</p>
-            </div>
-            <div class="col-xs-12">
-                <h3>Page</h3>
-                <ul>
-                    <li><a href="page-list.html">page-list.html</a></li>
-                    <li><a href="page-new.html">page-new.html</a></li>
-                    <li><a href="page-edit.html">page-edit.html</a></li>
-                </ul>
-            </div>
-            <div class="col-xs-12">
-                <h3>User</h3>
-                <ul>
-                    <li><a href="login.html">login.html</a></li>
-                    <li><a href="register.html">register.html</a></li>
-                    <li><a href="profile.html">profile.html</a></li>
-                </ul>
-            </div>
-            <div class="col-xs-12">
-                <h3>Website</h3>
-                <ul>
-                    <li><a href="website-list.html">website-list.html</a></li>
-                    <li><a href="website-new.html">website-new.html</a></li>
-                    <li><a href="website-edit.html">website-edit.html</a></li>
-                </ul>
-            </div>
-            <div class="col-xs-12">
-                <h3>Widget</h3>
-                <ul>
-                    <li><a href="widget-list.html">widget-list.html</a></li>
-                    <li><a href="widget-choose.html">widget-choose.html</a></li>
-                    <li><a href="widget-header.html">widget-header.html</a></li>
-                    <li><a href="widget-image.html">widget-image.html</a></li>
-                    <li><a href="widget-youtube.html">widget-youtube.html</a></li>
-                </ul>
-            </div>
-        </div>
+    <div ng-view>
     </div>
-
 </body>
 </html>

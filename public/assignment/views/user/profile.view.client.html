@@ -1,0 +1,54 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-brand pull-left">
+            <span>Profile</span>
+        </div>
+
+        <div class="navbar-btn pull-right">
+            <a ng-click="model.updateUser(model.user)" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-check"></span>
+                <span class="text">Done</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid with-navbar-fixed-top">
+    <div class="row">
+        <div class="col-xs-12" ng-if="model.alert">
+            <div class="alert alert-danger">
+                {{model.alert}}
+            </div>
+        </div>
+        <div class="col-xs-12" ng-if="model.success">
+            <div class="alert alert-success">
+                {{model.success}}
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <form>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input ng-model="model.user.username" type="text" class="form-control" name="username" placeholder="Username" tabindex="1" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Email" tabindex="2" />
+                </div>
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input ng-model="model.user.firstName" type="text" name="first_name" placeholder="First name" class="form-control" tabindex="3"/>
+                </div>
+                <div class="form-group">
+                    <label for="">Last Name</label>
+                    <input ng-model="model.user.lastName" type="text" name="last_name" placeholder="Last name" class="form-control" tabindex="4"/>
+                </div>
+                <div class="form-group">
+                    <a href="#/user/{{model.user._id}}/website" class="btn btn-primary btn-block btn-lg">Applications</a>
+                    <a href="#/login" class="btn btn-danger btn-block btn-lg">Logout</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
