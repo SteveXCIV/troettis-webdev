@@ -52,7 +52,7 @@
 
         function findWebsiteById(websiteId) {
             var maybeSite = websites
-                                .fiter((website, _i, _a) => website._id === websiteId)
+                                .filter((website, _i, _a) => website._id === websiteId)
                                 .shift();
             return maybeSite ? maybeSite : null;
         }
