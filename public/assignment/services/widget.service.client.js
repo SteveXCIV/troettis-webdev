@@ -54,10 +54,19 @@
         };
         return api;
 
+        function getNextWidgetId() {
+            var next = widgets
+                        .map((widget, _i, _a) => parseInt(widget._id))
+                        .pop();
+            next = next ? next : 100;
+            return (next + 1).toString();
+        }
+
         function createWidget(pageId, widget) {
             widget.pageId = pageId;
+            widget._id = getNextWidgetId();
             widgets.push(widget);
-            return true;
+            return widget;
         }
 
         function findWidgetsByPageId(pageId) {
@@ -74,10 +83,11 @@
 
         // Helper to get widget index by id
         function getWidgetIndexById(widgetId) {
-            return widgets
-                .filter((widget, _i, _a) => widget._id === widgetId)
-                .map((_w, index, _a) => index)
-                .shift();
+            for (var i in widgets) {
+                if (widgets[i]._id === widgetId) {
+                    return i;
+                }
+            }
         }
 
         function updateWidget(widgetId, widget) {

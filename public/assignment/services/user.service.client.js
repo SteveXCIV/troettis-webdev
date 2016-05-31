@@ -40,8 +40,23 @@
         };
         return api;
 
+        function getNextUserId() {
+            var next = users
+                        .map((user, _i, _a) => parseInt(user._id))
+                        .pop();
+            next = next ? next : 100;
+            return (next + 1).toString();
+        }
+
         function createUser(user) {
+            user._id = getNextUserId();
+            if (user.password === user.verifyPassword) {
+                delete user.verifyPassword;
+            } else {
+                return false;
+            }
             users.push(user);
+            return user;
         }
 
         function findUserById(userId) {
@@ -65,10 +80,11 @@
 
         // Helper function to retrieve user index
         function getUserIndexById(userId) {
-            return users
-                    .filter((user, _i, _a) => user._id === userId)
-                    .map((_u, index, _a) => index)
-                    .shift();
+            for (var i in users) {
+                if (users[i]._id === userId) {
+                    return i;
+                }
+            }
         }
 
         function updateUser(userId, user) {

@@ -39,10 +39,19 @@
         };
         return api;
 
+        function getNextWebsiteId() {
+            var next = websites
+                        .map((website, _i, _a) => parseInt(website._id))
+                        .pop();
+            next = next ? next : 100;
+            return (next + 1).toString();
+        }
+
         function createWebsite(userId, website) {
             website.developerId = userId;
+            website._id = getNextWebsiteId();
             websites.push(website);
-            return true;
+            return website;
         }
 
         function findWebsitesByUser(userId) {
@@ -59,10 +68,11 @@
 
         // Helper to find website index by id
         function getWebsiteIndexById(websiteId) {
-            return websites
-                    .filter((website, _i, _a) => website._id === websiteId)
-                    .map((_w, index, _a) => index)
-                    .shift();
+            for (var i in websites) {
+                if (websites[i]._id === websiteId) {
+                    return i;
+                }
+            }
         }
 
         function updateWebsite(websiteId, website) {

@@ -1,21 +1,26 @@
 <div class="container-fluid">
     <div class="row">
+        <div class="col-xs-12" ng-if="model.alert">
+            <div class="alert alert-danger">
+                {{model.alert}}
+            </div>
+        </div>
         <div class="col-xs-12">
             <form>
                 <div class="form-group">
                     <h2>Register</h2>
                 </div>
                 <div class="form-group">
-                    <input ng-model="model.user.username" type="text" class="form-control" name="username" placeholder="Username" tabindex="1" />
+                    <input ng-model="user.username" type="text" class="form-control" name="username" placeholder="Username" tabindex="1" />
                 </div>
                 <div class="form-group">
-                    <input ng-model="model.user.password" type="password" class="form-control" name="password" placeholder="Password" tabindex="2" />
+                    <input ng-model="user.password" type="password" class="form-control" name="password" placeholder="Password" tabindex="2" />
                 </div>
                 <div class="form-group">
-                    <input ng-model="model.user.password" type="password" class="form-control" name="verify_password" placeholder="Verify password" tabindex="3" />
+                    <input ng-model="user.verifyPassword" type="password" class="form-control" name="verify_password" placeholder="Verify password" tabindex="3" />
                 </div>
                 <div class="form-group">
-                    <a href="#/user/!USER_ID" class="btn btn-primary btn-block btn-lg">Register</a>
+                    <a ng-click="model.register(user)" class="btn btn-primary btn-block btn-lg">Register</a>
                     <a href="#/login" class="btn btn-danger btn-block btn-lg">Cancel</a>
                 </div>
             </form>

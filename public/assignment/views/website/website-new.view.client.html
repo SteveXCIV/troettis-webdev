@@ -2,7 +2,7 @@
     <div class="container-fluid">
 
         <div class="navbar-btn pull-left">
-            <a href="#/user/!USER_ID/website" class="btn btn-link btn-icon-responsive">
+            <a href="#/user/{{model.userId}}/website" class="btn btn-link btn-icon-responsive">
                 <span class="fa fa-chevron-left"></span>
                 <span class="text">Cancel</span>
             </a>
@@ -13,7 +13,7 @@
         </div>
 
         <div class="navbar-btn pull-right">
-            <a href="#/user/!USER_ID/website" class="btn btn-link btn-icon-responsive">
+            <a ng-click="model.createWebsite(website)" class="btn btn-link btn-icon-responsive">
                 <span class="fa fa-check"></span>
                 <span class="text">Done</span>
             </a>
@@ -25,11 +25,15 @@
 
 <div class="container-fluid with-navbar-fixed-top with-navbar-fixed-bottom">
     <div class="row">
+        <div class="col-xs-12" ng-if="model.alert">
+            <div class="alert alert-danger"></div>
+            {{model.alert}}
+        </div>
         <div class="col-xs-12">
             <form>
                 <div class="form-group">
                     <label for="website_name">Name</label>
-                    <input ng-model="model.website.name" type="text" class="form-control" name="website_name" placeholder="Name" tabindex="1" />
+                    <input ng-model="website.name" type="text" class="form-control" name="website_name" placeholder="Name" tabindex="1" />
                 </div>
                 <div class="form-group">
                     <label for="website_description">Description</label>
@@ -43,7 +47,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-btn pull-right">
-            <a href="#/user/!USER_ID" class="btn btn-link btn-icon-responsive">
+            <a href="#/user/{{model.userId}}" class="btn btn-link btn-icon-responsive">
                 <span class="fa fa-user"></span>
                 <span class="text">Profile</span>
             </a>

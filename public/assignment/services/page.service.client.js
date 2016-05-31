@@ -27,16 +27,19 @@
         };
         return api;
 
-        // createPage(websiteId, page) - adds the page parameter instance to the local pages array. The new page's websiteId is set to the websiteId parameter
-        // findPageByWebsiteId(websiteId) - retrieves the pages in local pages array whose websiteId matches the parameter websiteId
-        // findPageById(pageId) - retrieves the page in local pages array whose _id matches the pageId parameter
-        // updatePage(pageId, page) - updates the page in local pages array whose _id matches the pageId parameter
-        // deletePage(pageId) - removes the page from local pages array whose _id matches the pageId parameter
+        function getNextPageId() {
+            var next = pages
+                        .map((page, _i, _a) => parseInt(page._id))
+                        .pop();
+            next = next ? next : 100;
+            return (next + 1).toString();
+        }
 
         function createPage(websiteId, page) {
             page.websiteId = websiteId;
+            page._id = getNextPageId();
             pages.push(page);
-            return true;
+            return page;
         }
 
         function findPageByWebsiteId(websiteId) {
@@ -53,10 +56,11 @@
 
         // Helper to get page index
         function getPageIndexById(pageId) {
-            return pages
-                    .filter((page, _i, _a) => page._id === pageId)
-                    .map((_p, index, _a) => index)
-                    .shift();
+            for (var i in pages) {
+                if (pages[i]._id === pageId) {
+                    return i;
+                }
+            }
         }
 
         function updatePage(pageId, page) {

@@ -7,7 +7,6 @@
 
     function WidgetListController($routeParams, WidgetService) {
         var vm = this;
-        // /user/:uid/website/:wid/page/:pid/widget
         vm.userId = $routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
         vm.pageId = $routeParams['pid'];
@@ -19,8 +18,21 @@
         init();
     }
 
-    function NewWidgetController() {
+    function NewWidgetController($routeParams, $location WidgetService) {
+        var vm = this;
+        vm.userId = $routeParams['uid'];
+        vm.websiteId = $routeParams['wid'];
+        vm.pageId = $routeParams['pid'];
+        vm.createWidget = createWidget;
 
+        function createWidget(widget) {
+            var succ = WidgetService.createWidget(vm.pageId, widget);
+            if (succ) {
+                $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId);
+            } else {
+                vm.alert = 'Error creating widget.';
+            }
+        }
     }
 
     function EditWidgetController($routeParams, WidgetService) {
