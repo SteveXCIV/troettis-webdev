@@ -31,6 +31,11 @@
 
         function createWidget(widgetType) {
             widget = { 'widgetType': widgetType };
+            switch (widgetType) {
+                case 'HEADER':
+                widget.size = 1;
+                break;
+            }
             var succ = WidgetService.createWidget(vm.pageId, widget);
             if (succ) {
                 $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId + '/widget/' + succ._id);
