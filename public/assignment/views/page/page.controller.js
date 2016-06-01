@@ -23,7 +23,7 @@
         vm.createPage = createPage;
 
         function createPage(page) {
-            var page = PageService.createPage(vm.userId, page);
+            var page = PageService.createPage(vm.websiteId, page);
             if (page) {
                 $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page');
             } else {

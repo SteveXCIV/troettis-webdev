@@ -66,6 +66,7 @@
             widget.pageId = pageId;
             widget._id = getNextWidgetId();
             widgets.push(widget);
+            console.log(JSON.stringify(widget));
             return widget;
         }
 
