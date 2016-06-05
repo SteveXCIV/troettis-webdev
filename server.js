@@ -5,10 +5,10 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var uuid = require('node-uuid');
+var shortid = require('shortid');
 // Attach a global ID generating function to app
 app.getNextId = function() {
-    return uuid.v4();
+    return shortid.generate();
 }
 
 // configure a public directory to host static content
