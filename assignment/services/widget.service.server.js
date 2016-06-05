@@ -1,4 +1,7 @@
 module.exports = function(app) {
+    var multer = require('multer');
+    var upload = multer({ dest: __dirname+'/../../public/uploads' });
+
     var widgets = [{
         "_id": "123",
         "widgetType": "HEADER",
@@ -46,6 +49,8 @@ module.exports = function(app) {
     app.get('/api/widget/:widgetId', findWidgetById);
     app.put('/api/widget/:widgetId', updateWidget);
     app.delete('/api/widget/:widgetId', deleteWidget);
+
+    app.post('/api/upload', upload.single('file'), uploadImage);
 
     function createWidget(req, res) {
         var pageId = req.params.pageId;
@@ -138,6 +143,33 @@ module.exports = function(app) {
                 .status(404)
                 .send(`No widget with ID ${widgetId} exists.`)
                 .end();
+        }
+    }
+
+    function uploadImage(req, res) {
+        var widgetId = req.body.widgetId;
+        var pageId = req.body.pageId;
+        var websiteId = req.body.websiteId;
+        var userId = req.body.userId;
+
+        var redirectUrl = '/assignment/#/user/' + userId + '/website/' + websiteId + '/page/' + pageId + '/widget/' + widgetId;
+
+        var width = req.body.width;
+        var url = '/uploads/' + req.file.filename;
+
+        var maybeIndex = getWidgetIndexById(widgetId);
+        if (maybeIndex) {
+            widget = widgets[maybeIndex];
+            widget.url = url;
+            widget.width = width;
+            res
+                .status(200)
+                .redirect(redirectUrl);
+        } else {
+            res
+                .status(404)
+                .send(`No widget with ID ${widgetId} exists.`)
+                .redirect(redirectUrl);
         }
     }
 }
