@@ -82,11 +82,10 @@ module.exports = function(app) {
         var maybeIndex = getWebsiteIndexById(websiteId);
 
         if (maybeIndex) {
-            var oldSite = websites[maybeIndex];
-            updatedSite.developerId = oldSite.developerId;
-            updatedSite._id = oldSite._id;
-            websites[maybeIndex] = updatedSite;
-            res.json(updatedSite);
+            var site = websites[maybeIndex];
+            site.name = updatedSite.name;
+            websites[maybeIndex] = site;
+            res.json(site);
         } else {
             res
                 .status(404)

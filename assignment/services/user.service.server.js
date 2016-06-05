@@ -146,11 +146,12 @@ module.exports = function(app) {
         }
 
         if (maybeIndex) {
-            var oldUser = users[maybeIndex];
-            updatedUser._id = oldUser._id;
-            updatedUser.username = oldUser.username;
-            users[maybeIndex] = updatedUser;
-            res.json(updatedUser);
+            var user = users[maybeIndex];
+            user.password = udpatedUser.password;
+            user.firstName = updatedUser.firstName;
+            user.lastName = updatedUser.lastName;
+            users[maybeIndex] = user;
+            res.json(user);
         } else {
             res
                 .status(404)

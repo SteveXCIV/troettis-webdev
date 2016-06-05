@@ -67,11 +67,10 @@ module.exports = function(app) {
         var maybeIndex = getPageIndexById(pageId);
 
         if (maybeIndex) {
-            oldPage = pages[maybeIndex];
-            updatedPage._id = oldPage._id;
-            updatedPage.websiteId = oldPage.websiteId;
-            pages[maybeIndex] = updatedPage;
-            res.json(updatedPage);
+            page = pages[maybeIndex];
+            page.name = updatedPage.name;
+            pages[maybeIndex] = page;
+            res.json(page);
         } else {
             res
                 .status(404)
