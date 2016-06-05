@@ -147,7 +147,7 @@ module.exports = function(app) {
 
         if (maybeIndex) {
             var user = users[maybeIndex];
-            user.password = udpatedUser.password;
+            user.password = updatedUser.password;
             user.firstName = updatedUser.firstName;
             user.lastName = updatedUser.lastName;
             users[maybeIndex] = user;

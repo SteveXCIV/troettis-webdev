@@ -45,11 +45,12 @@
                 widget.size = 1;
                 break;
             }
-            var succ = WidgetService
+            WidgetService
                 .createWidget(vm.pageId, widget)
                 .then(
                     function(response) {
-                        $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId + '/widget/' + succ._id);
+                        var widget = response.data;
+                        $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId + '/widget/' + widget._id);
                     },
                     function(error) {
                         vm.alert = error.data;
@@ -82,7 +83,7 @@
         init();
 
         function updateWidget(widget) {
-            var succ = WidgetService
+            WidgetService
                 .updateWidget(vm.widgetId, widget)
                 .then(
                     function(response) {
@@ -95,7 +96,7 @@
         }
 
         function deleteWidget() {
-            var succ = WidgetService
+            WidgetService
                 .deleteWidget(vm.widgetId)
                 .then(
                     function(response) {

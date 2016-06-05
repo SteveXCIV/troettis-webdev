@@ -49,6 +49,7 @@ module.exports = function(app) {
 
     function createWidget(req, res) {
         var pageId = req.params.pageId;
+        var widget = req.body;
 
         widget.pageId = pageId;
         widget._id = app.getNextId();
