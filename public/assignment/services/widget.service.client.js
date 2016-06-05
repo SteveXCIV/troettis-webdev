@@ -3,7 +3,7 @@
         .module('WebAppMaker')
         .factory('WidgetService', WidgetService);
 
-    function WidgetService() {
+    function WidgetService($http) {
         var api = {
             'createWidget': createWidget,
             'findWidgetsByPageId': findWidgetsByPageId,
@@ -13,59 +13,29 @@
         };
         return api;
 
-        function getNextWidgetId() {
-            var next = widgets
-                        .map((widget, _i, _a) => parseInt(widget._id))
-                        .pop();
-            next = next ? next : 100;
-            return (next + 1).toString();
-        }
-
         function createWidget(pageId, widget) {
-            widget.pageId = pageId;
-            widget._id = getNextWidgetId();
-            widgets.push(widget);
-            console.log(JSON.stringify(widget));
-            return widget;
+            var url = '/api/page/' + pageId + '/widget';
+            return $http.post(url, widget);
         }
 
         function findWidgetsByPageId(pageId) {
-            return widgets
-                .filter((widget, _i, _a) => widget.pageId === pageId);
+            var url = '/api/page/' + pageId + '/widget';
+            return $http.get(url);
         }
 
         function findWidgetById(widgetId) {
-            var maybeWidget = widgets
-                .filter((widget, _i, _a) => widget._id === widgetId)
-                .shift();
-            return maybeWidget ? maybeWidget : null;
-        }
-
-        // Helper to get widget index by id
-        function getWidgetIndexById(widgetId) {
-            for (var i in widgets) {
-                if (widgets[i]._id === widgetId) {
-                    return i;
-                }
-            }
+            var url = '/api/widget/' + widgetId;
+            return $http.get(url);
         }
 
         function updateWidget(widgetId, widget) {
-            var index = getWidgetIndexById(widgetId);
-            if (index) {
-                widgets[index] = widget;
-                return true;
-            }
-            return false;
+            var url = '/api/widget/' + widgetId;
+            return $http.put(url, widget);
         }
 
         function deleteWidget(widgetId) {
-            var index = getWidgetIndexById(widgetId);
-            if (index) {
-                widgets.splice(index, 1);
-                return true;
-            }
-            return false;
+            var url = '/api/widget/' + widgetId;
+            return $http.delete(url);
         }
     }
 })();
