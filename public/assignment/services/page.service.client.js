@@ -3,7 +3,7 @@
         .module('WebAppMaker')
         .factory('PageService', PageService);
 
-    function PageService() {
+    function PageService($http) {
         var api = {
             'createPage':               createPage,
             'findPageByWebsiteId':      findPageByWebsiteId,
@@ -13,58 +13,29 @@
         };
         return api;
 
-        function getNextPageId() {
-            var next = pages
-                        .map((page, _i, _a) => parseInt(page._id))
-                        .pop();
-            next = next ? next : 100;
-            return (next + 1).toString();
-        }
-
         function createPage(websiteId, page) {
-            page.websiteId = websiteId;
-            page._id = getNextPageId();
-            pages.push(page);
-            return page;
+            var url = '/api/website/' + websiteId + '/page';
+            return $http.post(url, page);
         }
 
         function findPageByWebsiteId(websiteId) {
-            return pages
-                    .filter((page, _i, _a) => page.websiteId === websiteId);
+            var url = '/api/website/' + websiteId + '/page';
+            return $http.get(url);
         }
 
         function findPageById(pageId) {
-            var maybePage = pages
-                                .filter((page, _i, _a) => page._id === pageId)
-                                .shift();
-            return maybePage ? maybePage : null;
-        }
-
-        // Helper to get page index
-        function getPageIndexById(pageId) {
-            for (var i in pages) {
-                if (pages[i]._id === pageId) {
-                    return i;
-                }
-            }
+            var url = '/api/page/' + pageId;
+            return $http.get(url);
         }
 
         function updatePage(pageId, page) {
-            var index = getPageIndexById(pageId);
-            if (index) {
-                pages[index] = page;
-                return true;
-            }
-            return false;
+            var url = '/api/page/' + pageId;
+            return $http.put(url, page);
         }
 
         function deletePage(pageId) {
-            var index = getPageIndexById(pageId);
-            if (index) {
-                pages.splice(index, 1);
-                return true;
-            }
-            return false;
+            var url = '/api/page/' + pageId;
+            return $http.delete(url);
         }
     }
 })();
