@@ -41,3 +41,6 @@ bower_components
 public/fonts
 public/js
 public/css/**/*.css
+
+# Ignore user uploads
+public/uploads

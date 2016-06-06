@@ -11,7 +11,16 @@
         vm.websiteId = $routeParams['wid'];
 
         function init() {
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            PageService
+                .findPageByWebsiteId(vm.websiteId)
+                .then(
+                    function(response) {
+                        vm.pages = response.data;
+                    },
+                    function(error) {
+                        vm.alert = error.data;
+                    }
+                );
         }
         init();
     }
@@ -23,12 +32,16 @@
         vm.createPage = createPage;
 
         function createPage(page) {
-            var page = PageService.createPage(vm.websiteId, page);
-            if (page) {
-                $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page');
-            } else {
-                vm.alert = 'Error creating page.';
-            }
+            PageService
+                .createPage(vm.websiteId, page)
+                .then(
+                    function(response) {
+                        $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page');
+                    },
+                    function(error) {
+                        vm.alert = error.data;
+                    }
+                );
         }
     }
 
@@ -41,26 +54,43 @@
         vm.deletePage = deletePage;
 
         function init() {
-            vm.page = PageService.findPageById(vm.pageId);
+            PageService
+                .findPageById(vm.pageId)
+                .then(
+                    function(response) {
+                        vm.page = response.data;
+                    },
+                    function(error) {
+                        vm.alert = error.data;
+                    }
+                );
         }
         init();
 
         function updatePage(page) {
-            var succ = PageService.updatePage(vm.pageId, page);
-            if (succ) {
-                $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page');
-            } else {
-                vm.alert = 'Error updating page.';
-            }
+            PageService
+                .updatePage(vm.pageId, page)
+                .then(
+                    function(response) {
+                        $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page');
+                    },
+                    function(error) {
+                        vm.alert = error.data;
+                    }
+                );
         }
 
         function deletePage() {
-            var succ = PageService.deletePage(vm.pageId);
-            if (succ) {
-                $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page');
-            } else {
-                vm.alert = 'Error deleting page.';
-            }
+            PageService
+                .deletePage(vm.pageId)
+                .then(
+                    function(response) {
+                        $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page');
+                    },
+                    function(error) {
+                        vm.alert = error.data;
+                    }
+                );
         }
     }
 })();
