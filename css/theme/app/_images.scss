@@ -1,0 +1,18 @@
+.img-selector {
+    cursor: pointer;
+}
+
+*[class^="col-xs-"] > .img-selector {
+    width: 90%;
+    margin: 0.1em;
+}
+
+*[class^="col-md-"] > .img-selector {
+    width: 80%;
+    margin: 0.2em;
+}
+
+*[class^="col-lg-"] > .img-selector {
+    width: 65%;
+    margin: 0.4em;
+}
