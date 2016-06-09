@@ -43,10 +43,11 @@
         }
     }
 
-    function ProfileController($routeParams, UserService) {
+    function ProfileController($routeParams, $location, UserService) {
         var vm = this;
         vm.userId = $routeParams['uid'];
         vm.updateUser = updateUser;
+        vm.deleteUser = deleteUser;
 
         function init() {
             UserService
@@ -73,6 +74,19 @@
                         vm.alert = error.data;
                     }
                 );
+        }
+
+        function deleteUser() {
+            UserService
+                .deleteUser(vm.userId)
+                .then(
+                    function(response) {
+                        $location.url('/');
+                        vm.success = response.data;
+                    },
+                    function(error) {
+                        vm.alert = error.data;
+                    });
         }
     }
 })();

@@ -1,29 +1,5 @@
-module.exports = function(app) {
-    var users = [{
-        _id: "123",
-        username: "alice",
-        password: "alice",
-        firstName: "Alice",
-        lastName: "Wonder"
-    }, {
-        _id: "234",
-        username: "bob",
-        password: "bob",
-        firstName: "Bob",
-        lastName: "Marley"
-    }, {
-        _id: "345",
-        username: "charly",
-        password: "charly",
-        firstName: "Charly",
-        lastName: "Garcia"
-    }, {
-        _id: "456",
-        username: "jannunzi",
-        password: "jannunzi",
-        firstName: "Jose",
-        lastName: "Annunzi"
-    }];
+module.exports = function(app, models) {
+    var userModel = models.userModel;
 
     app.post('/api/user', createUser);
     app.get('/api/user', findUser);
@@ -33,29 +9,18 @@ module.exports = function(app) {
 
     function createUser(req, res) {
         var newUser = req.body;
-        newUser._id = app.getNextId();
 
-        var maybeTaken = users
-                            .filter((user, _i, _a) => user.username === newUser.username)
-                            .shift();
-        if (maybeTaken) {
-            res
-                .status(400)
-                .send(`The username ${maybeTaken.username} is already taken.`)
-                .end();
-                return;
-        }
-
-        if (newUser.password === newUser.verifyPassword) {
-            delete newUser.verifyPassword;
-            users.push(newUser);
-            res.json(newUser);
-        } else {
-            res
-                .status(400)
-                .send('Passwords did not match.')
-                .end();
-        }
+        userModel
+            .createUser(newUser)
+            .then(
+                function(user) {
+                    res.json(user);
+                },
+                function(error) {
+                    res
+                        .status(500)
+                        .send(error);
+                });
     }
 
     function findUser(req, res) {
@@ -74,107 +39,87 @@ module.exports = function(app) {
 
     function findUserByUsername(req, res) {
         var username = req.query.username;
-        var maybeUser = users
-                            .filter((user, _i, _a) => user.username === username)
-                            .shift();
-
-        if (maybeUser) {
-            res.json(maybeUser);
-        } else {
-            res
-                .status(404)
-                .send(`No user ${username} exists.`)
-                .end();
-        }
+        userModel
+            .findUserByUsername(username)
+            .then(
+                function(user) {
+                    res.json(user);
+                },
+                function(error) {
+                    res
+                        .status(500)
+                        .send(error);
+                });
     }
 
     function findUserByCredentials(req, res) {
         var username = req.query.username;
         var password = req.query.password;
-        var maybeUser = users
-                            .filter((user, _i, _a) => {
-                                return user.username === username &&
-                                    user.password === password;
-                            })
-                            .shift();
-
-        if (maybeUser) {
-            res.json(maybeUser);
-        } else {
-            res
-                .status(404)
-                .send(`No user ${username} exists.`)
-                .end();
-        }
+        userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function(user) {
+                    res.json(user);
+                },
+                function(error) {
+                    res
+                        .status(500)
+                        .send(error);
+                });
     }
 
     function findUserById(req, res) {
         var userId = req.params.userId;
-        var maybeUser = users
-                            .filter((user, _i, _a) => user._id === userId)
-                            .shift();
-
-        if (maybeUser) {
-            res.json(maybeUser);
-        } else {
-            res
-                .status(404)
-                .send(`No user with ID ${userId} exists.`)
-                .end();
-        }
-    }
-
-    function getUserIndexById(userId) {
-        for (var i in users) {
-            if (users[i]._id === userId) {
-                return i;
-            }
-        }
+        userModel
+            .findUserById(userId)
+            .then(
+                function(user) {
+                    res.json(user);
+                },
+                function(error) {
+                    res
+                        .status(500)
+                        .send(error);
+                });
     }
 
     function updateUser(req, res) {
         var userId = req.params.userId;
         var updatedUser = req.body;
-        var maybeIndex = getUserIndexById(userId);
-
-        if (!updatedUser.password) {
-            res
-                .status(400)
-                .send('Password required.')
-                .end();
-                return;
-        }
-
-        if (maybeIndex) {
-            var user = users[maybeIndex];
-            user.password = updatedUser.password;
-            user.firstName = updatedUser.firstName;
-            user.lastName = updatedUser.lastName;
-            users[maybeIndex] = user;
-            res.json(user);
-        } else {
-            res
-                .status(404)
-                .send(`No user with ID ${userId} exists.`)
-                .end();
-        }
+        userModel
+            .updateUser(userId, updatedUser)
+            .then(
+                function(status) {
+                    if (status['nModified'] != 1) {
+                        res
+                            .status(200)
+                            .send('No changes made.');
+                    } else {
+                        res
+                            .status(200)
+                            .send('Profile updated.');
+                    }
+                },
+                function(error) {
+                    console.log(JSON.stringify(error));
+                    res
+                        .status(500)
+                        .send('Server error while processing request.');
+                });
     }
 
     function deleteUser(req, res) {
         var userId = req.params.userId;
-        var maybeIndex = getUserIndexById(userId);
-
-        if (maybeIndex) {
-            users.splice(maybeIndex, 1);
-            res
-                .status(200)
-                .send(`User ${userId} deleted.`)
-                .end();
-        } else {
-            res
-                .status(404)
-                .send(`No user with ID ${userId} exists.`)
-                .end();
-        }
+        userModel
+            .deleteUser(userId)
+            .then(
+                function(status) {
+                    res.sendStatus(200);
+                },
+                function(error) {
+                    res
+                        .status(500)
+                        .send(error);
+                });
     }
 }
