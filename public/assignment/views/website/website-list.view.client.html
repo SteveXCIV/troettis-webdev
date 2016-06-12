@@ -22,13 +22,13 @@
 
                 <div ng-repeat="website in model.websites" class="list-group-item">
                     <div class="list-group-control">
-                        <a href="#/user/{{website.developerId}}/website/{{website._id}}" class="btn btn-link btn-icon-responsive">
+                        <a href="#/user/{{website._user}}/website/{{website._id}}" class="btn btn-link btn-icon-responsive">
                             <span class="fa fa-cog"></span>
                             <span class="text">Edit</span>
                         </a>
                     </div>
                     <div class="list-group-label">
-                        <a href="#/user/{{website.developerId}}/website/{{website._id}}/page" class="btn btn-link">{{website.name}}</a>
+                        <a href="#/user/{{website._user}}/website/{{website._id}}/page" class="btn btn-link">{{website.name}}</a>
                     </div>
                 </div>
 
