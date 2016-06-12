@@ -101,7 +101,6 @@ module.exports = function(app, models) {
                     }
                 },
                 function(error) {
-                    console.log(JSON.stringify(error));
                     res
                         .status(500)
                         .send('Server error while processing request.');
