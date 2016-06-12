@@ -29,13 +29,13 @@
 
                 <div ng-repeat="page in model.pages" class="list-group-item">
                     <div class="list-group-control">
-                        <a href="#/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}" class="btn btn-link btn-icon-responsive">
+                        <a href="#/user/{{model.userId}}/website/{{page._website}}/page/{{page._id}}" class="btn btn-link btn-icon-responsive">
                             <span class="fa fa-cog"></span>
                             <span class="text">Edit</span>
                         </a>
                     </div>
                     <div class="list-group-label">
-                        <a href="#/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}/widget" class="btn btn-link">{{page.name}}</a>
+                        <a href="#/user/{{model.userId}}/website/{{page._website}}/page/{{page._id}}/widget" class="btn btn-link">{{page.name}}</a>
                     </div>
                 </div>
 
