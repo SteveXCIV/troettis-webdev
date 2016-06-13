@@ -91,7 +91,6 @@ module.exports = function(app, models) {
                     res
                         .status(500)
                         .send(error);
-                }
-            )
+                });
     }
 }
