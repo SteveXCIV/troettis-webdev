@@ -10,8 +10,6 @@
         vm.login = login;
 
         function login(user) {
-            console.log(vm.loginForm);
-            
             UserService
                 .findUserByCredentials(user.username, user.password)
                 .then(
