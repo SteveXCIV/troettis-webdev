@@ -1,0 +1,14 @@
+<div>
+    <iframe ng-src="{{model.safeUrl(widget.url)}}" frameborder="0" allowfullscreen>
+        <p>Error loading video from <a href="{{widget.url}}">{{widget.url}}</a>.</p>
+    </iframe>
+    <div ng-if="widget.formatted">
+        <div ng-model="model.widget.text" text-angular ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+['indent','outdent'],['html']]"></div>
+    </div>
+    <div ng-if="!widget.formatted">
+        <input type="text" ng-if="widget.rows === 1 || !widget.rows" placeholder="widget.placeholder" class="form-control">
+        <textarea cols="30" rows="widget.rows" ng-if="widget.rows > 1" class="form-control">{widget.placeholder}</textarea>
+    </div>
+</div>

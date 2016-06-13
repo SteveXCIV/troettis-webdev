@@ -44,6 +44,9 @@
         <div ng-switch-when="HTML">
             <ng-include src="'views/widget/widget-html.view.client.html'" />
         </div>
+        <div ng-switch-when="TEXT">
+            <ng-include src="'views/widget/widget-text-input.view.client.html'" />
+        </div>
         <div ng-switch-default class="hide">
         </div>
     </div>

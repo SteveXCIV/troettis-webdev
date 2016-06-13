@@ -11,7 +11,7 @@ module.exports = function() {
                 'IMAGE',
                 'YOUTUBE',
                 'HTML',
-                'INPUT',
+                'TEXT',
             ],
         },
         name: String,
