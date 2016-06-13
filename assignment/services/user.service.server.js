@@ -59,7 +59,13 @@ module.exports = function(app, models) {
             .findUserByCredentials(username, password)
             .then(
                 function(user) {
-                    res.json(user);
+                    if (!user) {
+                        res
+                            .status(404)
+                            .send('Your username or password is incorrect.');
+                    } else {
+                        res.json(user);
+                    }
                 },
                 function(error) {
                     res
