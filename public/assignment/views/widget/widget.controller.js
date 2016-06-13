@@ -39,9 +39,9 @@
         vm.createWidget = createWidget;
 
         function createWidget(widgetType) {
-            widget = { 'widgetType': widgetType };
+            widget = { type: widgetType };
             switch (widgetType) {
-                case 'HEADER':
+                case 'HEADING':
                 widget.size = 1;
                 break;
             }

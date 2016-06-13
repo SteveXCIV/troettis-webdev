@@ -1,19 +1,28 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12" ng-if="model.alert">
-            <div class="alert alert-danger"></div>
-            {{model.alert}}
+            <div class="alert alert-danger">
+                {{model.alert}}
+            </div>
         </div>
         <div class="col-xs-12">
-            <form>
+            <form name="login" ng-model="model.loginForm">
                 <div class="form-group">
                     <h2>Login</h2>
                 </div>
                 <div class="form-group">
-                    <input ng-model="user.username" type="text" class="form-control" name="username" placeholder="Username" tabindex="1" />
+                    <input ng-model="user.username" type="text" class="form-control" name="username" placeholder="Username" tabindex="1" required />
+                    <div ng-show="login.username.$touched && login.username.$error.required" class="alert alert-danger">
+                        <span class="fa fa-exclamation-circle fa-lg"></span>
+                        <span>Username is required.</span>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input ng-model="user.password" type="password" class="form-control" name="password" placeholder="Password" tabindex="2" />
+                    <input ng-model="user.password" type="password" class="form-control" name="password" placeholder="Password" tabindex="2" required />
+                    <div ng-show="login.password.$touched && login.password.$error.required" class="alert alert-danger">
+                        <span class="fa fa-exclamation-circle fa-lg"></span>
+                        <span>Password is required.</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <a ng-click="model.login(user)" class="btn btn-primary btn-block btn-lg">Login</a>

@@ -17,6 +17,8 @@ var config = {
     publicDir: './public',
     // the file(s) to build to the public directory
     sassFile: './css/!(_)*.scss',
+    textAngular: './bower_components/textAngular/dist',
+    rangy: './bower_components/rangy',
 };
 
 function handleError(e) {
@@ -24,7 +26,7 @@ function handleError(e) {
 }
 
 // this task compiles all SASS files into CSS and puts them in ./public/css
-gulp.task('css', function() {
+gulp.task('scss', function() {
     return gulp.src(config.sassFile)
        .pipe(sass({
            includePaths: [config.bootstrapDir + '/assets/stylesheets'],
@@ -35,9 +37,18 @@ gulp.task('css', function() {
         .pipe(gulp.dest(config.publicDir + '/css'));
 });
 
+gulp.task('thirdparty-css', function() {
+    return gulp.src(config.textAngular + '/*.css')
+        .pipe(gulp.dest(config.publicDir + '/css'));
+})
+
 // this task moves a copy of bootstrap.min.js into ./public/js
 gulp.task('js', function() {
-    return gulp.src(config.bootstrapDir + '/assets/javascripts/bootstrap.min.js')
+    return gulp.src([
+            config.bootstrapDir + '/assets/javascripts/bootstrap.min.js',
+            config.textAngular + '/*.min.js',
+            config.rangy + '/*.min.js',
+        ])
         .pipe(gulp.dest(config.publicDir + '/js'));
 });
 
@@ -52,8 +63,8 @@ gulp.task('watch', function() {
     var watch_files = [
         './css/**/*.scss',
     ];
-    gulp.watch(watch_files, ['css']);
+    gulp.watch(watch_files, ['scss']);
 });
 
 // the default task copies all dependencies
-gulp.task('default', ['css', 'js', 'fonts']);
+gulp.task('default', ['scss', 'js', 'fonts', 'thirdparty-css']);

@@ -23,16 +23,16 @@
 
 <div class="container-fluid with-navbar-fixed-top with-navbar-fixed-bottom ui-widget-container">
 
-    <div class="widget" ng-repeat="widget in model.widgets" ng-switch="widget.widgetType">
+    <div class="widget" ng-repeat="widget in model.widgets" ng-switch="widget.type">
         <div class="config">
-            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{widget.pageId}}/widget/{{widget._id}}" class="btn btn-link">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{widget._page}}/widget/{{widget._id}}" class="btn btn-link">
                 <span class="fa fa-cog"></span>
             </a>
             <a href="#" class="btn btn-link-default ui-drag-handle">
                 <span class="fa fa-bars"></span>
             </a>
         </div>
-        <div ng-switch-when="HEADER">
+        <div ng-switch-when="HEADING">
             <ng-include src="'views/widget/widget-heading.view.client.html'" />
         </div>
         <div ng-switch-when="IMAGE">
@@ -40,6 +40,12 @@
         </div>
         <div ng-switch-when="YOUTUBE">
             <ng-include src="'views/widget/widget-youtube.view.client.html'" />
+        </div>
+        <div ng-switch-when="HTML">
+            <ng-include src="'views/widget/widget-html.view.client.html'" />
+        </div>
+        <div ng-switch-when="TEXT">
+            <ng-include src="'views/widget/widget-text-input.view.client.html'" />
         </div>
         <div ng-switch-default class="hide">
         </div>

@@ -1,17 +1,5 @@
-module.exports = function(app) {
-    var pages = [{
-        "_id": "321",
-        "name": "Post 1",
-        "websiteId": "456"
-    }, {
-        "_id": "432",
-        "name": "Post 2",
-        "websiteId": "456"
-    }, {
-        "_id": "543",
-        "name": "Post 3",
-        "websiteId": "456"
-    }];
+module.exports = function(app, models) {
+    var pageModel = models.pageModel;
 
     app.post('/api/website/:websiteId/page', createPage);
     app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
@@ -23,75 +11,86 @@ module.exports = function(app) {
         var websiteId = req.params.websiteId;
         var newPage = req.body;
 
-        newPage.websiteId = websiteId;
-        newPage._id = app.getNextId();
-
-        pages.push(newPage);
-
-        res.json(newPage);
+        pageModel.createPage(websiteId, newPage)
+            .then(
+                function(page) {
+                    res.json(page);
+                },
+                function(error) {
+                    res
+                        .status(500)
+                        .send(error);
+                });
     }
 
     function findAllPagesForWebsite(req, res) {
         var websiteId = req.params.websiteId;
-        var matches = pages
-                        .filter((page, _i, _a) => page.websiteId === websiteId);
-        res.json(matches);
+
+        pageModel.findAllPagesForWebsite(websiteId)
+            .then(
+                function (pages) {
+                    res.json(pages);
+                },
+                function (error) {
+                    res
+                        .status(500)
+                        .send(error);
+                });
     }
 
     function findPageById(req, res) {
         var pageId = req.params.pageId;
-        var maybePage = pages
-                            .filter((page, _i, _a) => page._id === pageId)
-                            .shift();
-        if (maybePage) {
-            res.json(maybePage);
-        } else {
-            res
-                .status(404)
-                .send(`Page ${pageId} not found.`)
-                .end();
-        }
-    }
 
-    function getPageIndexById(pageId) {
-        for (var i in pages) {
-            if (pages[i]._id === pageId) {
-                return i;
-            }
-        }
+        pageModel.findPageById(pageId)
+            .then(
+                function(page) {
+                    res.json(page);
+                },
+                function (error) {
+                    res
+                        .status(500)
+                        .send(error);
+                });
     }
 
     function updatePage(req, res) {
         var pageId = req.params.pageId;
         var updatedPage = req.body;
-        var maybeIndex = getPageIndexById(pageId);
 
-        if (maybeIndex) {
-            page = pages[maybeIndex];
-            page.name = updatedPage.name;
-            pages[maybeIndex] = page;
-            res.json(page);
-        } else {
-            res
-                .status(404)
-                .send(`Page with ID ${pageId} not found.`)
-                .end();
-        }
+        pageModel
+            .updatePage(pageId, updatedPage)
+            .then(
+                function(status) {
+                    if (status['nModified'] != 1) {
+                        res
+                            .status(200)
+                            .send('No changes made.');
+                    } else {
+                        res
+                            .status(200)
+                            .send('Page updated.');
+                    }
+                },
+                function(error) {
+                    res
+                        .status(500)
+                        .send('Server error while processing request.');
+                });
     }
 
     function deletePage(req, res) {
         var pageId = req.params.pageId;
-        var maybeIndex = getPageIndexById(pageId);
-        if (maybeIndex) {
-            pages.splice(maybeIndex, 1);
-            res
-                .status(200)
-                .send(`Page ${pageId} deleted.`);
-        } else {
-            res
-                .status(404)
-                .send(`Page with ID ${pageId} not found.`)
-                .end();
-        }
+
+        pageModel
+            .deletePage(pageId)
+            .then(
+                function(status) {
+                    res.sendStatus(200);
+                },
+                function(error) {
+                    res
+                        .status(500)
+                        .send(error);
+                });
     }
 }
