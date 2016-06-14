@@ -152,7 +152,6 @@ module.exports = function() {
                         end < 0 ||
                         start >= page.widgets.length ||
                         end >= page.widgets.length) {
-                            console.log('Widget swap index out of bounds.');
                             throw 400;
                         }
                     widgets = page.widgets;
