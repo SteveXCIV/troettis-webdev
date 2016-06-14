@@ -1,0 +1,14 @@
+// Disable rendering for textAngular's helper input
+.ta-hidden-input {
+    display: none;
+}
+
+// Fix the text "falling through" the editor text area.
+.ta-editor.form-control {
+    height: auto;
+}
+
+// Remove outlines on editor
+.ta-editor > div[contenteditable="true"] {
+    outline: none;
+}
