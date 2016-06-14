@@ -5,12 +5,13 @@
         .controller('NewWidgetController', NewWidgetController)
         .controller('EditWidgetController', EditWidgetController);
 
-    function WidgetListController($routeParams, $sce, WidgetService) {
+    function WidgetListController($routeParams, $route, $sce, WidgetService) {
         var vm = this;
         vm.userId = $routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
         vm.pageId = $routeParams['pid'];
         vm.safeUrl = safeUrl;
+        vm.reorderWidgets = reorderWidgets;
 
         function init() {
             WidgetService
@@ -28,6 +29,18 @@
 
         function safeUrl(url) {
             return $sce.trustAsResourceUrl(url);
+        }
+
+        function reorderWidgets(start, end) {
+            WidgetService
+                .reorderWidgets(vm.pageId, start, end)
+                .then(
+                    function (_response) {
+                        $route.reload();
+                    },
+                    function (error) {
+                        vm.alert = error.data;
+                    });
         }
     }
 
