@@ -13,6 +13,7 @@
     "mongoose": "^4.4.15",
     "multer": "^1.1.0",
     "pipe-error-stop": "0.0.11",
+    "request-promise": "^3.0.0",
     "shortid": "^2.2.6"
   },
   "scripts": {

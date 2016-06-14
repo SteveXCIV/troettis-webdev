@@ -77,27 +77,33 @@ module.exports = function() {
         return Widget.findById(widgetId);
     }
 
-    function updateWidget(widgetId, widget) {
+    function updateWidget(widgetId, updatedWidget) {
         return Widget
-                .update(
-                    { _id: widgetId },
-                    { $set:
-                        {
-                            pageIndex: widget.pageIndex,
-                            name: widget.name,
-                            text: widget.text,
-                            placeholder: widget.placeholder,
-                            description: widget.description,
-                            url: widget.url,
-                            width: widget.width,
-                            height: widget.height,
-                            rows: widget.rows,
-                            size: widget.size,
-                            class: widget.class,
-                            icon: widget.icon,
-                            deletable: widget.deletable,
-                            formatted: widget.formatted,
-                        }
+                .findById(widgetId)
+                .then(
+                    function (widget) {
+                        return Widget.update(
+                            { _id: widgetId },
+                            { $set:
+                                {
+                                    name: updatedWidget.name,
+                                    text: updatedWidget.text,
+                                    placeholder: updatedWidget.placeholder,
+                                    description: updatedWidget.description,
+                                    url: updatedWidget.url,
+                                    width: updatedWidget.width || widget.width,
+                                    height: updatedWidget.height || widget.height,
+                                    rows: updatedWidget.rows || widget.rows,
+                                    size: updatedWidget.size || widget.size,
+                                    class: updatedWidget.class,
+                                    icon: updatedWidget.icon,
+                                    deletable: updatedWidget.deletable,
+                                    formatted: updatedWidget.formatted,
+                                }
+                            });
+                    },
+                    function (error) {
+                        throw error;
                     });
     }
 

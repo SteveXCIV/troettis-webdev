@@ -16,8 +16,6 @@
                 .then(
                     function(response) {
                         var photos = response.data;
-                        photos = photos.replace('jsonFlickrApi(', '');
-                        photos = photos.substring(0, photos.length - 1);
                         vm.photos = JSON.parse(photos).photos;
                     },
                     function(error) {
