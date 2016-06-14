@@ -7,11 +7,11 @@
     z-index: 0;
 
     &.editor {
-        @extend .panel-card;
+        @include box-shadow(0px 0px 0px 0px rgba(0, 0, 0, 0.5));
         @include transition(box-shadow ease-in-out .3s);
 
-        &:hover {
-            @extend .active;
+        &.active {
+            @include box-shadow(0px 8px 15px 0px rgba(0, 0, 0, 0.5));
             z-index: 9999;
         }
     }
@@ -42,4 +42,10 @@
     .widget-youtube > iframe {
             background: #000;
     }
+}
+
+.widget-block {
+    display: block;
+    min-height: 3.3em;
+    background: $gray-lightest;
 }

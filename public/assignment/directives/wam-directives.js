@@ -5,22 +5,21 @@
 
     function wamSortable() {
         return {
+            restrict: 'A',
             link: function ($scope, elm, attr) {
-                console.log($scope);
+                var dragClassToggle = 'active';
                 var start = null;
                 var end = null;
 
                 function startDrag(evt, ui) {
-                    start = ui.item.attr('wam-index');
+                    start = ui.item.index();
+                    ui.item.toggleClass(dragClassToggle, true);
                 }
 
                 function endDrag(evt, ui) {
-                    prev = ui.item.prev();
-                    if (!prev || ! prev.attr('wam-index')) {
-                        end = 0;
-                    } else {
-                        end = prev.attr('wam-index');
-                    }
+                    prev = ui.item.prev().index();
+                    end = (prev == -1) ? 0 : prev + 1;
+                    ui.item.toggleClass(dragClassToggle, false);
 
                     if (start != end) {
                         $scope.model.reorderWidgets(start, end);
@@ -33,6 +32,7 @@
                     axis: 'y',
                     start: startDrag,
                     stop: endDrag,
+                    placeholder: 'widget-block',
                 });
             }
         }

@@ -23,7 +23,7 @@
 
 <div wam-sortable class="container-fluid with-navbar-fixed-top with-navbar-fixed-bottom">
 
-    <div class="widget" ng-repeat="widget in model.widgets" ng-switch="widget.type" wam-index="{{$index}}">
+    <div class="widget editor" ng-repeat="widget in model.widgets" ng-switch="widget.type">
         <div class="config">
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{widget._page}}/widget/{{widget._id}}" class="btn btn-link">
                 <span class="fa fa-cog"></span>

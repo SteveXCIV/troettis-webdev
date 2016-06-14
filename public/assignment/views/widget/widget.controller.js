@@ -5,7 +5,7 @@
         .controller('NewWidgetController', NewWidgetController)
         .controller('EditWidgetController', EditWidgetController);
 
-    function WidgetListController($routeParams, $route, $sce, WidgetService) {
+    function WidgetListController($routeParams, $sce, WidgetService) {
         var vm = this;
         vm.userId = $routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
@@ -36,7 +36,7 @@
                 .reorderWidgets(vm.pageId, start, end)
                 .then(
                     function (_response) {
-                        $route.reload();
+                        return;
                     },
                     function (error) {
                         vm.alert = error.data;

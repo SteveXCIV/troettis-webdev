@@ -40,7 +40,6 @@
         }
 
         function reorderWidgets(pageId, start, end) {
-            // /api/page/575f029a7cbc86c73ff086d3/widget?start=2&end=0
             var url = '/api/page/' + pageId + '/widget?start=' + start + '&end=' + end;
             return $http.put(url);
         }
