@@ -12,8 +12,11 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
         process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
         process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
         process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-        'cs4550summer1';
+        process.env.OPENSHIFT_APP_NAME;
+        // 'cs4550summer1';
 }
+
+console.log('using mongo connection string: ' + connectionString);
 
 var mongoose = require("mongoose");
 mongoose.connect(connectionString);
