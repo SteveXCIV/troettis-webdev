@@ -24,6 +24,33 @@ app.getNextId = function() {
     return shortid.generate();
 }
 
+var _log_prefixes = {
+    ERROR: 'ERR',
+    WARNING: 'WARN',
+    INFO: 'INFO',
+    DEBUG: 'DBG',
+};
+
+function _log(level, message) {
+    console.log(`[${_log_prefixes[level]}]:: ${message}`);
+}
+
+app.error = function(message, error) {
+    _log('ERROR', `${message} Error: ${JSON.stringify(error)}`);
+};
+
+app.warning = function(message) {
+    _log('WARNING', message);
+};
+
+app.info = function(message) {
+    _log('INFO', message);
+};
+
+app.debug = function(message) {
+    _log('DEBUG', message);
+}
+
 // configure a public directory to host static content
 app.use(express.static(__dirname + '/public'));
 
@@ -33,4 +60,5 @@ require('./assignment/app.js')(app);
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP;
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
+app.debug(`Server start at address (${ipaddress}) and port (${port}).`);
 app.listen(port, ipaddress);

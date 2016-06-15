@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(app) {
     var mongoose = require('mongoose');
     var WidgetSchema = require('./widget.schema.server.js')();
     var Widget = mongoose.model('Widget', WidgetSchema);
@@ -12,6 +12,7 @@ module.exports = function() {
         'deleteWidget': deleteWidget,
         'reorderWidget': reorderWidget,
     };
+    app.debug('Created widget model.');
     return api;
 
     function createWidget(pageId, widget) {
@@ -24,15 +25,18 @@ module.exports = function() {
             .create(widget)
             .then(
                 function (widget) {
+                    app.debug(`Created widget ${widget._id}.`);
                     widgetId = widget._id;
                     dbWidget = widget;
                     return Page.findById(pageId);
                 },
                 function (error) {
+                    app.error('Error creating widget.', error);
                     throw error;
                 })
             .then(
                 function (page) {
+                    app.debug(`Found page ${page._id} to attach widget to.`);
                     var widgets = page.widgets;
                     widgets.push(widgetId);
                     return Page
@@ -45,17 +49,21 @@ module.exports = function() {
                                 });
                 },
                 function (error) {
+                    app.error('Error finding page for widget.', error);
                     throw error;
                 })
             .then(
                 function (result) {
                     if (!result.nModified) {
+                        app.error('Error updating page.', error);
                         throw 404;
                     } else {
+                        app.debug('Updated page successfully.');
                         return dbWidget;
                     }
                 },
                 function (error) {
+                    app.error('Error adding widget to page.', error);
                     throw error;
                 });
     }
@@ -112,16 +120,20 @@ module.exports = function() {
             .findById(widgetId)
             .then(
                 function (widget) {
+                    app.debug(`Found widget ${widget._id}.`);
                     return Page.findById(page._widget);
                 },
                 function (error) {
+                    app.error('Error finding widget.', error);
                     throw error;
                 })
             .then(
                 function (page) {
+                    app.debug(`Found page ${page._id} to detach widget.`);
                     var widgets = page.widgets;
                     var index = widgets.findIndex((e, _i, _a) => e == widgetId);
                     if (index === -1) {
+                        app.error('Error finding widget.', page);
                         throw 404;
                     }
                     widget.splice(index, 1);
@@ -135,16 +147,19 @@ module.exports = function() {
                                 });
                 },
                 function (error) {
+                    app.error('Error finding page.', error);
                     throw error;
                 })
             .then(
                 function (result) {
                     if (!result.nModified) {
+                        app.error('Error updating page.', result);
                         throw 404;
                     }
                     return Widget.findByIdAndRemove(widgetId);
                 },
                 function (error) {
+                    app.error('Error removing widget from page.', error);
                     throw error;
                 });
     }
@@ -154,10 +169,12 @@ module.exports = function() {
             .findById(pageId)
             .then(
                 function (page) {
+                    app.debug(`Found page ${page._id} to reorder widget (${start}, ${end}).`);
                     if (start < 0 ||
                         end < 0 ||
                         start >= page.widgets.length ||
                         end >= page.widgets.length) {
+                            app.error('Index out of bounds for widget reorder.');
                             throw 400;
                         }
                     widgets = page.widgets;
@@ -171,6 +188,7 @@ module.exports = function() {
                             }});
                 },
                 function (error) {
+                    app.error('Error finding page to reorder widget.', error);
                     throw error;
                 });
     }
