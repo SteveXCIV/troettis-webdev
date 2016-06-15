@@ -49,7 +49,7 @@ module.exports = function(app) {
                 })
             .then(
                 function (result) {
-                    if (!result.nModified) {
+                    if (!(result.nModified || result.n)) {
                         app.error('Failed to update website pages.', result);
                         throw 404;
                     } else {
@@ -122,7 +122,7 @@ module.exports = function(app) {
                 })
             .then(
                 function (result) {
-                    if (!result.nModified) {
+                    if (!(result.nModified || result.n)) {
                         app.error('Error modifying website.', result);
                         throw 404;
                     }
