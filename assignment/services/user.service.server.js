@@ -1,5 +1,6 @@
 module.exports = function(app, models) {
     var passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
     var userModel = models.userModel;
 
     app.post('/api/user', createUser);
@@ -10,6 +11,7 @@ module.exports = function(app, models) {
 
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
+    passport.use(new LocalStrategy(localStrategy));
 
     function createUser(req, res) {
         var newUser = req.body;
@@ -145,6 +147,24 @@ module.exports = function(app, models) {
                 },
                 function (error) {
                     done(error, null);
+                });
+    }
+
+    function localStrategy(username, password, done) {
+        userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function (user) {
+                    if (user.username === username && user.password === password) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
+                },
+                function (error) {
+                    if (err) {
+                        return done(err);
+                    }
                 });
     }
 }
