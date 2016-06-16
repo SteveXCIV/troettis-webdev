@@ -1,4 +1,5 @@
 module.exports = function(app, models) {
+    var passport = require('passport');
     var userModel = models.userModel;
 
     app.post('/api/user', createUser);
@@ -6,6 +7,9 @@ module.exports = function(app, models) {
     app.get('/api/user/:userId', findUserById);
     app.put('/api/user/:userId', updateUser);
     app.delete('/api/user/:userId', deleteUser);
+
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
 
     function createUser(req, res) {
         var newUser = req.body;
@@ -125,6 +129,22 @@ module.exports = function(app, models) {
                     res
                         .status(500)
                         .send(error);
+                });
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function (user) {
+                    done(null, user);
+                },
+                function (error) {
+                    done(error, null);
                 });
     }
 }
