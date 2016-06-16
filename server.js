@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var passport = require('passport');
 
 var biome = require('./assignment/lib/biome.js')();
 var SESSION_SECRET = biome.get('SESSION_SECRET');
@@ -12,6 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 app.use(session({ secret: SESSION_SECRET }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 var connectionString = 'mongodb://127.0.0.1:27017/cs4550summer1';
 
