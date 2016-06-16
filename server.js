@@ -1,9 +1,17 @@
 var express = require('express');
 var app = express();
-
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
+var biome = require('./assignment/lib/biome.js')();
+var SESSION_SECRET = biome.get('SESSION_SECRET');
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+app.use(session({ secret: SESSION_SECRET }));
 
 var connectionString = 'mongodb://127.0.0.1:27017/cs4550summer1';
 
