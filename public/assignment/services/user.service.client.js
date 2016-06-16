@@ -8,7 +8,7 @@
             'createUser':               createUser,
             'findUserById':             findUserById,
             'findUserByUsername':       findUserByUsername,
-            'findUserByCredentials':    findUserByCredentials,
+            'login':                    login,
             'updateUser':               updateUser,
             'deleteUser':               deleteUser,
         };
@@ -29,9 +29,8 @@
             return $http.get(url);
         }
 
-        function findUserByCredentials(username, password) {
-            var url = '/api/user?username=' + username + '&password=' + password;
-            return $http.get(url);
+        function login(user) {
+            return $http.post('/api/login', user);
         }
 
         function updateUser(userId, user) {

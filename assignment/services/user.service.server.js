@@ -5,13 +5,14 @@ module.exports = function(app, models) {
 
     app.post('/api/user', createUser);
     app.get('/api/user', findUser);
+    app.post('/api/login', passport.authenticate('wam'), login);
     app.get('/api/user/:userId', findUserById);
     app.put('/api/user/:userId', updateUser);
     app.delete('/api/user/:userId', deleteUser);
 
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
-    passport.use(new LocalStrategy(localStrategy));
+    passport.use('wam', new LocalStrategy(localStrategy));
 
     function createUser(req, res) {
         var newUser = req.body;
@@ -30,16 +31,24 @@ module.exports = function(app, models) {
     }
 
     function findUser(req, res) {
-        if (req.query.username &&
-            req.query.password) {
-            findUserByCredentials(req, res);
-        } else if (req.query.username) {
+        if (req.query.username) {
             findUserByUsername(req, res);
         } else {
             res
                 .status(400)
                 .send('Bad request.')
                 .end();
+        }
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        if (user) {
+            res.json(user);
+        } else {
+            res
+                .status(404)
+                .send('Failed to login.');
         }
     }
 
@@ -50,28 +59,6 @@ module.exports = function(app, models) {
             .then(
                 function(user) {
                     res.json(user);
-                },
-                function(error) {
-                    res
-                        .status(500)
-                        .send(error);
-                });
-    }
-
-    function findUserByCredentials(req, res) {
-        var username = req.query.username;
-        var password = req.query.password;
-        userModel
-            .findUserByCredentials(username, password)
-            .then(
-                function(user) {
-                    if (!user) {
-                        res
-                            .status(404)
-                            .send('Your username or password is incorrect.');
-                    } else {
-                        res.json(user);
-                    }
                 },
                 function(error) {
                     res

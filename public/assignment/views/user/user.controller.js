@@ -5,16 +5,17 @@
         .controller('RegisterController', RegisterController)
         .controller('ProfileController', ProfileController);
 
-    function LoginController($location, UserService) {
+    function LoginController($location, $rootScope, UserService) {
         var vm = this;
         vm.login = login;
 
         function login(user) {
             UserService
-                .findUserByCredentials(user.username, user.password)
+                .login(user)
                 .then(
                     function(response) {
                         var user = response.data;
+                        $rootScope.currentUser = user;
                         $location.url('/user/' + user._id);
                     },
                     function(error) {
