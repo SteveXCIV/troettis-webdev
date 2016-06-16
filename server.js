@@ -31,8 +31,11 @@ var _log_prefixes = {
     DEBUG: 'DBG',
 };
 
-function _log(level, message) {
-    console.log(`[${_log_prefixes[level]}]:: ${message}`);
+function _log(level, message, _bypass = false) {
+    // toggle bypass to temp enable logging on OpenShift server
+    if (!process.env.OPENSHIFT_APP_NAME || _bypass) {
+        console.log(`[${_log_prefixes[level]}]:: ${message}`);
+    }
 }
 
 app.error = function(message, error) {
