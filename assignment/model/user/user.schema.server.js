@@ -1,6 +1,11 @@
 module.exports = function() {
     var mongoose = require('mongoose');
 
+    var FacebookUserSchema = mongoose.Schema({
+        id: String,
+        token: String,
+    });
+
     var UserSchema = mongoose.Schema({
         username: String,
         password: String,
@@ -10,6 +15,7 @@ module.exports = function() {
         phone: String,
         websites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Website' }],
         dateCreated: { type: Date, default: Date.now },
+        facebook: FacebookUserSchema,
     }, { collection: 'assignment.user' });
 
     return UserSchema;

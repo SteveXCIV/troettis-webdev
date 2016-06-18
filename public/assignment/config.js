@@ -39,6 +39,12 @@
                 controller: 'RegisterController',
                 controllerAs: 'model',
             })
+            .when('/user', {
+                templateUrl: 'views/user/profile.view.client.html',
+                controller: 'ProfileController',
+                controllerAs: 'model',
+                resolve: { loggedIn: checkLoggedIn },
+            })
             .when('/user/:uid', {
                 templateUrl: 'views/user/profile.view.client.html',
                 controller: 'ProfileController',

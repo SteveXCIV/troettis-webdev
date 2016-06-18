@@ -53,6 +53,17 @@
         vm.deleteUser = deleteUser;
 
         function init() {
+            // HACK: Figure out a better way to redirect from /user w/o :uid
+            if (!vm.userId) {
+                if ($rootScope.currentUser) {
+                    $location.url('/user/' + $rootScope.currentUser._id);
+                } else {
+                    $location.url('/login');
+                }
+                // break out here so the controller doesn't request undefined
+                return;
+            }
+
             UserService
                 .findUserById(vm.userId)
                 .then(

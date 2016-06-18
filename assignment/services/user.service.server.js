@@ -1,7 +1,16 @@
 module.exports = function(app, models) {
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
+    var FacebookStrategy = require('passport-facebook').Strategy;
     var userModel = models.userModel;
+
+    var biome = require('../lib/biome.js')();
+    var facebookAuthConfig = {
+        clientID: biome.get('FACEBOOK_CLIENT_ID'),
+        clientSecret: biome.get('FACEBOOK_CLIENT_SECRET'),
+        callbackURL: biome.get('FACEBOOK_CALLBACK_URL'),
+    };
+    passport.use(new FacebookStrategy(facebookAuthConfig, facebookStrategy));
 
     app.post('/api/register', register);
     app.get('/api/user', findUser);
@@ -11,6 +20,13 @@ module.exports = function(app, models) {
     app.put('/api/user/:userId', updateUser);
     app.delete('/api/user/:userId', deleteUser);
     app.get('/api/loggedin', loggedin);
+
+    app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect: '/assignment/#/user',
+            failureRedirect: '/assignment/#/login',
+        }));
 
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
@@ -190,5 +206,40 @@ module.exports = function(app, models) {
 
     function loggedin(req, res) {
         res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function facebookStrategy(token, refreshToken, profile, done) {
+        userModel
+            .findUserByFacebookId(profile.id)
+            .then(
+                function (user) {
+                    if (!user) {
+                        var newUser = {
+                            // this is a dirty hack
+                            username: profile.displayName.toLocaleLowerCase().replace(/\s+/g, '_'),
+                            password: null,
+                            // this too
+                            firstName: profile.displayName,
+                            facebook: {
+                                id: profile.id,
+                                token: token,
+                            },
+                        };
+                        userModel
+                            .createUser(newUser)
+                            .then(
+                                function (user) {
+                                    return done(null, user);
+                                },
+                                function (error) {
+                                    return done(error, null);
+                                });
+                    } else {
+                        return done(null, user);
+                    }
+                },
+                function (error) {
+                    return done(error, null);
+                });
     }
 }

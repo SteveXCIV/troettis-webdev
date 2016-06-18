@@ -40,6 +40,10 @@
     border-color: transparent;
 }
 
+.btn-facebook {
+    @include button-variant($gray-lightest, $thirdparty-facebook, $thirdparty-facebook);
+}
+
 .btn-link-default {
     @include link-button-variant($btn-default-bg);
 }
@@ -73,7 +77,7 @@
         .text {
             display: inline;
         }
-        
+
         .fa,
         .glyphicon {
             display: none;
