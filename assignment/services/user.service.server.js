@@ -36,7 +36,13 @@ module.exports = function(app, models) {
     function register(req, res) {
         var newUser = req.body;
 
-        if (newUser.password !== newUser.verifyPassword) {
+        if (!newUser.username) {
+            res
+                .status(400)
+                .send('Username cannot be blank.');
+        } else if (!newUser.password ||
+            !newUser.verifyPassword ||
+            newUser.password !== newUser.verifyPassword) {
             res
                 .status(400)
                 .send('Passwords did not match.');
