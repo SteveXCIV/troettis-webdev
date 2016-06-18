@@ -4,6 +4,7 @@
   "description": "CS4550 Project at Northeastern University, S1 2016",
   "main": "server.js",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.1",
     "bower": "^1.7.9",
     "cookie-parser": "^1.4.3",

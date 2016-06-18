@@ -1,4 +1,5 @@
 module.exports = function(app, models) {
+    var bcrypt = require('bcrypt-nodejs');
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
@@ -43,6 +44,8 @@ module.exports = function(app, models) {
         } else {
             delete newUser.verifyPassword;
         }
+
+        newUser.password = bcrypt.hashSync(newUser.password);
 
         userModel
             .findUserByUsername(newUser.username)
@@ -188,19 +191,27 @@ module.exports = function(app, models) {
 
     function localStrategy(username, password, done) {
         userModel
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
             .then(
                 function (user) {
-                    if (user.username === username && user.password === password) {
+
+                    // pulled this out into a block because if bcrypt gets
+                    // unsanitary data, the promise will reject due to time out
+                    var hash_match = false;
+                    try {
+                        hash_match = bcrypt.compareSync(password, user.password);
+                    } catch (error) {
+                        return done(error, null);
+                    }
+
+                    if (user && hash_match) {
                         return done(null, user);
                     } else {
                         return done(null, false);
                     }
                 },
                 function (error) {
-                    if (err) {
-                        return done(err);
-                    }
+                    return done(error, null);
                 });
     }
 
