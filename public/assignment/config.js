@@ -4,6 +4,30 @@
         .config(Config);
 
     function Config($routeProvider) {
+        var checkLoggedIn = function (
+            $q,
+            $timeout,
+            $http,
+            $location,
+            $rootScope) {
+            var deferred = $q.defer();
+            $http
+                .get('/api/loggedin')
+                .success(
+                    function (user) {
+                        $rootScope.errorMessage = null;
+                        if (user !== '0') {
+                            $rootScope.currentUser = user;
+                            deferred.resolve();
+                        } else {
+                            $rootScope.errorMessage = 'You need to be logged in to do that.';
+                            deferred.reject();
+                            $location.url('/');
+                        }
+                    });
+            return deferred.promise;
+        };
+
         $routeProvider
             .when('/login', {
                 templateUrl: 'views/user/login.view.client.html',
@@ -19,6 +43,7 @@
                 templateUrl: 'views/user/profile.view.client.html',
                 controller: 'ProfileController',
                 controllerAs: 'model',
+                resolve: { loggedIn: checkLoggedIn },
             })
             .when('/user/:uid/website', {
                 templateUrl: 'views/website/website-list.view.client.html',
@@ -74,5 +99,4 @@
                 redirectTo: '/login'
             });
     }
-
 })();

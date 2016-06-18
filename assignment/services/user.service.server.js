@@ -10,6 +10,7 @@ module.exports = function(app, models) {
     app.get('/api/user/:userId', findUserById);
     app.put('/api/user/:userId', updateUser);
     app.delete('/api/user/:userId', deleteUser);
+    app.get('/api/loggedin', loggedin);
 
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
@@ -185,5 +186,9 @@ module.exports = function(app, models) {
                         return done(err);
                     }
                 });
+    }
+
+    function loggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
     }
 }
