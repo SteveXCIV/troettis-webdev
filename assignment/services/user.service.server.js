@@ -3,7 +3,7 @@ module.exports = function(app, models) {
     var LocalStrategy = require('passport-local').Strategy;
     var userModel = models.userModel;
 
-    app.post('/api/user', createUser);
+    app.post('/api/register', register);
     app.get('/api/user', findUser);
     app.post('/api/login', passport.authenticate('wam'), login);
     app.post('/api/logout', logout);
@@ -15,14 +15,44 @@ module.exports = function(app, models) {
     passport.deserializeUser(deserializeUser);
     passport.use('wam', new LocalStrategy(localStrategy));
 
-    function createUser(req, res) {
+    function register(req, res) {
         var newUser = req.body;
 
+        if (newUser.password !== newUser.verifyPassword) {
+            res
+                .status(400)
+                .send('Passwords did not match.');
+            return;
+        } else {
+            delete newUser.verifyPassword;
+        }
+
         userModel
-            .createUser(newUser)
+            .findUserByUsername(newUser.username)
+            .then(
+                function (user) {
+                    if (user) {
+                        throw `The username "${user.username}" is already taken.`;
+                    }
+                    return userModel.createUser(newUser);
+                },
+                function (error) {
+                    throw error;
+                })
             .then(
                 function(user) {
-                    res.json(user);
+                    req.login(
+                        user,
+                        function (error) {
+                            if (error) {
+                                res
+                                    .status(400)
+                                    .send(error);
+                            } else {
+                                res.json(user);
+                            }
+                        }
+                    )
                 },
                 function(error) {
                     res
