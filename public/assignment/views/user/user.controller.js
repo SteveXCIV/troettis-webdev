@@ -44,9 +44,10 @@
         }
     }
 
-    function ProfileController($routeParams, $location, UserService) {
+    function ProfileController($rootScope, $routeParams, $location, UserService) {
         var vm = this;
         vm.userId = $routeParams['uid'];
+        vm.logout = logout;
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUser;
 
@@ -63,6 +64,19 @@
                 );
         }
         init();
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url('/');
+                    },
+                    function (error) {
+                        vm.alert = error.data;
+                    });
+        }
 
         function updateUser(user) {
             UserService

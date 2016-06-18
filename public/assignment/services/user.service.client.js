@@ -9,6 +9,7 @@
             'findUserById':             findUserById,
             'findUserByUsername':       findUserByUsername,
             'login':                    login,
+            'logout':                   logout,
             'updateUser':               updateUser,
             'deleteUser':               deleteUser,
         };
@@ -31,6 +32,10 @@
 
         function login(user) {
             return $http.post('/api/login', user);
+        }
+
+        function logout() {
+            return $http.post('/api/logout');
         }
 
         function updateUser(userId, user) {

@@ -6,6 +6,7 @@ module.exports = function(app, models) {
     app.post('/api/user', createUser);
     app.get('/api/user', findUser);
     app.post('/api/login', passport.authenticate('wam'), login);
+    app.post('/api/logout', logout);
     app.get('/api/user/:userId', findUserById);
     app.put('/api/user/:userId', updateUser);
     app.delete('/api/user/:userId', deleteUser);
@@ -43,13 +44,14 @@ module.exports = function(app, models) {
 
     function login(req, res) {
         var user = req.user;
-        if (user) {
-            res.json(user);
-        } else {
-            res
-                .status(404)
-                .send('Failed to login.');
-        }
+        app.debug(`Handle login for user: ${user._id} (${user.username}).`);
+        res.json(user);
+    }
+
+    function logout(req, res) {
+        req.logOut();
+        app.debug(`Handle logout request. Session user set to ${req.user}.`);
+        res.send(200);
     }
 
     function findUserByUsername(req, res) {
