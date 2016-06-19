@@ -68,7 +68,7 @@ app.debug = function(message) {
 // configure a public directory to host static content
 app.use(express.static(__dirname + '/public'));
 
-require('./test/app.js')(app);
+require('./db_test/app.js')(app);
 require('./assignment/app.js')(app);
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP;
