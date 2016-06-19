@@ -13,10 +13,10 @@
         </div>
 
         <div class="navbar-btn pull-right">
-            <a ng-click="model.createPage(page)" class="btn btn-link btn-icon-responsive">
+            <button form="page_editor" role="submit" class="btn btn-link btn-icon-responsive">
                 <span class="fa fa-check"></span>
                 <span class="text">Done</span>
-            </a>
+            </button>
         </div>
 
     </div>
@@ -27,11 +27,11 @@
     <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
     <div class="row">
         <div class="col-xs-12">
-            <form novalidate name="page_new">
+            <form novalidate name="page_editor" id="page_editor" ng-submit="model.createPage(page_editor, page)">
                 <div class="form-group">
                     <label for="page_name">Name</label>
                     <input ng-model="page.name" type="text" class="form-control" name="page_name" placeholder="Page name" tabindex="1" required />
-                    <div ng-show="page_new.$submitted && page_new.page_name.$error.required" class="alert alert-danger">
+                    <div ng-show="page_editor.$submitted && page_editor.page_name.$error.required" class="alert alert-danger">
                         <span class="fa fa-exclamation-circle fa-lg"></span>
                         <span>Name is required.</span>
                     </div>
@@ -40,7 +40,7 @@
                     <label for="page_title">Title</label>
                     <input type="text" class="form-control" name="page_title" placeholder="Page title" tabindex="2" />
                 </div>
-                <button class="btn btn-block hide" ng-click="model.createPage(page)" role="submit">Done</button>
+                <button class="hide" role="submit">Done</button>
             </form>
         </div>
     </div>
