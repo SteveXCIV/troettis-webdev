@@ -29,5 +29,8 @@
     "postinstall": "./post-install.sh"
   },
   "author": "Steve Troetti",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0"
+  }
 }
