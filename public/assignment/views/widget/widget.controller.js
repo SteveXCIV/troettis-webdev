@@ -103,7 +103,11 @@
         }
         init();
 
-        function updateWidget(widget) {
+        function updateWidget(element, widget) {
+            if (element.$invalid) {
+                return;
+            }
+
             WidgetService
                 .updateWidget(vm.widgetId, widget)
                 .then(

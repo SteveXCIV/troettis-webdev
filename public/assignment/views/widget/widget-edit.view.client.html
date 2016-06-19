@@ -26,7 +26,7 @@
     <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
     <div class="row">
         <div class="col-xs-12">
-            <form name="widget_editor" id="widget_editor" ng-submit="model.updateWidget(model.widget)" novalidate>
+            <form name="widget_editor" id="widget_editor" ng-submit="model.updateWidget(widget_editor, model.widget)" novalidate>
                 <div class="form-group">
                     <label for="widget_name">Name</label>
                     <input ng-model="model.widget.name" type="text" class="form-control" name="widget_name" placeholder="Widget name" tabindex="1" required />
