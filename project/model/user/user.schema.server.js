@@ -1,5 +1,6 @@
 module.exports = function () {
     var mongoose = require('mongoose');
+    var mUnique = require('mongoose-unique-validator');
 
     var ContactInfoSchema = mongoose.Schema({
         kind: {
@@ -18,7 +19,7 @@ module.exports = function () {
     });
 
     var UserSchema = mongoose.Schema({
-        username: { type: String, required: true },
+        username: { type: String, required: true, unique: true, uniqueCaseInsensitive: true },
         password: { type: String, required: true },
         fistName: String,
         lastName: String,
@@ -27,6 +28,7 @@ module.exports = function () {
         contacts: [ ContactInfoSchema ],
         signUpDate: { type: Date, default: Date.now, required: true },
     }, { collection: 'project.user' });
+    UserSchema.plugin(mUnique, { message: 'The {PATH} "{VALUE}" is already in use.' });
 
     return UserSchema;
 };
