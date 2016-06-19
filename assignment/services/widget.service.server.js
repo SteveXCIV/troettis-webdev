@@ -108,25 +108,41 @@ module.exports = function(app, models) {
         var websiteId = req.body.websiteId;
         var userId = req.body.userId;
 
+        app.debug(`Image upload request for widget ${widgetId}.`);
+
         var redirectUrl = '/assignment/#/user/' + userId + '/website/' + websiteId + '/page/' + pageId + '/widget/' + widgetId;
+
+        app.debug(`When done will redirect to ${redirectUrl}.`);
 
         var width = req.body.width;
         var url = '/uploads/' + req.file.filename;
 
-        var maybeIndex = getWidgetIndexById(widgetId);
-        if (maybeIndex) {
-            widget = widgets[maybeIndex];
-            widget.url = url;
-            widget.width = width;
-            res
-                .status(200)
-                .redirect(redirectUrl);
-        } else {
-            res
-                .status(404)
-                .send(`No widget with ID ${widgetId} exists.`)
-                .redirect(redirectUrl);
-        }
+        app.debug(`Stored image at ${url}.`);
+
+        widgetModel
+            .updateWidget(
+                widgetId,
+                {
+                    width: width,
+                    url: url,
+                })
+            .then(
+                function (response) {
+                    if (!(response.nModified || response.n)) {
+                        res
+                            .status(500)
+                            .send('Failed to update widget.');
+                    } else {
+                        res
+                            .status(200)
+                            .redirect(redirectUrl);
+                    }
+                },
+                function (error) {
+                    res
+                        .status(500)
+                        .send(error);
+                });
     }
 
     function routeWidgetUpdateRequest(req, res) {
