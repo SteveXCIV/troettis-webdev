@@ -29,7 +29,11 @@
         vm.userId = $routeParams['uid'];
         vm.createWebsite = createWebsite;
 
-        function createWebsite(website) {
+        function createWebsite(element, website) {
+            if (element.$invalid) {
+                return;
+            }
+
             var site = WebsiteService
                 .createWebsite(vm.userId, website)
                 .then(
@@ -64,7 +68,11 @@
         }
         init();
 
-        function updateWebsite(website) {
+        function updateWebsite(element, website) {
+            if (element.$invalid) {
+                return;
+            }
+            
             WebsiteService
                 .updateWebsite(vm.websiteId, website)
                 .then(
