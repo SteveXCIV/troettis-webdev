@@ -27,13 +27,15 @@ module.exports = function (app) {
 
     function updateUserProfile(userId, changes) {
         return User
-                .update(
+                .findOneAndUpdate(
                     { _id: userId },
                     { $set: {
                         firstName: changes.firstName,
                         lastName: changes.lastName,
                         contacts: changes.contacts,
-                    }});
+                    }},
+                    { new: true }
+                );
     }
 
     function deleteUser(userId) {

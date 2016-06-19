@@ -83,5 +83,59 @@ describe('Users', function () {
                         done();
                     });
         });
+
+        it('should reject registrations with missing fields', function (done) {
+            var user = {
+                password: 'foo',
+                firstName: 'first',
+                lastName: 'last',
+            };
+            userModel
+                .registerUser(user)
+                .then(
+                    function (user) {
+                        done(new Error('Registered invalid user ' + JSON.stringify(user)));
+                    },
+                    function (error) {
+                        error.name.should.equal('ValidationError');
+                        error.errors.username.should.exist;
+                        done();
+                    });
+        });
     })
+
+    describe('#updateUserProfile (happy)', function () {
+        it('should only update first, last, and contact info', function (done) {
+            var user = {
+                username: 'newUsername',
+                password: 'newPassword',
+                firstName: 'newFirstName',
+                lastName: 'newLastName',
+                contacts: [{
+                    kind: 'EMAIL',
+                    value: 'test@test.com',
+                }],
+            };
+            testUser.username.should.not.equal('newUsername');
+            testUser.password.should.not.equal('newPassword');
+            testUser.firstName.should.not.equal('newFirstName');
+            testUser.lastName.should.not.equal('newLastName');
+            testUser.contacts.should.be.empty;
+            userModel
+                .updateUserProfile(testUser._id, user)
+                .then(
+                    function (user) {
+                        user.username.should.not.equal('newUsername');
+                        user.password.should.not.equal('newPassword');
+                        user.firstName.should.equal('newFirstName');
+                        user.lastName.should.equal('newLastName');
+                        user.contacts.should.not.be.empty;
+                        user.contacts.length.should.equal(1);
+                        done();
+                    },
+                    function (error) {
+                        done(error);
+                    });
+        });
+    });
 })
