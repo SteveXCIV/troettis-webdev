@@ -21,7 +21,7 @@ module.exports = function () {
     var UserSchema = mongoose.Schema({
         username: { type: String, required: true, unique: true, uniqueCaseInsensitive: true },
         password: { type: String, required: true },
-        fistName: String,
+        firstName: String,
         lastName: String,
         subscriptions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Community' }],
         threads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Thread' }],
