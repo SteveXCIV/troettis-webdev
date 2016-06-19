@@ -9,7 +9,11 @@
         var vm = this;
         vm.login = login;
 
-        function login(user) {
+        function login(element, user) {
+            if (element.$invalid) {
+                return;
+            }
+            
             UserService
                 .login(user)
                 .then(
@@ -29,7 +33,11 @@
         var vm = this;
         vm.register = register;
 
-        function register(user) {
+        function register(element, user) {
+            if (element.$invalid) {
+                return;
+            }
+
             UserService
                 .register(user)
                 .then(

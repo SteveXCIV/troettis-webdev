@@ -2,7 +2,7 @@
     <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
     <div class="row">
         <div class="col-xs-12">
-            <form name="register">
+            <form novalidate name="register" id="register" ng-submit="model.register(register, user)">
                 <div class="form-group">
                     <h2>Register</h2>
                 </div>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button ng-click="model.register(user)" role="submit" class="btn btn-primary btn-block btn-lg">Register</button>
+                    <button role="submit" class="btn btn-primary btn-block btn-lg">Register</button>
                     <a href="#/login" class="btn btn-danger btn-block btn-lg">Cancel</a>
                 </div>
             </form>

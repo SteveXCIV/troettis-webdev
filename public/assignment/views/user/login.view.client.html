@@ -2,7 +2,7 @@
     <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
     <div class="row">
         <div class="col-xs-12">
-            <form name="login" novalidate>
+            <form name="login" id="login" ng-submit="model.login(login, user)" novalidate>
                 <div class="form-group">
                     <h2>Login</h2>
                 </div>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button ng-click="model.login(user)" role="submit" class="btn btn-primary btn-block btn-lg">Login</button>
+                    <button role="submit" class="btn btn-primary btn-block btn-lg">Login</button>
                     <a href="#/register" class="btn btn-success btn-block btn-lg">Register</a>
                     <a href="/auth/facebook" class="btn btn-facebook btn-block btn-lg">
                         <span class="fa fa-facebook"></span>

@@ -200,20 +200,14 @@ module.exports = function(app, models) {
             .findUserByUsername(username)
             .then(
                 function (user) {
-
-                    // pulled this out into a block because if bcrypt gets
-                    // unsanitary data, the promise will reject due to time out
-                    var hash_match = false;
                     try {
-                        hash_match = bcrypt.compareSync(password, user.password);
+                        if (user && bcrypt.compareSync(password, user.password)) {
+                            return done(null, user);
+                        } else {
+                            return done(null, false, { message: 'Invalid credentials.' });
+                        }
                     } catch (error) {
                         return done(error, null);
-                    }
-
-                    if (user && hash_match) {
-                        return done(null, user);
-                    } else {
-                        return done(null, false);
                     }
                 },
                 function (error) {
