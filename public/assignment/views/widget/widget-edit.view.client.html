@@ -1,17 +1,75 @@
-<div ng-switch="model.widget.type">
-    <div ng-switch-when="HEADING">
-        <ng-include src="'views/widget/widget-heading-edit.view.client.html'" />
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+
+        <div class="navbar-btn pull-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-chevron-left"></span>
+                <span class="text">Cancel</span>
+            </a>
+        </div>
+
+        <div class="navbar-brand">
+            <span>Widget Edit</span>
+        </div>
+
+        <div class="navbar-btn pull-right">
+            <button form="widget_editor" role="submit" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-check"></span>
+                <span class="text">Done</span>
+            </button>
+        </div>
+
     </div>
-    <div ng-switch-when="IMAGE">
-        <ng-include src="'views/widget/widget-image-edit.view.client.html'" />
-    </div>
-    <div ng-switch-when="YOUTUBE">
-        <ng-include src="'views/widget/widget-youtube-edit.view.client.html'" />
-    </div>
-    <div ng-switch-when="HTML">
-        <ng-include src="'views/widget/widget-html-edit.view.client.html'" />
-    </div>
-    <div ng-switch-when="TEXT">
-        <ng-include src="'views/widget/widget-text-input-edit.view.client.html'" />
+</nav>
+
+<div class="container-fluid with-navbar-fixed-top with-navbar-fixed-bottom">
+    <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <form name="widget_editor" id="widget_editor" ng-submit="model.updateWidget(model.widget)" novalidate>
+                <div class="form-group">
+                    <label for="widget_name">Name</label>
+                    <input ng-model="model.widget.name" type="text" class="form-control" name="widget_name" placeholder="Widget name" tabindex="1" required />
+                    <div ng-show="widget_editor.$submitted && widget_editor.widget_name.$error.required" class="alert alert-danger">
+                        <span class="fa fa-exclamation-circle fa-lg"></span>
+                        <span>Name is required.</span>
+                    </div>
+                </div>
+                <div ng-switch="model.widget.type">
+                    <div ng-switch-when="HEADING">
+                        <ng-include src="'views/widget/widget-heading-edit.view.client.html'" />
+                    </div>
+                    <div ng-switch-when="IMAGE">
+                        <ng-include src="'views/widget/widget-image-edit.view.client.html'" />
+                    </div>
+                    <div ng-switch-when="YOUTUBE">
+                        <ng-include src="'views/widget/widget-youtube-edit.view.client.html'" />
+                    </div>
+                    <div ng-switch-when="HTML">
+                        <ng-include src="'views/widget/widget-html-edit.view.client.html'" />
+                    </div>
+                    <div ng-switch-when="TEXT">
+                        <ng-include src="'views/widget/widget-text-input-edit.view.client.html'" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button role="submit" class="hide">Done</button>
+                    <a ng-click="model.deleteWidget()" class="form-control btn btn-block btn-danger">Delete</a>
+                </div>
+            </form>
+            <form name="api_upload_form" id="api_upload_form" action="/api/upload"  method="post" enctype="multipart/form-data">
+            </form>
+        </div>
     </div>
 </div>
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-btn pull-right">
+            <a href="#/user/{{model.userId}}" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-user"></span>
+                <span class="text">Profile</span>
+            </a>
+        </div>
+    </div>
+</nav>

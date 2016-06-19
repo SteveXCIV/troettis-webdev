@@ -22,7 +22,18 @@ module.exports = function(app) {
         var widgetId = null;
         var dbWidget = null;
         return Widget
-            .create(widget)
+            .count()
+            .then(
+                function (counter) {
+                    if (!widget.name) {
+                        widget.name = 'Widget ' + (counter + 1);
+                    }
+                    return Widget.create(widget);
+                },
+                function (error) {
+                    app.error('Error auto-naming widget.', error);
+                    throw error;
+                })
             .then(
                 function (widget) {
                     app.debug(`Created widget ${widget._id}.`);

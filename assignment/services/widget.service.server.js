@@ -65,6 +65,13 @@ module.exports = function(app, models) {
         var widgetId = req.params.widgetId;
         var updatedWidget = req.body;
 
+        if (!updatedWidget.name) {
+            res
+                .status(400)
+                .send('Name must not be left blank.');
+            return;
+        }
+
         widgetModel
             .updateWidget(widgetId, updatedWidget)
             .then(

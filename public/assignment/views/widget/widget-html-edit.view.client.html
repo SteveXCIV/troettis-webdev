@@ -1,62 +1,6 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-
-        <div class="navbar-btn pull-left">
-            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="btn btn-link btn-icon-responsive">
-                <span class="fa fa-chevron-left"></span>
-                <span class="text">Cancel</span>
-            </a>
-        </div>
-
-        <div class="navbar-brand">
-            <span>Widget Edit</span>
-        </div>
-
-        <div class="navbar-btn pull-right">
-            <a ng-click="model.updateWidget(model.widget)" class="btn btn-link btn-icon-responsive">
-                <span class="fa fa-check"></span>
-                <span class="text">Done</span>
-            </a>
-        </div>
-
-    </div>
-</nav>
-
-
-<div class="container-fluid with-navbar-fixed-top with-navbar-fixed-bottom">
-    <div class="row">
-        <div class="col-xs-12" ng-if="model.alert">
-            <div class="alert alert-danger">
-                {{model.alert}}
-            </div>
-        </div>
-        <div class="col-xs-12">
-            <form>
-                <div class="form-group">
-                    <label for="widget_name">Name</label>
-                    <input type="text" class="form-control" name="widget_name" placeholder="Widget name" tabindex="1" />
-                </div>
-                <div class="form-group">
-                    <label for="widget_text">Text</label>
-                    <div ng-model="model.widget.text" text-angular ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
-        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
-        ['indent','outdent'],['html']]"></div>
-                </div>
-                <div class="form-group">
-                    <a ng-click="model.deleteWidget()" class="form-control btn btn-block btn-danger">Delete</a>
-                </div>
-            </form>
-        </div>
-    </div>
+<div class="form-group">
+    <label for="widget_text">Text</label>
+    <div ng-model="model.widget.text" text-angular ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+['indent','outdent'],['html']]"></div>
 </div>
-
-<nav class="navbar navbar-inverse navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="navbar-btn pull-right">
-            <a href="#/user/{{model.userId}}" class="btn btn-link btn-icon-responsive">
-                <span class="fa fa-user"></span>
-                <span class="text">Profile</span>
-            </a>
-        </div>
-    </div>
-</nav>
