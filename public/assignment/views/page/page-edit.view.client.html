@@ -24,18 +24,24 @@
 
 
 <div class="container-fluid with-navbar-fixed-top with-navbar-fixed-bottom">
+    <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
     <div class="row">
         <div class="col-xs-12">
-            <form>
+            <form novalidate name="page_editor">
                 <div class="form-group">
                     <label for="page_name">Name</label>
-                    <input ng-model="model.page.name" type="text" class="form-control" name="page_name" placeholder="Page name" value="Blog Post" tabindex="1" />
+                    <input ng-model="model.page.name" type="text" class="form-control" name="page_name" placeholder="Page name" value="Blog Post" tabindex="1" required />
+                    <div ng-show="page_editor.$submitted && page_editor.page_name.$error.required" class="alert alert-danger">
+                        <span class="fa fa-exclamation-circle fa-lg"></span>
+                        <span>Name is required.</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="page_title">Title</label>
                     <input ng-model="model.page.title" type="text" class="form-control" name="page_title" placeholder="Page title" tabindex="2" />
                 </div>
                 <div class="form-group">
+                    <button class="btn btn-block hide" ng-click="model.updatePage(model.page)" role="submit">Done</button>
                     <a ng-click="model.deletePage()" class="form-control btn btn-block btn-danger">Delete</a>
                 </div>
             </form>

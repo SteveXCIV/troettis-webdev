@@ -24,21 +24,23 @@
 
 
 <div class="container-fluid with-navbar-fixed-top with-navbar-fixed-bottom">
+    <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
     <div class="row">
-        <div class="col-xs-12" ng-if="model.alert">
-            <div class="alert alert-danger"></div>
-            {{model.alert}}
-        </div>
         <div class="col-xs-12">
-            <form>
+            <form novalidate name="page_new">
                 <div class="form-group">
                     <label for="page_name">Name</label>
-                    <input ng-model="page.name" type="text" class="form-control" name="page_name" placeholder="Page name" tabindex="1" />
+                    <input ng-model="page.name" type="text" class="form-control" name="page_name" placeholder="Page name" tabindex="1" required />
+                    <div ng-show="page_new.$submitted && page_new.page_name.$error.required" class="alert alert-danger">
+                        <span class="fa fa-exclamation-circle fa-lg"></span>
+                        <span>Name is required.</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="page_title">Title</label>
                     <input type="text" class="form-control" name="page_title" placeholder="Page title" tabindex="2" />
                 </div>
+                <button class="btn btn-block hide" ng-click="model.createPage(page)" role="submit">Done</button>
             </form>
         </div>
     </div>
