@@ -11,7 +11,7 @@ module.exports = function () {
         title: { type: String, required: true },
         body: { type: String, required: true },
         comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
-    });
+    }, { collection: 'project.thread' });
 
     return ThreadSchema;
 };

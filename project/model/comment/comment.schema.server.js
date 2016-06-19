@@ -7,7 +7,7 @@ module.exports = function () {
         creationDate: { type: Date, default: Date.now, required: true },
         editDate: Date,
         body: { type: String, required: true },
-    });
+    }, { collection: 'project.comment' });
 
     return CommentSchema;
 };
