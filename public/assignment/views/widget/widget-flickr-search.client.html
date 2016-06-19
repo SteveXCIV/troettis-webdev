@@ -16,14 +16,16 @@
 
 
 <div class="container-fluid with-navbar-fixed-top with-navbar-fixed-bottom">
-    <div class="input-group">
-        <input ng-model="queryString" type="text" class="form-control">
-        <span class="input-group-btn">
-            <a ng-click="model.searchPhotos(queryString)" class="btn btn-default" type="button">
-                <span class="fa fa-search"></span>
-            </a>
-        </span>
-    </div>
+    <form ng-submit="model.searchPhotos(queryString)" novalidate name="search" id="search">
+        <div class="form-group input-group">
+            <input ng-model="queryString" type="text" class="form-control">
+            <span class="input-group-btn">
+                <button role="submit" class="btn btn-default" type="button">
+                    <span class="fa fa-search"></span>
+                </button>
+            </span>
+        </div>
+    </form>
     <div class="row">
         <div class="col-xs-12" ng-if="model.alert">
             <div class="alert alert-danger">

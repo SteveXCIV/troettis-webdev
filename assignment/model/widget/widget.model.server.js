@@ -105,7 +105,7 @@ module.exports = function(app) {
                             { _id: widgetId },
                             { $set:
                                 {
-                                    name: updatedWidget.name,
+                                    name: updatedWidget.name || widget.name,
                                     text: updatedWidget.text,
                                     placeholder: updatedWidget.placeholder,
                                     description: updatedWidget.description,

@@ -33,7 +33,7 @@ module.exports = function(app) {
                 function (website) {
                     var pages = website.pages;
                     pages.push(pageId);
-                    app.debug(`Adding page {$pageId} to website: ${website._id}.`);
+                    app.debug(`Adding page ${pageId} to website: ${website._id}.`);
                     return Website
                             .update(
                                 { _id: websiteId },
@@ -53,7 +53,7 @@ module.exports = function(app) {
                         app.error('Failed to update website pages.', result);
                         throw 404;
                     } else {
-                        app.debug(`Updated website: ${result}.`);
+                        app.debug(`Updated website: ${JSON.stringify(result)}.`);
                         return 200;
                     }
                 },
