@@ -11,6 +11,13 @@ module.exports = function(app, models) {
         var userId = req.params.userId;
         var website = req.body;
 
+        if (!website.name) {
+            res
+                .status(400)
+                .send('Wesbite name must not be blank.');
+            return;
+        }
+
         websiteModel.createWebsiteForUser(userId, website)
             .then(
                 function(website) {
@@ -56,6 +63,13 @@ module.exports = function(app, models) {
     function updateWebsite(req, res) {
         var websiteId = req.params.websiteId;
         var updatedSite = req.body;
+
+        if (!updatedSite.name) {
+            res
+                .status(400)
+                .send('Wesbite name must not be blank.');
+            return;
+        }
 
         websiteModel
             .updateWebsite(websiteId, updatedSite)

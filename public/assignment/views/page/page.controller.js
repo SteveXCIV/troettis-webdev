@@ -31,7 +31,11 @@
         vm.websiteId = $routeParams['wid'];
         vm.createPage = createPage;
 
-        function createPage(page) {
+        function createPage(element, page) {
+            if (element.$invalid) {
+                return;
+            }
+            
             PageService
                 .createPage(vm.websiteId, page)
                 .then(
@@ -67,7 +71,11 @@
         }
         init();
 
-        function updatePage(page) {
+        function updatePage(element, page) {
+            if (element.$invalid) {
+                return;
+            }
+
             PageService
                 .updatePage(vm.pageId, page)
                 .then(

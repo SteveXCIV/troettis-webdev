@@ -80,6 +80,14 @@
         vm.widgetId = $routeParams['wgid'];
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
+        vm.sizes = [
+            { name: '1', size: 1 },
+            { name: '2', size: 2 },
+            { name: '3', size: 3 },
+            { name: '4', size: 4 },
+            { name: '5', size: 5 },
+            { name: '6', size: 6 },
+        ];
 
         function init() {
             WidgetService
@@ -95,7 +103,11 @@
         }
         init();
 
-        function updateWidget(widget) {
+        function updateWidget(element, widget) {
+            if (element.$invalid) {
+                return;
+            }
+
             WidgetService
                 .updateWidget(vm.widgetId, widget)
                 .then(

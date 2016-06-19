@@ -1,9 +1,21 @@
 var express = require('express');
 var app = express();
-
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var passport = require('passport');
+
+var biome = require('./assignment/lib/biome.js')();
+var SESSION_SECRET = biome.get('SESSION_SECRET');
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+app.use(session({ secret: SESSION_SECRET }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 var connectionString = 'mongodb://127.0.0.1:27017/cs4550summer1';
 
@@ -31,9 +43,8 @@ var _log_prefixes = {
     DEBUG: 'DBG',
 };
 
-function _log(level, message, _bypass = false) {
-    // toggle bypass to temp enable logging on OpenShift server
-    if (!process.env.OPENSHIFT_APP_NAME || _bypass) {
+function _log(level, message) {
+    if (!process.env.OPENSHIFT_APP_NAME) {
         console.log(`[${_log_prefixes[level]}]:: ${message}`);
     }
 }

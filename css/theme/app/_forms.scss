@@ -23,3 +23,7 @@ textarea.form-control {
     border-width: 1px !important;
     border-bottom-width: $form-border-width !important;
 }
+
+form.ng-submitted input.form-control.ng-invalid {
+    border-color: $brand-danger;
+}

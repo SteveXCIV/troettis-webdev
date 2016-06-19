@@ -1,7 +1,8 @@
 (function() {
     angular
         .module('WebAppMaker')
-        .directive('wamSortable', wamSortable);
+        .directive('wamSortable', wamSortable)
+        .directive('wamEqualTo', wamEqualTo);
 
     function wamSortable() {
         return {
@@ -35,6 +36,26 @@
                     placeholder: 'widget-block',
                 });
             }
-        }
+        };
+    }
+
+    function wamEqualTo() {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            scope: {
+                thingToEqual: '=wamEqualTo',
+            },
+            link: function ($scope, element, attr, $model) {
+                console.log($scope, element, attr, $model);
+                $model.$validators.wamEqualTo = function ($value) {
+                    return $value === $scope.thingToEqual;
+                }
+
+                $scope.$watch('thingToEqual', function () {
+                    $model.$validate();
+                });
+            },
+        };
     }
 })();

@@ -13,10 +13,10 @@
         </div>
 
         <div class="navbar-btn pull-right">
-            <a ng-click="model.createWebsite(website)" class="btn btn-link btn-icon-responsive">
+            <button role="submit" form="website_editor" class="btn btn-link btn-icon-responsive">
                 <span class="fa fa-check"></span>
                 <span class="text">Done</span>
-            </a>
+            </button>
         </div>
 
     </div>
@@ -24,21 +24,23 @@
 
 
 <div class="container-fluid with-navbar-fixed-top with-navbar-fixed-bottom">
+    <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
     <div class="row">
-        <div class="col-xs-12" ng-if="model.alert">
-            <div class="alert alert-danger"></div>
-            {{model.alert}}
-        </div>
         <div class="col-xs-12">
-            <form>
+            <form novalidate name="website_editor" id="website_editor" ng-submit="model.createWebsite(website_editor, website)">
                 <div class="form-group">
                     <label for="website_name">Name</label>
-                    <input ng-model="website.name" type="text" class="form-control" name="website_name" placeholder="Name" tabindex="1" />
+                    <input ng-model="website.name" type="text" class="form-control" name="website_name" placeholder="Name" tabindex="1" required />
+                    <div ng-show="website_editor.$submitted && website_editor.website_name.$error.required" class="alert alert-danger">
+                        <span class="fa fa-exclamation-circle fa-lg"></span>
+                        <span>Name is required.</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="website_description">Description</label>
                     <textarea name="website_description" cols="3" rows="10" class="form-control" placeholder="Description" tabindex="2"></textarea>
                 </div>
+                <button class="hide" role="submit">Done</button>
             </form>
         </div>
     </div>

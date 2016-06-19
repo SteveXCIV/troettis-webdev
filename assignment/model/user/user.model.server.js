@@ -10,6 +10,7 @@ module.exports = function(app) {
         'findUserByUsername':       findUserByUsername,
         'updateUser':               updateUser,
         'deleteUser':               deleteUser,
+        'findUserByFacebookId':     findUserByFacebookId,
     };
     app.debug('Created User model.');
     return api;
@@ -49,5 +50,9 @@ module.exports = function(app) {
 
     function deleteUser(userId) {
         return User.findByIdAndRemove(userId);
+    }
+
+    function findUserByFacebookId(facebookId) {
+        return User.findOne({ 'facebook.id': facebookId });
     }
 };

@@ -5,16 +5,21 @@
         .controller('RegisterController', RegisterController)
         .controller('ProfileController', ProfileController);
 
-    function LoginController($location, UserService) {
+    function LoginController($location, $rootScope, UserService) {
         var vm = this;
         vm.login = login;
 
-        function login(user) {
+        function login(element, user) {
+            if (element.$invalid) {
+                return;
+            }
+            
             UserService
-                .findUserByCredentials(user.username, user.password)
+                .login(user)
                 .then(
                     function(response) {
                         var user = response.data;
+                        $rootScope.currentUser = user;
                         $location.url('/user/' + user._id);
                     },
                     function(error) {
@@ -24,16 +29,21 @@
         }
     }
 
-    function RegisterController($location, UserService) {
+    function RegisterController($location, $rootScope, UserService) {
         var vm = this;
         vm.register = register;
 
-        function register(user) {
+        function register(element, user) {
+            if (element.$invalid) {
+                return;
+            }
+
             UserService
-                .createUser(user)
+                .register(user)
                 .then(
                     function(response) {
                         var user = response.data;
+                        $rootScope.currentUser = user;
                         $location.url('/user/' + user._id);
                     },
                     function(error) {
@@ -43,13 +53,25 @@
         }
     }
 
-    function ProfileController($routeParams, $location, UserService) {
+    function ProfileController($rootScope, $routeParams, $location, UserService) {
         var vm = this;
         vm.userId = $routeParams['uid'];
+        vm.logout = logout;
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUser;
 
         function init() {
+            // HACK: Figure out a better way to redirect from /user w/o :uid
+            if (!vm.userId) {
+                if ($rootScope.currentUser) {
+                    $location.url('/user/' + $rootScope.currentUser._id);
+                } else {
+                    $location.url('/login');
+                }
+                // break out here so the controller doesn't request undefined
+                return;
+            }
+
             UserService
                 .findUserById(vm.userId)
                 .then(
@@ -62,6 +84,19 @@
                 );
         }
         init();
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url('/');
+                    },
+                    function (error) {
+                        vm.alert = error.data;
+                    });
+        }
 
         function updateUser(user) {
             UserService

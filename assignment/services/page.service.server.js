@@ -11,6 +11,13 @@ module.exports = function(app, models) {
         var websiteId = req.params.websiteId;
         var newPage = req.body;
 
+        if (!newPage.name) {
+            res
+                .status(400)
+                .send('Page name must not be blank.');
+            return;
+        }
+
         pageModel.createPage(websiteId, newPage)
             .then(
                 function(page) {
@@ -56,6 +63,13 @@ module.exports = function(app, models) {
     function updatePage(req, res) {
         var pageId = req.params.pageId;
         var updatedPage = req.body;
+
+        if (!updatedPage.name) {
+            res
+                .status(400)
+                .send('Page name must not be blank.');
+            return;
+        }
 
         pageModel
             .updatePage(pageId, updatedPage)
