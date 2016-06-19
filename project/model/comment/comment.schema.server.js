@@ -6,7 +6,7 @@ module.exports = function () {
         author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
         creationDate: { type: Date, default: Date.now, required: true },
         editDate: Date,
-        body: String,
+        body: { type: String, required: true },
     });
 
     return CommentSchema;

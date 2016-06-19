@@ -8,7 +8,8 @@ module.exports = function () {
         editDate: Date,
         likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Like' }],
         dislikes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Dislike' }],
-        body: String,
+        title: { type: String, required: true },
+        body: { type: String, required: true },
         comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
     });
 
