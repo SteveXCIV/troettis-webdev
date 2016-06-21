@@ -34,8 +34,18 @@ module.exports = function (app) {
                         lastName: changes.lastName,
                         contacts: changes.contacts,
                     }},
-                    { new: true }
-                );
+                    { new: true })
+                .then(
+                    function (user) {
+                        if (user) {
+                            return user;
+                        } else {
+                            throw 404;
+                        }
+                    },
+                    function (error) {
+                        throw 404;
+                    });
     }
 
     function deleteUser(userId) {

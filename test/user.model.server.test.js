@@ -58,7 +58,7 @@ describe('Users', function () {
                         return user;
                     },
                     function (error) {
-                        throw error;
+                        throw new Error(error);
                     });
         });
     });
@@ -75,7 +75,7 @@ describe('Users', function () {
                 .registerUser(user)
                 .then(
                     function (user) {
-                        throw 'Registered a duplicate user.';
+                        throw new Error('Registered a duplicate user.');
                     },
                     function (error) {
                         error.name.should.equal('ValidationError');
@@ -94,7 +94,7 @@ describe('Users', function () {
                 .registerUser(user)
                 .then(
                     function (user) {
-                        throw 'Registered invalid user.';
+                        throw new Error('Registered invalid user.');
                     },
                     function (error) {
                         error.name.should.equal('ValidationError');
@@ -134,7 +134,26 @@ describe('Users', function () {
                         return user;
                     },
                     function (error) {
-                        throw error;
+                        throw new Error(error);
+                    });
+        });
+    });
+
+    describe('#updateUserProfile (unhappy)', function () {
+        it('should return an error 404 if the specified user does not exist', function() {
+            var user = {
+                username: 'foo',
+                password: 'bar',
+            };
+            return userModel
+                .updateUserProfile('ffffffffffffffffffffffff', user)
+                .then(
+                    function (user) {
+                        throw new Error('Returned a user even though the ID was bad.');
+                    },
+                    function (error) {
+                        error.should.equal(404);
+                        return error;
                     });
         });
     });
