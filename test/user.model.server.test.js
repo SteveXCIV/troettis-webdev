@@ -1,4 +1,6 @@
 var chai = require('chai');
+var chai_fuzzy = require('chai-fuzzy');
+chai.use(chai_fuzzy);
 var should = chai.should();
 
 var mongoose = require('mongoose');
@@ -102,7 +104,67 @@ describe('Users', function () {
                         return error;
                     });
         });
-    })
+    });
+
+    describe('#findUserById (happy)', function () {
+        it('should locate a user given a valid ID', function() {
+            return userModel
+                .findUserById(testUser._id)
+                .then(
+                    function (dbUser) {
+                        dbUser._id.should.be.like(testUser._id);
+                        return dbUser;
+                    },
+                    function (error) {
+                        throw new Error(error);
+                    });
+        });
+    });
+
+    describe('#findUserById (unhappy)', function () {
+        it('should fail with error 404 if the user does not exist', function() {
+            return userModel
+                .findUserById('ffffffffffffffffffffffff')
+                .then(
+                    function (user) {
+                        throw new Error('Returned a user even though the ID was bad.');
+                    },
+                    function (error) {
+                        error.should.equal(404);
+                        return error;
+                    });
+        });
+    });
+
+    describe('#findUserByUsername (happy)', function () {
+        it('should find a user given a valid username', function() {
+            return userModel
+                .findUserByUsername(testUser.username)
+                .then(
+                    function (user) {
+                        user._id.should.be.like(testUser._id);
+                        return user;
+                    },
+                    function (error) {
+                        throw new Error(error);
+                    });
+        });
+    });
+
+    describe('#findUserByUsername (unhappy)', function () {
+        it('should fail with error 404 if the user does not exist', function() {
+            return userModel
+                .findUserByUsername('not_a_real_username_lol')
+                .then(
+                    function (user) {
+                        throw new Error('Returned a user even though the username was bad.');
+                    },
+                    function (error) {
+                        error.should.equal(404);
+                        return error;
+                    });
+        });
+    });
 
     describe('#updateUserProfile (happy)', function () {
         it('should only update first, last, and contact info', function() {

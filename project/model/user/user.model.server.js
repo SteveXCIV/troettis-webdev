@@ -18,11 +18,29 @@ module.exports = function (app) {
     }
 
     function findUserById(userId) {
-        return User.findById(userId);
+        return User
+            .findById(userId)
+            .then(
+                function (user) {
+                    if (user) {
+                        return user;
+                    } else {
+                        throw 404;
+                    }
+                });
     }
 
     function findUserByUsername(username) {
-        return User.findOne({ username: username });
+        return User
+            .findOne({ username: username })
+            .then(
+                function (user) {
+                    if (user) {
+                        return user;
+                    } else {
+                        throw 404;
+                    }
+                });
     }
 
     function updateUserProfile(userId, changes) {
