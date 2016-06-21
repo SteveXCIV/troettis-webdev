@@ -31,6 +31,7 @@
   "author": "Steve Troetti",
   "license": "ISC",
   "devDependencies": {
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "chai-fuzzy": "^1.6.1"
   }
 }
