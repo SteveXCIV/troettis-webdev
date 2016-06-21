@@ -40,14 +40,14 @@ describe('Users', function () {
     });
 
     describe('#registerUser (happy)', function () {
-        it('should register a new user and return it', function (done) {
+        it('should register a new user and return it', function() {
             var user = {
                 username: 'test2',
                 password: 'test',
                 firstName: 'Testy',
                 lastName: 'McTestFace',
             };
-            userModel
+            return userModel
                 .registerUser(user)
                 .then(
                     function (user) {
@@ -55,57 +55,57 @@ describe('Users', function () {
                         user.password.should.equal('test');
                         user.firstName.should.equal('Testy');
                         user.lastName.should.equal('McTestFace');
-                        done();
+                        return user;
                     },
                     function (error) {
-                        done(error);
+                        throw error;
                     });
         });
     });
 
     describe('#registerUser (unhappy)', function () {
-        it('should fail to register a user with a taken name', function(done) {
+        it('should fail to register a user with a taken name', function() {
             var user = {
                 username: 'test',
                 password: 'test',
                 firstName: 'Testy',
                 lastName: 'McTestFace',
             };
-            userModel
+            return userModel
                 .registerUser(user)
                 .then(
                     function (user) {
-                        done(new Error('Registered a duplicate user: ' + JSON.stringify(user)));
+                        throw 'Registered a duplicate user.';
                     },
                     function (error) {
                         error.name.should.equal('ValidationError');
                         error.errors.should.have.property('username');
-                        done();
+                        return error;
                     });
         });
 
-        it('should reject registrations with missing fields', function (done) {
+        it('should reject registrations with missing fields', function() {
             var user = {
                 password: 'foo',
                 firstName: 'first',
                 lastName: 'last',
             };
-            userModel
+            return userModel
                 .registerUser(user)
                 .then(
                     function (user) {
-                        done(new Error('Registered invalid user ' + JSON.stringify(user)));
+                        throw 'Registered invalid user.';
                     },
                     function (error) {
                         error.name.should.equal('ValidationError');
                         error.errors.username.should.exist;
-                        done();
+                        return error;
                     });
         });
     })
 
     describe('#updateUserProfile (happy)', function () {
-        it('should only update first, last, and contact info', function (done) {
+        it('should only update first, last, and contact info', function() {
             var user = {
                 username: 'newUsername',
                 password: 'newPassword',
@@ -121,7 +121,7 @@ describe('Users', function () {
             testUser.firstName.should.not.equal('newFirstName');
             testUser.lastName.should.not.equal('newLastName');
             testUser.contacts.should.be.empty;
-            userModel
+            return userModel
                 .updateUserProfile(testUser._id, user)
                 .then(
                     function (user) {
@@ -131,10 +131,10 @@ describe('Users', function () {
                         user.lastName.should.equal('newLastName');
                         user.contacts.should.not.be.empty;
                         user.contacts.length.should.equal(1);
-                        done();
+                        return user;
                     },
                     function (error) {
-                        done(error);
+                        throw error;
                     });
         });
     });
