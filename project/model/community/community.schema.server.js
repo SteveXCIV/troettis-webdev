@@ -6,7 +6,7 @@ module.exports = function () {
         creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
         dateCreated: { type: Date, default: Date.now, required: true },
         moderators: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Moderator' }],
-        subscribers [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+        subscribers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
         name: { type: String, required: true, unique: true, uniqueCaseInsensitive: true },
         description: { type: String, required: true },
         announcements: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Announcement' }],
