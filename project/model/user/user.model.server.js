@@ -42,13 +42,19 @@ module.exports = function (app) {
                         } else {
                             throw 404;
                         }
-                    },
-                    function (error) {
-                        throw 404;
                     });
     }
 
     function deleteUser(userId) {
-        return User.findByIdAndRemove(userId);
+        return User
+            .findByIdAndRemove(userId)
+            .then(
+                function (user) {
+                    if (user) {
+                        return user;
+                    } else {
+                        throw 404;
+                    }
+                });
     }
 };

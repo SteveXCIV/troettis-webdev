@@ -157,4 +157,45 @@ describe('Users', function () {
                     });
         });
     });
+
+    describe('#deleteUser (happy)', function () {
+        it('should return the user after deleting a user', function () {
+            var user = {
+                username: 'foo',
+                password: 'bar',
+            };
+            return userModel
+                .registerUser(user)
+                .then(
+                    function (dbUser) {
+                        return userModel.deleteUser(dbUser._id);
+                    },
+                    function (error) {
+                        throw new Error(error);
+                    })
+                .then(
+                    function (user) {
+                        user.username.should.equal('foo');
+                        user.password.should.equal('bar');
+                    },
+                    function (error) {
+                        throw new Error(error);
+                    });
+        });
+    });
+
+    describe('#deleteUser (unhappy)', function () {
+        it('should return an error 404 if the user does not exist', function () {
+            return userModel
+                .deleteUser('ffffffffffffffffffffffff')
+                .then(
+                    function (user) {
+                        throw new Error('Returned a user even though the ID was bad.');
+                    },
+                    function (error) {
+                        error.should.equal(404);
+                        return error;
+                    });
+        });
+    });
 })
