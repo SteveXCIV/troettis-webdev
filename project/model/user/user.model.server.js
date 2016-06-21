@@ -9,6 +9,8 @@ module.exports = function (app) {
         'findUserByUsername':   findUserByUsername,
         'updateUserProfile':    updateUserProfile,
         'deleteUser':           deleteUser,
+        'subscriber':           subscribe,
+        'unsubscribe':          unsubscribe,
         '$model':               User,
     };
     return api;
@@ -74,5 +76,13 @@ module.exports = function (app) {
                         throw 404;
                     }
                 });
+    }
+
+    function subscribe(userId, communityId) {
+        throw new Error('Not implemented');
+    }
+
+    function unsubscribe(userId, communityId) {
+        throw new Error('Not implemented');
     }
 };
