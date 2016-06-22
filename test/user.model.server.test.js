@@ -260,4 +260,109 @@ describe('Users', function () {
                     });
         });
     });
+
+    describe('#subscribe (happy)', function () {
+        it('should return a user on successsful subscription', function() {
+            var communityId = "ffffffffffffffffffffffff";
+            return userModel
+                .subscribe(testUser._id, communityId)
+                .then(
+                    function (user) {
+                        user.subscriptions.length.should.equal(1);
+                        user.subscriptions[0].toString().should.equal(communityId);
+                        return user;
+                    },
+                    function (error) {
+                        throw new Error(error);
+                    });
+        });
+    });
+
+    describe('#subscribe (unhappy)', function () {
+        it('should not create duplicate subscriptions', function() {
+            var communityId = "ffffffffffffffffffffffff";
+            return userModel
+                .subscribe(testUser._id, communityId)
+                .then(
+                    function (user) {
+                        user.subscriptions.length.should.equal(1);
+                        user.subscriptions[0].toString().should.equal(communityId);
+                        return userModel.subscribe(testUser._id, communityId);
+                    })
+                .then(
+                    function (user) {
+                        user.subscriptions.length.should.equal(1);
+                        return user;
+                    },
+                    function (error) {
+                        throw new Error(error);
+                    });
+        });
+
+        it('should fail with error 404 if the user does not exist', function() {
+            var communityId = "ffffffffffffffffffffffff";
+            var userId = "dddddddddddddddddddddddd";
+            return userModel
+                .subscribe(userId, communityId)
+                .then(
+                    function (user) {
+                        throw new Error('Subscribed a non-existent user.');
+                    },
+                    function (error) {
+                        error.should.equal(404);
+                        return error;
+                    });
+        });
+    });
+
+    describe('#ubsubscribe (happy)', function () {
+        it('should return the user after unsubscription', function() {
+            var communityId = "ffffffffffffffffffffffff";
+            return userModel
+                .subscribe(testUser._id, communityId)
+                .then(
+                    function (user) {
+                        return userModel.unsubscribe(user._id, communityId);
+                    })
+                .then(
+                    function (user) {
+                        user.subscriptions.length.should.equal(0);
+                        return user;
+                    },
+                    function (error) {
+                        throw new Error(error);
+                    });
+        });
+    });
+
+    describe('#unsubscribe (unhappy)', function () {
+        it('should do nothing if the subscription does not exist', function() {
+            var communityId = "ffffffffffffffffffffffff";
+            return userModel
+                .unsubscribe(testUser._id, communityId)
+                .then(
+                    function (user) {
+                        user.subscriptions.length.should.equal(0);
+                        return user;
+                    },
+                    function (error) {
+                        throw new Error(error);
+                    });
+        });
+
+        it('should fail with error 404 if the user does not exist', function() {
+            var communityId = "ffffffffffffffffffffffff";
+            var userId = "dddddddddddddddddddddddd";
+            return userModel
+                .unsubscribe(userId, communityId)
+                .then(
+                    function (user) {
+                        throw new Error('Returned a non-existent user.');
+                    },
+                    function (error) {
+                        error.should.equal(404);
+                        return error;
+                    });
+        });
+    });
 })
