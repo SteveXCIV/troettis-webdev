@@ -1,17 +1,18 @@
-module.exports = function (app) {
+module.exports = function(app) {
     var mongoose = require('mongoose');
     var UserSchema = require('./user.schema.server.js')();
     var User = mongoose.model('User', UserSchema);
+    var _ = require('underscore');
 
     var api = {
-        'registerUser':         registerUser,
-        'findUserById':         findUserById,
-        'findUserByUsername':   findUserByUsername,
-        'updateUserProfile':    updateUserProfile,
-        'deleteUser':           deleteUser,
-        'subscriber':           subscribe,
-        'unsubscribe':          unsubscribe,
-        '$model':               User,
+        'registerUser': registerUser,
+        'findUserById': findUserById,
+        'findUserByUsername': findUserByUsername,
+        'updateUserProfile': updateUserProfile,
+        'deleteUser': deleteUser,
+        'subscribe': subscribe,
+        'unsubscribe': unsubscribe,
+        '$model': User,
     };
     return api;
 
@@ -23,7 +24,7 @@ module.exports = function (app) {
         return User
             .findById(userId)
             .then(
-                function (user) {
+                function(user) {
                     if (user) {
                         return user;
                     } else {
@@ -34,9 +35,11 @@ module.exports = function (app) {
 
     function findUserByUsername(username) {
         return User
-            .findOne({ username: username })
+            .findOne({
+                username: username
+            })
             .then(
-                function (user) {
+                function(user) {
                     if (user) {
                         return user;
                     } else {
@@ -47,29 +50,32 @@ module.exports = function (app) {
 
     function updateUserProfile(userId, changes) {
         return User
-                .findOneAndUpdate(
-                    { _id: userId },
-                    { $set: {
-                        firstName: changes.firstName,
-                        lastName: changes.lastName,
-                        contacts: changes.contacts,
-                    }},
-                    { new: true })
-                .then(
-                    function (user) {
-                        if (user) {
-                            return user;
-                        } else {
-                            throw 404;
-                        }
-                    });
+            .findOneAndUpdate({
+                _id: userId
+            }, {
+                $set: {
+                    firstName: changes.firstName,
+                    lastName: changes.lastName,
+                    contacts: changes.contacts,
+                }
+            }, {
+                new: true
+            })
+            .then(
+                function(user) {
+                    if (user) {
+                        return user;
+                    } else {
+                        throw 404;
+                    }
+                });
     }
 
     function deleteUser(userId) {
         return User
             .findByIdAndRemove(userId)
             .then(
-                function (user) {
+                function(user) {
                     if (user) {
                         return user;
                     } else {
@@ -79,10 +85,58 @@ module.exports = function (app) {
     }
 
     function subscribe(userId, communityId) {
-        throw new Error('Not implemented');
+        return User
+            .findById(userId)
+            .then(
+                function(user) {
+                    if (user) {
+                        var contains = user
+                            .subscriptions
+                            .filter((sub, _i, _a) => sub == communityId)
+                            .length;
+                        if (!contains) {
+                            user.subscriptions.push(communityId);
+                            return User
+                                .findOneAndUpdate({
+                                    _id: user._id
+                                }, {
+                                    $set: {
+                                        subscriptions: user.subscriptions
+                                    }
+                                }, {
+                                    new: true
+                                });
+                        } else {
+                            // TODO: Error on duplicate subscription?
+                            return user;
+                        }
+                    } else {
+                        throw 404;
+                    }
+                });
     }
 
     function unsubscribe(userId, communityId) {
-        throw new Error('Not implemented');
+        return User
+            .findById(userId)
+            .then(
+                function(user) {
+                    if (user) {
+                        user.subscriptions = _.reject(user.subscriptions, (sub) => sub.equals(communityId));
+                        return User
+                            .findOneAndUpdate({
+                                _id: user._id
+                            }, {
+                                $set: {
+                                    subscriptions: user.subscriptions
+                                }
+                            }, {
+                                new: true
+                            });
+                    } else {
+                        throw 404;
+                    }
+                }
+            );
     }
 };
