@@ -2,7 +2,6 @@ module.exports = function(app) {
     var mongoose = require('mongoose');
     var UserSchema = require('./user.schema.server.js')();
     var User = mongoose.model('User', UserSchema);
-    var _ = require('underscore');
 
     var api = {
         'registerUser': registerUser,
@@ -92,7 +91,7 @@ module.exports = function(app) {
                     if (user) {
                         var contains = user
                             .subscriptions
-                            .filter((sub, _i, _a) => sub == communityId)
+                            .filter((sub, _i, _a) => sub.equals(communityId))
                             .length;
                         if (!contains) {
                             user.subscriptions.push(communityId);
@@ -107,7 +106,6 @@ module.exports = function(app) {
                                     new: true
                                 });
                         } else {
-                            // TODO: Error on duplicate subscription?
                             return user;
                         }
                     } else {
@@ -122,7 +120,8 @@ module.exports = function(app) {
             .then(
                 function(user) {
                     if (user) {
-                        user.subscriptions = _.reject(user.subscriptions, (sub) => sub.equals(communityId));
+                        user.subscriptions = user.subscriptions
+                            .filter((sub, _i, _a) => !sub.equals(communityId))
                         return User
                             .findOneAndUpdate({
                                 _id: user._id
