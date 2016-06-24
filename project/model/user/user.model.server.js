@@ -9,8 +9,6 @@ module.exports = function(app) {
         'findUserByUsername': findUserByUsername,
         'updateUserProfile': updateUserProfile,
         'deleteUser': deleteUser,
-        'subscribe': subscribe,
-        'unsubscribe': unsubscribe,
         '$model': User,
     };
     return api;
@@ -81,61 +79,5 @@ module.exports = function(app) {
                         throw 404;
                     }
                 });
-    }
-
-    function subscribe(userId, communityId) {
-        return User
-            .findById(userId)
-            .then(
-                function(user) {
-                    if (user) {
-                        var contains = user
-                            .subscriptions
-                            .filter((sub, _i, _a) => sub.equals(communityId))
-                            .length;
-                        if (!contains) {
-                            user.subscriptions.push(communityId);
-                            return User
-                                .findOneAndUpdate({
-                                    _id: user._id
-                                }, {
-                                    $set: {
-                                        subscriptions: user.subscriptions
-                                    }
-                                }, {
-                                    new: true
-                                });
-                        } else {
-                            return user;
-                        }
-                    } else {
-                        throw 404;
-                    }
-                });
-    }
-
-    function unsubscribe(userId, communityId) {
-        return User
-            .findById(userId)
-            .then(
-                function(user) {
-                    if (user) {
-                        user.subscriptions = user.subscriptions
-                            .filter((sub, _i, _a) => !sub.equals(communityId))
-                        return User
-                            .findOneAndUpdate({
-                                _id: user._id
-                            }, {
-                                $set: {
-                                    subscriptions: user.subscriptions
-                                }
-                            }, {
-                                new: true
-                            });
-                    } else {
-                        throw 404;
-                    }
-                }
-            );
     }
 };

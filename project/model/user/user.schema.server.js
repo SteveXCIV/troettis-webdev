@@ -23,8 +23,6 @@ module.exports = function () {
         password: { type: String, required: true },
         firstName: String,
         lastName: String,
-        subscriptions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Community' }],
-        threads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Thread' }],
         contacts: [ ContactInfoSchema ],
         signUpDate: { type: Date, default: Date.now, required: true },
     }, { collection: 'project.user' });
