@@ -32,6 +32,7 @@
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-fuzzy": "^1.6.1"
+    "chai-fuzzy": "^1.6.1",
+    "underscore": "^1.8.3"
   }
 }
