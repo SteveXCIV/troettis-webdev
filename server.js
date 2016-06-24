@@ -1,3 +1,4 @@
+var biome = require('./lib/biome.js')();
 var log = require('./lib/logger')();
 var express = require('express');
 var app = express();
@@ -6,7 +7,6 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
 
-var biome = require('./assignment/lib/biome.js')();
 var SESSION_SECRET = biome.get('SESSION_SECRET');
 
 app.use(bodyParser.json());
