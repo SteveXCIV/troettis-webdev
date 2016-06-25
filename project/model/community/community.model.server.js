@@ -16,29 +16,11 @@ module.exports = function (app) {
     }
 
     function findCommunityByName(communityName) {
-        return Community
-            .findOne({ name: communityName })
-            .then(
-                function (community) {
-                    if (community) {
-                        return community;
-                    } else {
-                        throw 404;
-                    }
-                });
+        return Community.findOne({ name: communityName });
     }
 
     function findCommunityById(communityId) {
-        return Community
-            .findById(communityId)
-            .then(
-                function (community) {
-                    if (community) {
-                        return community;
-                    } else {
-                        throw 404;
-                    }
-                });
+        return Community.findById(communityId);
     }
 
     function updateCommunity(communityId, community) {
@@ -48,14 +30,6 @@ module.exports = function (app) {
                 { $set: {
                     description: community.description,
                 }},
-                { new: true })
-            .then(
-                function (community) {
-                    if (community) {
-                        return community;
-                    } else {
-                        throw 404;
-                    }
-                });
+                { new: true });
     }
 };
