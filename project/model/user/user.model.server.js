@@ -7,7 +7,7 @@ module.exports = function() {
         'registerUser': registerUser,
         'findUserById': findUserById,
         'findUserByUsername': findUserByUsername,
-        'updateUserProfile': updateUserProfile,
+        'updateUser': updateUser,
         'deleteUser': deleteUser,
     };
     return api;
@@ -27,12 +27,13 @@ module.exports = function() {
             });
     }
 
-    function updateUserProfile(userId, changes) {
+    function updateUser(userId, changes) {
         return User
             .findOneAndUpdate({
                 _id: userId
             }, {
                 $set: {
+                    password: changes.password,
                     firstName: changes.firstName,
                     lastName: changes.lastName,
                     contacts: changes.contacts,
