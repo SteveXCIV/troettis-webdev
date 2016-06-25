@@ -9,7 +9,6 @@ module.exports = function(app) {
         'findUserByUsername': findUserByUsername,
         'updateUserProfile': updateUserProfile,
         'deleteUser': deleteUser,
-        '$model': User,
     };
     return api;
 
@@ -18,31 +17,14 @@ module.exports = function(app) {
     }
 
     function findUserById(userId) {
-        return User
-            .findById(userId)
-            .then(
-                function(user) {
-                    if (user) {
-                        return user;
-                    } else {
-                        throw 404;
-                    }
-                });
+        return User.findById(userId);
     }
 
     function findUserByUsername(username) {
         return User
             .findOne({
                 username: username
-            })
-            .then(
-                function(user) {
-                    if (user) {
-                        return user;
-                    } else {
-                        throw 404;
-                    }
-                });
+            });
     }
 
     function updateUserProfile(userId, changes) {
@@ -57,27 +39,10 @@ module.exports = function(app) {
                 }
             }, {
                 new: true
-            })
-            .then(
-                function(user) {
-                    if (user) {
-                        return user;
-                    } else {
-                        throw 404;
-                    }
-                });
+            });
     }
 
     function deleteUser(userId) {
-        return User
-            .findByIdAndRemove(userId)
-            .then(
-                function(user) {
-                    if (user) {
-                        return user;
-                    } else {
-                        throw 404;
-                    }
-                });
+        return User.findByIdAndRemove(userId);
     }
 };
