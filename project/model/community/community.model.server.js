@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function () {
     var mongoose = require('mongoose');
     var CommunitySchema = require('./community.schema.server.js')();
     var Community = mongoose.model('Community', CommunitySchema);
