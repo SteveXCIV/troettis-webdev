@@ -1,0 +1,37 @@
+<div class="container-fluid">
+    <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <form novalidate name="register" id="register" ng-submit="model.register(register, user)">
+                <div class="form-group">
+                    <h2>Register</h2>
+                </div>
+                <div class="form-group">
+                    <input ng-model="user.username" type="text" class="form-control" name="username" placeholder="Username" tabindex="1" required />
+                    <div ng-show="register.$submitted && register.username.$error.required" class="alert alert-danger">
+                        <span class="fa fa-exclamation-circle fa-lg"></span>
+                        <span>Username is required.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input ng-model="user.password" type="password" class="form-control" name="password" placeholder="Password" tabindex="2" required />
+                    <div ng-show="register.$submitted && register.password.$error.required" class="alert alert-danger">
+                        <span class="fa fa-exclamation-circle fa-lg"></span>
+                        <span>Password is required.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input ng-model="user.verifyPassword" type="password" class="form-control" name="verify_password" placeholder="Verify password" tabindex="3" required wam-equal-to="user.password"/>
+                    <div ng-show="register.$submitted && register.verify_password.$invalid" class="alert alert-danger">
+                        <span class="fa fa-exclamation-circle fa-lg"></span>
+                        <span>Verify password is required and must match password.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button role="submit" class="btn btn-primary btn-block btn-lg">Register</button>
+                    <a href="#/login" class="btn btn-danger btn-block btn-lg">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
