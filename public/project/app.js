@@ -1,4 +1,4 @@
 (function() {
     angular
-        .module('Project', ['ngRoute', 'textAngular']);
+        .module('Project', ['ngRoute', 'angularMoment']);
 })();

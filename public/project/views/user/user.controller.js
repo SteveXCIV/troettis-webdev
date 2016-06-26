@@ -26,7 +26,11 @@
                         $location.url('/profile/edit');
                     },
                     function(error) {
-                        vm.alert = error.data;
+                        if (typeof(error.data) === 'string') {
+                            vm.alert = [error.data];
+                        } else {
+                            vm.alert = error.data;
+                        }
                     }
                 );
         }
@@ -52,7 +56,11 @@
                         $location.url('/profile/edit');
                     },
                     function(error) {
-                        vm.alert = error.data;
+                        if (typeof(error.data) === 'string') {
+                            vm.alert = [error.data];
+                        } else {
+                            vm.alert = error.data;
+                        }
                     }
                 );
         }
@@ -71,7 +79,11 @@
                         vm.user = response.data;
                     },
                     function (error) {
-                        vm.alert = error.data;
+                        if (typeof(error.data) === 'string') {
+                            vm.alert = [error.data];
+                        } else {
+                            vm.alert = error.data;
+                        }
                     });
         }
         init();
@@ -95,7 +107,11 @@
                         vm.user = response.data;
                     },
                     function(error) {
-                        vm.alert = error.data;
+                        if (typeof(error.data) === 'string') {
+                            vm.alert = [error.data];
+                        } else {
+                            vm.alert = error.data;
+                        }
                     }
                 );
         }
@@ -110,7 +126,11 @@
                         $location.url('/');
                     },
                     function (error) {
-                        vm.alert = error.data;
+                        if (typeof(error.data) === 'string') {
+                            vm.alert = [error.data];
+                        } else {
+                            vm.alert = error.data;
+                        }
                     });
         }
 
@@ -126,8 +146,11 @@
                         }
                     },
                     function(error) {
-                        console.log(error);
-                        vm.alert = error.data;
+                        if (typeof(error.data) === 'string') {
+                            vm.alert = [error.data];
+                        } else {
+                            vm.alert = error.data;
+                        }
                     }
                 );
         }
@@ -141,7 +164,11 @@
                         vm.success = response.data;
                     },
                     function(error) {
-                        vm.alert = error.data;
+                        if (typeof(error.data) === 'string') {
+                            vm.alert = [error.data];
+                        } else {
+                            vm.alert = error.data;
+                        }
                     });
         }
     }

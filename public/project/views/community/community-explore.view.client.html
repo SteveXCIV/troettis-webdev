@@ -1,0 +1,58 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+
+        <div class="navbar-btn pull-right">
+            <div ng-if="model.currentUser">
+                <a href="#/profile/edit" class="btn btn-link btn-icon-responsive">
+                    <span class="fa fa-user"></span>
+                    <span class="text">Profile</span>
+                </a>
+                <a ng-if="model.currentUser" href="#/community/create" class="btn btn-link btn-icon-responsive">
+                    <span class="fa fa-plus-square"></span>
+                    <span class="text">Create</span>
+                </a>
+                <a ng-if="model.currentUser" href="#/{{model.currentUser.username}}/subcriptions" class="btn btn-link btn-icon-responsive">
+                    <span class="fa fa-bookmark"></span>
+                    <span class="text">Your Subscriptions</span>
+                </a>
+            </div>
+            <div ng-if="!model.currentUser">
+                <a href="#/login" class="btn btn-link btn-icon-responsive">
+                    <span class="fa fa-sign-in"></span>
+                    <span class="text">Login</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="navbar-btn pull-left">
+            <a href="#/" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-home"></span>
+                <span class="text">Home</span>
+            </a>
+        </div>
+
+        <div class="navbar-brand">
+            <span>Explore</span>
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid with-navbar-fixed-top">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <span class="fa fa-search"></span>
+                </div>
+                <input ng-model="filter.name" type="text" name="filter" id="filter" class="form-control" placeholder="Filter" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-repeat="community in model.communities | filter:filter">
+            <ng-include src="'views/community/community-preview.view.client.html'" />
+        </div>
+    </div>
+</div>

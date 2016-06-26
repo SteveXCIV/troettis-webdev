@@ -29,6 +29,11 @@
         };
 
         $routeProvider
+            .when('/', {
+                templateUrl: 'views/home/home.view.client.html',
+                controller: 'HomeController',
+                controllerAs: 'model',
+            })
             .when('/login', {
                 templateUrl: 'views/user/login.view.client.html',
                 controller: 'LoginController',
@@ -39,7 +44,7 @@
                 controller: 'RegisterController',
                 controllerAs: 'model',
             })
-            .when('/user/:username', {
+            .when('/u/:username', {
                 templateUrl: 'views/user/profile.view.client.html',
                 controller: 'ProfileController',
                 controllerAs: 'model',
@@ -50,58 +55,19 @@
                 controllerAs: 'model',
                 resolve: { loggedIn: checkLoggedIn },
             })
-            .when('/user/:uid/website', {
-                templateUrl: 'views/website/website-list.view.client.html',
-                controller: 'WebsiteListController',
+            .when('/community/explore', {
+                templateUrl: 'views/community/community-explore.view.client.html',
+                controller: 'CommunityExploreController',
                 controllerAs: 'model',
             })
-            .when('/user/:uid/website/new', {
-                templateUrl: 'views/website/website-new.view.client.html',
-                controller: 'NewWebsiteController',
+            .when('/community/create', {
+                templateUrl: 'views/community/community-create.view.client.html',
+                controller: 'CommunityCreateController',
                 controllerAs: 'model',
-            })
-            .when('/user/:uid/website/:wid', {
-                templateUrl: 'views/website/website-edit.view.client.html',
-                controller: 'EditWebsiteController',
-                controllerAs: 'model',
-            })
-            .when('/user/:uid/website/:wid/page', {
-                templateUrl: 'views/page/page-list.view.client.html',
-                controller: 'PageListController',
-                controllerAs: 'model',
-            })
-            .when('/user/:uid/website/:wid/page/new', {
-                templateUrl: 'views/page/page-new.view.client.html',
-                controller: 'NewPageController',
-                controllerAs: 'model',
-            })
-            .when('/user/:uid/website/:wid/page/:pid', {
-                templateUrl: 'views/page/page-edit.view.client.html',
-                controller: 'EditPageController',
-                controllerAs: 'model',
-            })
-            .when('/user/:uid/website/:wid/page/:pid/widget', {
-                templateUrl: 'views/widget/widget-list.view.client.html',
-                controller: 'WidgetListController',
-                controllerAs: 'model',
-            })
-            .when('/user/:uid/website/:wid/page/:pid/widget/new', {
-                templateUrl: 'views/widget/widget-chooser.view.client.html',
-                controller: 'NewWidgetController',
-                controllerAs: 'model',
-            })
-            .when('/user/:uid/website/:wid/page/:pid/widget/:wgid', {
-                templateUrl: 'views/widget/widget-edit.view.client.html',
-                controller: 'EditWidgetController',
-                controllerAs: 'model',
-            })
-            .when('/user/:uid/website/:wid/page/:pid/widget/:wgid/flickr', {
-                templateUrl: 'views/widget/widget-flickr-search.client.html',
-                controller: 'FlickrImageSearchController',
-                controllerAs: 'model',
+                resolve: { loggedIn: checkLoggedIn },
             })
             .otherwise({
-                redirectTo: '/login'
+                redirectTo: '/'
             });
     }
 })();
