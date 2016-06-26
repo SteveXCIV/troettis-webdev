@@ -5,6 +5,7 @@ module.exports = function () {
 
     var api = {
         'createCommunity': createCommunity,
+        'findAllCommunities': findAllCommunities,
         'findCommunityByName': findCommunityByName,
         'findCommunityById': findCommunityById,
         'updateCommunity': updateCommunity,
@@ -13,6 +14,12 @@ module.exports = function () {
 
     function createCommunity(community) {
         return Community.create(community);
+    }
+
+    function findAllCommunities() {
+        return Community
+            .find()
+            .populate({ path: 'creator', select: 'username' });
     }
 
     function findCommunityByName(communityName) {

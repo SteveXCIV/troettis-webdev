@@ -1,10 +1,11 @@
 module.exports = function() {
+    var communityModel = require('./community/community.model.server.js')();
+    var threadModel = require('./thread/thread.model.server.js')();
     var userModel = require('./user/user.model.server.js')();
-    // var websiteModel = require('./website/website.model.server.js')();
-    // var pageModel = require('./page/page.model.server.js')();
-    // var widgetModel = require('./widget/widget.model.server.js')();
 
     var models = {
+        communityModel: communityModel,
+        threadModel: threadModel,
         userModel: userModel,
     };
     return models;
