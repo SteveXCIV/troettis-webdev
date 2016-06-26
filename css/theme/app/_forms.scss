@@ -27,3 +27,9 @@ textarea.form-control {
 form.ng-submitted input.form-control.ng-invalid {
     border-color: $brand-danger;
 }
+
+.input-group-addon {
+    background: none;
+    border-width: 0px;
+    border-bottom-width: $form-border-width;
+}

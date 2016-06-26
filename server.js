@@ -38,6 +38,14 @@ require('./db_test/app.js')(app);
 // require('./assignment/app.js')(app);
 require('./project/app.js')(app);
 
+// catch-all error handler
+app.use(function(err, req, res, next) {
+    log.error(`Failed to handle request to endpoint = ${req.method} ${req.path} with payload:\n ${JSON.stringify(req.body)}\n\t`, err);
+    res
+        .status(400)
+        .json(err);
+});
+
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP;
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 

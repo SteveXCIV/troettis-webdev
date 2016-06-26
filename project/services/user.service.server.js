@@ -1,4 +1,5 @@
 module.exports = function(app, models) {
+    var err = require('./errorHandler')();
     var log = require('../../lib/logger')();
     var validate = require('express-validation');
     var validators = require('../validators/validators')();
@@ -18,6 +19,7 @@ module.exports = function(app, models) {
 
     app.post('/api/register', validate(validators.register), register);
     app.get('/api/user', validate(validators.findUserByUsername), findUserByUsername);
+    app.get('/api/user/current', findCurrentUser);
     app.post('/api/login', passport.authenticate('project'), login);
     app.post('/api/logout', logout);
     app.get('/api/user/:userId', findUserById);
@@ -58,6 +60,12 @@ module.exports = function(app, models) {
                             res.json(user);
                         }
                     })
+                },
+                function (error) {
+                    log.error('Database error.', error);
+                    res
+                        .status(400)
+                        .json(err.convertDbError(error));
                 });
     }
 
@@ -71,6 +79,16 @@ module.exports = function(app, models) {
         res.send(200);
     }
 
+    function findCurrentUser(req, res) {
+        if (req.user) {
+            res.json(stripPassword(req.user));
+        } else {
+            res
+                .status(404)
+                .json(['Failed to find current login session. Please try logging out and in again.']);
+        }
+    }
+
     function findUserByUsername(req, res) {
         var username = req.query.username;
         log.debug(`Request to find user named "${username}".`);
@@ -79,8 +97,7 @@ module.exports = function(app, models) {
             .then(
                 function(user) {
                     if (user) {
-                        user = Object.assign({}, user)._doc;
-                        delete user.password;
+                        user = stripPassword(user);
                         log.debug(`Returning user: ${JSON.stringify(user)}.`);
                         res.json(user);
                     } else {
@@ -99,8 +116,7 @@ module.exports = function(app, models) {
             .findUserById(userId)
             .then(
                 function(user) {
-                    user = Object.assign({}, user)._doc;
-                    delete user.password;
+                    user = stripPassword(user);
                     log.debug(`Returning user: ${JSON.stringify(user)}.`);
                     res.json(user);
                 },
@@ -141,7 +157,7 @@ module.exports = function(app, models) {
                                 .json(error);
                         });
             } else {
-                log.error(`User update validation error: Checks: req.user = ${req.user}; (req.user._id.equals(userId)) = ${req.user._id.equals(userId)}; bcrypt.compareSync(updatedUser.password, req.user.password) = ${bcrypt.compareSync(updatedUser.password, req.user.password)}.`);
+                log.error(`User update validation error: Checks: \nreq.user = ${req.user}; \n(req.user._id.equals(userId)) = ${req.user._id.equals(userId)}; \nreq.user._id = ${req.user._id}; \nuserId       = ${userId}; \nbcrypt.compareSync(updatedUser.password, req.user.password) = ${bcrypt.compareSync(updatedUser.password, req.user.password)}.`);
                 res
                     .status(403)
                     .json(['You need to be logged in to do that.'])
@@ -249,5 +265,11 @@ module.exports = function(app, models) {
                 function (error) {
                     return done(error, null);
                 });
+    }
+
+    function stripPassword(user) {
+        var clone = Object.assign({}, user)._doc;
+        delete clone.password;
+        return clone;
     }
 }
