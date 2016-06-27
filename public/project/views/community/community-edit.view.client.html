@@ -1,0 +1,46 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-btn pull-left">
+            <button ng-click="model.back()" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-home"></span>
+                <span class="text">Cancel</span>
+            </button>
+        </div>
+
+        <div class="navbar-brand pull-left">
+            <span>Edit Community</span>
+        </div>
+
+        <div class="navbar-btn pull-right">
+            <button role="submit" form="community_editor" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-check"></span>
+                <span class="text">Done</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid with-navbar-fixed-top">
+    <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <form name="community_editor" id="community_editor" novalidate ng-submit="model.updateCommunity(community_editor, model.community)">
+                <div class="form-group">
+                    <input ng-model="model.community.name" type="hidden" name="name" placeholder="What is this community called?" class="form-control" required/>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea rows="5" ng-model="model.community.description" name="description" placeholder="What is this community about?" class="form-control" tabindex="1" required/>
+                    <div ng-show="community_editor.$submitted && community_editor.description.$error.required" class="alert alert-danger">
+                        <span class="fa fa-exclamation-circle fa-lg"></span>
+                        <span>Description is required.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="hide" role="submit">Done</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

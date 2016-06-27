@@ -4,7 +4,6 @@ module.exports = function(app, models) {
     var validate = require('express-validation');
     var validators = require('../validators/validators')();
     var communityModel = models.communityModel;
-    // var moderatorModel = models.moderatorModel;
 
     app.post('/api/community', createCommunity);
     app.get('/api/community/all', findAllCommunities);
@@ -28,12 +27,6 @@ module.exports = function(app, models) {
             .createCommunity(community)
             .then(
                 function (community) {
-                    // TODO: Make the user a moderator by default.
-                    // moderatorModel
-                    //      .createModerator({ community: community._id, user: req.user._id })
-                            // .exec(function (err, moderator) {
-                            //     if (err) throw err;
-                            // });
                     return community;
                 })
             .then(
@@ -107,13 +100,32 @@ module.exports = function(app, models) {
         var communityId = req.params.communityId;
         var changes = req.body;
 
-        // TODO: Protection so only a moderator may make changes
+        log.debug(`Request to update community with ID ${communityId} and payload ${JSON.stringify(changes)}.`);
+
+        if (!req.user) {
+            res
+                .status(403)
+                .json(['You must be logged in to do that.']);
+            return;
+        }
 
         communityModel
-            .updateCommunity(communityId, changes)
+            .findCommunityById(communityId)
+            .then(
+                function (community) {
+                    if (!community.creator.equals(req.user._id)) {
+                        res
+                            .status(403)
+                            .json(['You must be the creator to edit a community.']);
+                        return false;
+                    } else {
+                        return communityModel.updateCommunity(communityId, changes);
+                    }
+                })
             .then(
                 function (community) {
                     if (community) {
+                        log.debug(`Database response ${JSON.stringify(community)}.`);
                         res.json(community);
                     } else {
                         res

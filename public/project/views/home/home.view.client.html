@@ -23,7 +23,7 @@
             <a ng-if="model.currentUser" href="#/community/create" class="btn btn-link btn-icon-responsive">
                 <span class="text">Create</span>
             </a>
-            <a ng-if="model.currentUser" href="#/{{model.currentUser.username}}/subcriptions" class="btn btn-link btn-icon-responsive">
+            <a ng-if="model.currentUser" href="#/subscriptions" class="btn btn-link btn-icon-responsive">
                 <span class="text">Your Subscriptions</span>
             </a>
         </div>
@@ -51,7 +51,7 @@
             </a>
         </div>
         <div ng-if="model.currentUser" class="col-xs-12">
-            <a href="#/{{model.currentUser.username}}/subcriptions" class="btn btn-link">
+            <a href="#/{{model.currentUser.username}}/subscriptions" class="btn btn-link">
                 <span class="fa fa-bookmark"></span>
                 Your Subscriptions
             </a>

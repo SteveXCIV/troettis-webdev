@@ -46,7 +46,17 @@
                 <p>{{model.community.description}}</p>
                 <p>Has been a community since <span am-time-ago="model.community.dateCreated"></span>.</p>
                 <p>Created by <a href="#/u/{{model.community.creator.username}}">/u/{{model.community.creator.username}}</a>.</p>
+                <a ng-if="model.currentUser && model.currentUser._id === model.community.creator._id" href="#/community/{{model.community._id}}/edit" class="btn btn-block btn-primary">Edit</a>
             </div>
+        </div>
+    </div>
+    <div class="row" ng-if="model.currentUser">
+        <div ng-show="!model.subscription" class="col-xs-12">
+            <p>Like what you see? Subcribe to stay up-to-date!</p>
+            <button ng-click="model.subscribe(model.currentUser._id, model.community._id)" class="btn btn-block btn-success">Subscribe</button>
+        </div>
+        <div ng-show="model.subscription" class="col-xs-12">
+            <button ng-click="model.unsubscribe(model.currentUser._id, model.community._id)" class="btn btn-block btn-danger">Unsubscribe</button>
         </div>
     </div>
     <div class="row">

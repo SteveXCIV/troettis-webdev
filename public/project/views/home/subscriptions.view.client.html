@@ -2,26 +2,21 @@
     <div class="container-fluid">
 
         <div class="navbar-btn pull-right">
-            <div ng-if="model.currentUser">
+            <div>
                 <a href="#/profile/edit" class="btn btn-link btn-icon-responsive">
                     <span class="fa fa-user"></span>
                     <span class="text">Profile</span>
                 </a>
-                <a ng-if="model.currentUser" href="#/community/create" class="btn btn-link btn-icon-responsive">
-                    <span class="fa fa-plus-square"></span>
-                    <span class="text">Create</span>
-                </a>
-                <a ng-if="model.currentUser" href="#/subscriptions" class="btn btn-link btn-icon-responsive">
-                    <span class="fa fa-bookmark"></span>
-                    <span class="text">Your Subscriptions</span>
-                </a>
             </div>
-            <div ng-if="!model.currentUser">
-                <a href="#/login" class="btn btn-link btn-icon-responsive">
-                    <span class="fa fa-sign-in"></span>
-                    <span class="text">Login</span>
-                </a>
-            </div>
+        </div>
+
+        <div class="navbar-btn pull-right hidden-xs hidden-sm">
+            <a href="#/community/explore" class="btn btn-link btn-icon-responsive">
+                <span class="text">Explore</span>
+            </a>
+            <a ng-if="model.currentUser" href="#/community/create" class="btn btn-link btn-icon-responsive">
+                <span class="text">Create</span>
+            </a>
         </div>
 
         <div class="navbar-btn pull-left">
@@ -32,7 +27,7 @@
         </div>
 
         <div class="navbar-brand">
-            <span>Explore</span>
+            <span>Your Subscriptions</span>
         </div>
 
     </div>
@@ -40,6 +35,21 @@
 
 
 <div class="container-fluid with-navbar-fixed-top">
+    <div class="row hidden-md hidden-lg">
+        <div class="col-xs-12">
+            <a href="#/community/explore" class="btn btn-link">
+                <span class="fa fa-globe"></span>
+                Explore
+            </a>
+        </div>
+        <div ng-if="model.currentUser" class="col-xs-12">
+            <a href="#/community/create" class="btn btn-link">
+                <span class="fa fa-plus-square"></span>
+                Create
+            </a>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-xs-12">
             <div class="input-group">
@@ -55,4 +65,5 @@
             <ng-include src="'views/community/community-preview.view.client.html'" />
         </div>
     </div>
+
 </div>

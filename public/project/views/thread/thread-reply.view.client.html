@@ -1,0 +1,45 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-btn pull-left">
+            <button ng-click="model.back()" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-home"></span>
+                <span class="text">Cancel</span>
+            </button>
+        </div>
+
+        <div class="navbar-brand pull-left">
+            <span>New Comment</span>
+        </div>
+
+        <div class="navbar-btn pull-right">
+            <button role="submit" form="comment_editor" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-check"></span>
+                <span class="text">Done</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid with-navbar-fixed-top">
+    <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <form name="comment_editor" id="comment_editor" novalidate ng-submit="model.createComment(comment_editor, comment)">
+                <div class="form-group">
+                    <label for="body">Body</label>
+                    <wiz-markdown-input class="form-control" rows="6" content="comment.body" name="body" id="body" tabindex="1" placeholder="What is your reply?" required></wiz-markdown-input>
+                    <div ng-show="comment_editor.$submitted && comment_editor.body.$error.required" class="alert alert-danger">
+                        <span class="fa fa-exclamation-circle fa-lg"></span>
+                        <span>Body is required.</span>
+                    </div>
+                    <div>
+                        <p><a href="http://spec.commonmark.org/" target="_blank">Common Markdown</a> is supported.</p>
+                </div>
+                <div class="form-group">
+                    <button class="hide" role="submit">Done</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

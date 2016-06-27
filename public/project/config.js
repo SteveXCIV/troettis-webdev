@@ -20,6 +20,7 @@
                             $rootScope.currentUser = user;
                             deferred.resolve();
                         } else {
+                            console.log('Redirecting non-logged-in user to home.');
                             $rootScope.errorMessage = 'You need to be logged in to do that.';
                             deferred.reject();
                             $location.url('/');
@@ -33,6 +34,12 @@
                 templateUrl: 'views/home/home.view.client.html',
                 controller: 'HomeController',
                 controllerAs: 'model',
+            })
+            .when('/subscriptions', {
+                templateUrl: 'views/home/subscriptions.view.client.html',
+                controller: 'SubscriptionController',
+                controllerAs: 'model',
+                resolve: { loggedIn: checkLoggedIn },
             })
             .when('/login', {
                 templateUrl: 'views/user/login.view.client.html',
@@ -66,16 +73,33 @@
                 controllerAs: 'model',
                 resolve: { loggedIn: checkLoggedIn },
             })
-            .when('/c/:communityName', {
-                templateUrl: 'views/community/community.view.client.html',
-                controller: 'CommunityViewController',
+            .when('/community/:communityId/edit', {
+                templateUrl: 'views/community/community-edit.view.client.html',
+                controller: 'CommunityEditController',
                 controllerAs: 'model',
+                resolve: { loggedIn: checkLoggedIn },
             })
             .when('/community/:communityId/thread/new', {
                 templateUrl: 'views/thread/thread-create.view.client.html',
                 controller: 'ThreadCreateController',
                 controllerAs: 'model',
                 resolve: { loggedIn: checkLoggedIn },
+            })
+            .when('/community/:communityId/thread/:threadId/reply', {
+                templateUrl: 'views/thread/thread-reply.view.client.html',
+                controller: 'ThreadReplyController',
+                controllerAs: 'model',
+                resolve: { loggedIn: checkLoggedIn },
+            })
+            .when('/c/:communityName', {
+                templateUrl: 'views/community/community.view.client.html',
+                controller: 'CommunityViewController',
+                controllerAs: 'model',
+            })
+            .when('/c/:communityName/thread/:threadId', {
+                templateUrl: 'views/thread/thread.view.client.html',
+                controller: 'ThreadViewController',
+                controllerAs: 'model',
             })
             .otherwise({
                 redirectTo: '/'
