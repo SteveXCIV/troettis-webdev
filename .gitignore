@@ -44,3 +44,6 @@ public/css/**/*.css
 
 # Ignore user uploads
 public/uploads
+
+# Ignore testing and code coverage reports
+coverage

@@ -1,0 +1,4 @@
+check:
+    each:
+        branches: 100
+        functions: 100

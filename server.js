@@ -1,3 +1,5 @@
+var biome = require('./lib/biome.js')();
+var log = require('./lib/logger')();
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -5,7 +7,6 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
 
-var biome = require('./assignment/lib/biome.js')();
 var SESSION_SECRET = biome.get('SESSION_SECRET');
 
 app.use(bodyParser.json());
@@ -30,49 +31,24 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 var mongoose = require("mongoose");
 mongoose.connect(connectionString);
 
-var shortid = require('shortid');
-// Attach a global ID generating function to app
-app.getNextId = function() {
-    return shortid.generate();
-}
-
-var _log_prefixes = {
-    ERROR: 'ERR',
-    WARNING: 'WARN',
-    INFO: 'INFO',
-    DEBUG: 'DBG',
-};
-
-function _log(level, message) {
-    if (!process.env.OPENSHIFT_APP_NAME) {
-        console.log(`[${_log_prefixes[level]}]:: ${message}`);
-    }
-}
-
-app.error = function(message, error) {
-    _log('ERROR', `${message} Error: ${JSON.stringify(error)}`);
-};
-
-app.warning = function(message) {
-    _log('WARNING', message);
-};
-
-app.info = function(message) {
-    _log('INFO', message);
-};
-
-app.debug = function(message) {
-    _log('DEBUG', message);
-}
-
 // configure a public directory to host static content
 app.use(express.static(__dirname + '/public'));
 
-require('./test/app.js')(app);
-require('./assignment/app.js')(app);
+require('./db_test/app.js')(app);
+// require('./assignment/app.js')(app);
+require('./project/app.js')(app);
+
+// catch-all error handler
+app.use(function(err, req, res, next) {
+    log.error(`Failed to handle request to endpoint = ${req.method} ${req.path} with payload:\n ${JSON.stringify(req.body)}\n\t`, err);
+    log.error(err.toString());
+    res
+        .status(400)
+        .json(err);
+});
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP;
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
-app.debug(`Server start at address (${ipaddress}) and port (${port}).`);
+log.debug(`Server start. IP: ${ipaddress || 'localhost'}, Port: ${port}`);
 app.listen(port, ipaddress);

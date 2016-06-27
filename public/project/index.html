@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="Project">
 <head>
     <meta charset="UTF-8">
-    <title>Project Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title ng-bind-template="{{title||'Project'}}">Project</title>
+    <link rel="stylesheet" href="/css/app.css" title="app" charset="utf-8">
+    <link rel="stylesheet" href="/css/textAngular.css" title="textAngular" charset="utf-8">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link href="http://yandex.st/highlightjs/8.0/styles/github.min.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0-beta.6/angular-moment.min.js"></script>
+    <script src="/js/wizMarkdown.min.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+    <script src="directives/wam-directives.js"></script>
+    <script src="services/community.service.client.js"></script>
+    <script src="services/comment.service.client.js"></script>
+    <script src="services/subscription.service.client.js"></script>
+    <script src="services/thread.service.client.js"></script>
+    <script src="services/user.service.client.js"></script>
+    <script src="views/community/community.controller.js"></script>
+    <script src="views/home/home.controller.js"></script>
+    <script src="views/thread/thread.controller.js"></script>
+    <script src="views/user/user.controller.js"></script>
 </head>
 <body>
-    <h1>Project Home Page</h1>
+    <div ng-view>
+    </div>
 </body>
 </html>

@@ -12,13 +12,12 @@ var config = {
     // point to bootstrap-sass bower component
     bootstrapDir: './bower_components/bootstrap-sass',
     // point to jquery bower component
-    jsDir: './bower_components/jquery',
+    jQueryDir: './bower_components/jquery',
+    wizMarkdownDir: './bower_components/wiz-markdown/wizMarkdown',
     // this is where we'll output built dependencies
     publicDir: './public',
     // the file(s) to build to the public directory
     sassFile: './css/!(_)*.scss',
-    textAngular: './bower_components/textAngular/dist',
-    rangy: './bower_components/rangy',
 };
 
 function handleError(e) {
@@ -37,17 +36,10 @@ gulp.task('scss', function() {
         .pipe(gulp.dest(config.publicDir + '/css'));
 });
 
-gulp.task('thirdparty-css', function() {
-    return gulp.src(config.textAngular + '/*.css')
-        .pipe(gulp.dest(config.publicDir + '/css'));
-})
-
 // this task moves a copy of bootstrap.min.js into ./public/js
 gulp.task('js', function() {
     return gulp.src([
-            config.bootstrapDir + '/assets/javascripts/bootstrap.min.js',
-            config.textAngular + '/*.min.js',
-            config.rangy + '/*.min.js',
+            config.wizMarkdownDir + '/wizMarkdown.min.js',
         ])
         .pipe(gulp.dest(config.publicDir + '/js'));
 });
@@ -67,4 +59,4 @@ gulp.task('watch', function() {
 });
 
 // the default task copies all dependencies
-gulp.task('default', ['scss', 'js', 'fonts', 'thirdparty-css']);
+gulp.task('default', ['scss', 'js', 'fonts']);

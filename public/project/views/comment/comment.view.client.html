@@ -1,0 +1,13 @@
+<div class="container-fluid">
+    <div class="row panel panel-card">
+        <div class="col-xs-12">
+            <p>
+                <a href="#/u/{{comment.author.username}}">/u/{{comment.author.username}}</a>
+                 <span am-time-ago="comment.creationDate"></span>
+            </p>
+        </div>
+        <div class="col-xs-12">
+            <div class="markdown" ng-bind-html="comment.body | wizMarkdownFltr"></div>
+        </div>
+    </div>
+</div>

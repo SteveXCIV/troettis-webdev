@@ -1,0 +1,84 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-btn pull-left">
+            <button ng-click="model.back()" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-chevron-left"></span>
+                <span class="text">Back</span>
+            </button>
+        </div>
+        <div class="navbar-btn pull-right">
+            <a href="#/" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-home"></span>
+                <span class="text">Home</span>
+            </a>
+        </div>
+
+        <div class="navbar-brand">
+            <span>About {{model.user.username}}</span>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid with-navbar-fixed-top">
+    <div class="row">
+
+        <div class="col-xs-10 col-xs-offset-1">
+            <p class="h3">
+                {{model.user.username}}
+            </p>
+            <p class="h4" ng-show="model.user.firstName || model.user.lastName">
+                (a.k.a. {{model.user.firstName}}<span ng-show="model.user.firstName && model.user.lastName"> </span>{{model.user.lastName}})
+            </p>
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1">
+            <p class="h4 text-muted">
+                <span class="fa fa-calendar"></span>
+                Joined {{model.user.signUpDate | date:'MMM d, yyyy'}}
+            </p>
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1">
+            <p class="h4">
+                <span class="fa fa-user-plus"></span>
+                Contact Info
+            </p>
+            <p ng-show="model.user.contacts.email.email" class="h4">
+                <a href="mailto:{{model.user.contacts.email.email}}">
+                    <span class="fa fa-envelope"></span>
+                    Send E-Mail
+                </a>
+            </p>
+            <p ng-show="model.user.contacts.phone.phone" class="h4">
+                <a href="tel:{{model.user.contacts.phone.phone}}">
+                    <span class="fa fa-phone"></span>
+                    Call
+                </a>
+            </p>
+            <p ng-show="model.user.contacts.facebook.url" class="h4">
+                <a href="{{model.user.contacts.facebook.url}}">
+                    <span class="fa fa-facebook"></span>
+                    Facebook
+                </a>
+            </p>
+            <p ng-show="model.user.contacts.google.url" class="h4">
+                <a href="{{model.user.contacts.google.url}}">
+                    <span class="fa fa-google-plus"></span>
+                    Google
+                </a>
+            </p>
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1">
+            <p class="h4">Recent Threads</p>
+            <p class="text-danger">{{model.user.username}} hasn't posted anything recently!</p>
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1">
+            <p class="h4">Recent Comments</p>
+            <p class="text-danger">{{model.user.username}} hasn't commented recently!</p>
+        </div>
+
+    </div>
+</div>

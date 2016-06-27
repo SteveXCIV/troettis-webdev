@@ -1,0 +1,77 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+
+        <div class="navbar-btn pull-right">
+            <div ng-if="model.currentUser">
+                <a href="#/profile/edit" class="btn btn-link btn-icon-responsive">
+                    <span class="fa fa-user"></span>
+                    <span class="text">Profile</span>
+                </a>
+            </div>
+            <div ng-if="!model.currentUser">
+                <a href="#/login" class="btn btn-link btn-icon-responsive">
+                    <span class="fa fa-sign-in"></span>
+                    <span class="text">Login</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="navbar-btn pull-right hidden-xs hidden-sm">
+            <a href="#/community/explore" class="btn btn-link btn-icon-responsive">
+                <span class="text">Explore</span>
+            </a>
+            <a ng-if="model.currentUser" href="#/community/create" class="btn btn-link btn-icon-responsive">
+                <span class="text">Create</span>
+            </a>
+            <a ng-if="model.currentUser" href="#/subscriptions" class="btn btn-link btn-icon-responsive">
+                <span class="text">Your Subscriptions</span>
+            </a>
+        </div>
+
+        <div class="navbar-brand">
+            <span>Home</span>
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid with-navbar-fixed-top">
+    <div class="row hidden-md hidden-lg">
+        <div class="col-xs-12">
+            <a href="#/community/explore" class="btn btn-link">
+                <span class="fa fa-globe"></span>
+                Explore
+            </a>
+        </div>
+        <div ng-if="model.currentUser" class="col-xs-12">
+            <a href="#/community/create" class="btn btn-link">
+                <span class="fa fa-plus-square"></span>
+                Create
+            </a>
+        </div>
+        <div ng-if="model.currentUser" class="col-xs-12">
+            <a href="#/{{model.currentUser.username}}/subscriptions" class="btn btn-link">
+                <span class="fa fa-bookmark"></span>
+                Your Subscriptions
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Recent Threads</h2>
+        </div>
+    </div>
+    <div ng-if="!model.threads.length" class="row">
+        <div class="col-xs-12">
+            <p class="text-danger">
+                There's nothing posted here!
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-repeat="thread in model.threads">
+            <ng-include src="'views/thread/thread-preview.view.client.html'" />
+        </div>
+    </div>
+</div>
