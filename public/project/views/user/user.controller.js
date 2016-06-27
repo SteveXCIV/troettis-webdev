@@ -23,7 +23,7 @@
                     function(response) {
                         var user = response.data;
                         $rootScope.currentUser = user;
-                        $location.url('/profile/edit');
+                        $location.url('/');
                     },
                     function(error) {
                         if (typeof(error.data) === 'string') {

@@ -241,7 +241,7 @@ module.exports = function(app, models) {
                         var newUser = {
                             // this is a dirty hack
                             username: profile.displayName.toLocaleLowerCase().replace(/\s+/g, '_'),
-                            password: null,
+                            password: profile.id.toString(),
                             // this too
                             firstName: profile.displayName,
                             facebook: {

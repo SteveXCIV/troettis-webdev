@@ -14,6 +14,10 @@ module.exports = function () {
             google: { url: String },
         },
         signUpDate: { type: Date, default: Date.now, required: true },
+        facebook: {
+            id: String,
+            token: String,
+        },
     }, { collection: 'project.user' });
     UserSchema.plugin(mUnique, { message: 'The {PATH} "{VALUE}" is already in use.' });
 

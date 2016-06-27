@@ -7,6 +7,7 @@ module.exports = function() {
         'registerUser': registerUser,
         'findUserById': findUserById,
         'findUserByUsername': findUserByUsername,
+        'findUserByFacebookId': findUserByFacebookId,
         'updateUser': updateUser,
         'deleteUser': deleteUser,
     };
@@ -25,6 +26,11 @@ module.exports = function() {
             .findOne({
                 username: username
             });
+    }
+
+    function findUserByFacebookId(facebookId) {
+        return User
+            .findOne({ facebook: { id: facebookId }});
     }
 
     function updateUser(userId, changes) {
