@@ -1,4 +1,4 @@
 (function() {
     angular
-        .module('Project', ['ngRoute', 'angularMoment']);
+        .module('Project', ['ngRoute', 'angularMoment', 'wiz.markdown']);
 })();

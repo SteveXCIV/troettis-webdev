@@ -23,7 +23,9 @@ module.exports = function () {
     }
 
     function findCommunityByName(communityName) {
-        return Community.findOne({ name: communityName });
+        return Community
+            .findOne({ name: communityName })
+            .populate({ path: 'creator', select: 'username' });
     }
 
     function findCommunityById(communityId) {

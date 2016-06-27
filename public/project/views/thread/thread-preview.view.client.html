@@ -1,21 +1,20 @@
-<div>
-    <div class="row">
+<div class="container-fluid">
+    <div class="row panel panel-card">
         <div class="col-xs-12">
-            <h3>{{thread.title}}</h3>
+            <h3>
+                <a href="#/c/{{thread.community.name}}/thread/{{thread._id}}">{{thread.title}}</a>
+            </h3>
         </div>
         <div class="col-xs-12">
             <p>
                 Posted to
-                <a href="{{thread.community}}">{{thread.community}}</a>
-                 <span am-time-ago="{{thread.creationDate}}"></span> by
-                <a href="{{thread.author}}">{{thread.author}}</a>
+                <a href="#/c/{{thread.community.name}}">/c/{{thread.community.name}}</a>
+                 <span am-time-ago="thread.creationDate"></span> by
+                <a href="#/u/{{thread.author.username}}">/u/{{thread.author.username}}</a>
             </p>
         </div>
         <div class="col-xs-12">
-            <p>
-                {{thread.body | limitTo:300}}
-                <span ng-if="thread.body.length >= 300">...</span>
-            </p>
+            <div class="markdown" ng-bind-html="thread.body | wizMarkdownFltr"></div>
         </div>
     </div>
 </div>

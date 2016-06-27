@@ -12,7 +12,8 @@ var config = {
     // point to bootstrap-sass bower component
     bootstrapDir: './bower_components/bootstrap-sass',
     // point to jquery bower component
-    jsDir: './bower_components/jquery',
+    jQueryDir: './bower_components/jquery',
+    wizMarkdownDir: './bower_components/wiz-markdown/wizMarkdown',
     // this is where we'll output built dependencies
     publicDir: './public',
     // the file(s) to build to the public directory
@@ -38,7 +39,7 @@ gulp.task('scss', function() {
 // this task moves a copy of bootstrap.min.js into ./public/js
 gulp.task('js', function() {
     return gulp.src([
-            config.bootstrapDir + '/assets/javascripts/bootstrap.min.js',
+            config.wizMarkdownDir + '/wizMarkdown.min.js',
         ])
         .pipe(gulp.dest(config.publicDir + '/js'));
 });

@@ -7,7 +7,7 @@ module.exports = function(app, models) {
     // var moderatorModel = models.moderatorModel;
 
     app.post('/api/community', createCommunity);
-    app.get('/api/community', findAllCommunities);
+    app.get('/api/community/all', findAllCommunities);
     app.get('/api/community', validate(validators.findCommunityByName), findCommunityByName);
     app.get('/api/community/:communityId', findCommunityById);
     app.put('/api/community/:communityId', updateCommunity);

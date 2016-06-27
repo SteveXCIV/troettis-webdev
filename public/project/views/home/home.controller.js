@@ -17,6 +17,16 @@
                             vm.currentUser = user;
                         }
                     });
+
+            ThreadService
+                .findMostRecentThreads()
+                .then(
+                    function (response) {
+                        vm.threads = response.data;
+                    },
+                    function (error) {
+                        vm.alert = error.data;
+                    });
         }
         init();
     }

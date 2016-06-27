@@ -1,0 +1,69 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+
+        <div class="navbar-btn pull-right">
+            <div ng-if="model.currentUser">
+                <a href="#/profile/edit" class="btn btn-link btn-icon-responsive">
+                    <span class="fa fa-user"></span>
+                    <span class="text">Profile</span>
+                </a>
+            </div>
+            <div ng-if="!model.currentUser">
+                <a href="#/login" class="btn btn-link btn-icon-responsive">
+                    <span class="fa fa-sign-in"></span>
+                    <span class="text">Login</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="navbar-btn pull-right">
+            <a ng-if="model.currentUser" href="#/community/{{model.community._id}}/thread/new" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-plus-square"></span>
+                <span class="text">New Post</span>
+            </a>
+        </div>
+
+        <div class="navbar-btn pull-left">
+            <a href="#/" class="btn btn-link btn-icon-responsive">
+                <span class="fa fa-home"></span>
+                <span class="text">Home</span>
+            </a>
+        </div>
+
+        <div class="navbar-brand">
+            <span>/c/{{model.community.name}}</span>
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid with-navbar-fixed-top">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel">
+                <p class="h5">About /c/{{model.community.name}}:</p>
+                <p>{{model.community.description}}</p>
+                <p>Has been a community since <span am-time-ago="model.community.dateCreated"></span>.</p>
+                <p>Created by <a href="#/u/{{model.community.creator.username}}">/u/{{model.community.creator.username}}</a>.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Recent Threads</h2>
+        </div>
+    </div>
+    <div ng-if="!model.threads.length" class="row">
+        <div class="col-xs-12">
+            <p class="text-danger">
+                There's nothing posted here!
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-repeat="thread in model.threads">
+            <ng-include src="'views/thread/thread-preview.view.client.html'" />
+        </div>
+    </div>
+</div>

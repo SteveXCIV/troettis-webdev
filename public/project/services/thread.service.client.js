@@ -14,8 +14,8 @@
         };
         return api;
 
-        function createThread(thread) {
-            var url = '/api/thread';
+        function createThread(communityId, thread) {
+            var url = '/api/community/' + communityId + '/thread';
             return $http.post(url, thread);
         }
 

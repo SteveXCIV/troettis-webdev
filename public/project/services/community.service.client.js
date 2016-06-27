@@ -19,7 +19,7 @@
         }
 
         function findAllCommunities() {
-            var url = '/api/community';
+            var url = '/api/community/all';
             return $http.get(url);
         }
 

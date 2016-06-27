@@ -14,7 +14,15 @@ module.exports = function () {
     return api;
 
     function createThread(thread) {
-        return Thread.create(thread);
+        return Thread
+            .create(thread)
+            .then(
+                function (thread) {
+                    return Thread
+                        .findById(thread._id)
+                        .populate({ path: 'community', select: 'name' })
+                        .populate({ path: 'author', select: 'username' });
+                });
     }
 
     function findMostRecentThreads() {
@@ -29,6 +37,8 @@ module.exports = function () {
     function findThreadByCommunity(communityId) {
         return Thread
             .find({ community: communityId })
+            .sort('-creationDate')
+            .populate({ path: 'community', select: 'name' })
             .populate({ path: 'author', select: 'username' });
     }
 

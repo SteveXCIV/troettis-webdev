@@ -7,7 +7,7 @@ module.exports = function () {
         dateCreated: { type: Date, default: Date.now, required: true },
         name: { type: String, required: true, unique: true, uniqueCaseInsensitive: true },
         description: { type: String, required: true },
-    });
+    }, { collection: 'project.community' });
     CommunitySchema.plugin(mUnique, { message: 'The {PATH} "{VALUE}" is already in use.' });
 
     return CommunitySchema;

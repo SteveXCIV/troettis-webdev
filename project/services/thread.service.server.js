@@ -16,9 +16,20 @@ module.exports = function(app, models) {
         var thread = req.body;
         var communityId = req.params.communityId;
 
-        // TODO: Make it so only a logged in user may post a thread
+        log.debug(`Request to create thread: ${JSON.stringify(thread)}.`);
+
+        if (req.user) {
+            thread.author = req.user._id;
+        } else {
+            res
+                .status(403)
+                .json(['You must be logged in to post a new thread.']);
+                return;
+        }
 
         thread.community = communityId;
+
+        log.debug(`Set author and community on thread: ${JSON.stringify(thread)}.`);
 
         threadModel
             .createThread(thread)
@@ -27,6 +38,7 @@ module.exports = function(app, models) {
                     res.json(thread);
                 },
                 function (error) {
+                    log.error('Error creating thread.', error);
                     res
                         .status(400)
                         .json(err.convertDbError(error));

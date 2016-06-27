@@ -8,11 +8,11 @@
         </div>
 
         <div class="navbar-brand pull-left">
-            <span>New Community</span>
+            <span>New Thread</span>
         </div>
 
         <div class="navbar-btn pull-right">
-            <button role="submit" form="community_editor" class="btn btn-link btn-icon-responsive">
+            <button role="submit" form="thread_editor" class="btn btn-link btn-icon-responsive">
                 <span class="fa fa-check"></span>
                 <span class="text">Done</span>
             </button>
@@ -25,22 +25,24 @@
     <div class="row push-down-1" ng-show="model.alert || model.success" ng-include="'views/shared/alerts.html'"></div>
     <div class="row">
         <div class="col-xs-12">
-            <form name="community_editor" id="community_editor" novalidate ng-submit="model.createCommunity(community_editor, community)">
+            <form name="thread_editor" id="thread_editor" novalidate ng-submit="model.createThread(thread_editor, thread)">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input ng-model="community.name" type="text" name="name" placeholder="What is this community called?" class="form-control" tabindex="1" required/>
-                    <div ng-show="community_editor.$submitted && community_editor.name.$error.required" class="alert alert-danger">
+                    <label for="title">Title</label>
+                    <input ng-model="thread.title" type="text" name="title" placeholder="What is this thread called?" class="form-control" tabindex="1" required/>
+                    <div ng-show="thread_editor.$submitted && thread_editor.title.$error.required" class="alert alert-danger">
                         <span class="fa fa-exclamation-circle fa-lg"></span>
-                        <span>Name is required.</span>
+                        <span>Title is required.</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea rows="5" ng-model="community.description" name="description" placeholder="What is this community about?" class="form-control" tabindex="2" required/>
-                    <div ng-show="community_editor.$submitted && community_editor.description.$error.required" class="alert alert-danger">
+                    <label for="body">Body</label>
+                    <wiz-markdown-input class="form-control" rows="6" content="thread.body" name="body" id="body" tabindex="2" placeholder="What is this thread about?" required></wiz-markdown-input>
+                    <div ng-show="thread_editor.$submitted && thread_editor.body.$error.required" class="alert alert-danger">
                         <span class="fa fa-exclamation-circle fa-lg"></span>
-                        <span>Description is required.</span>
+                        <span>Body is required.</span>
                     </div>
+                    <div>
+                        <p><a href="http://spec.commonmark.org/" target="_blank">Common Markdown</a> is supported.</p>
                 </div>
                 <div class="form-group">
                     <button class="hide" role="submit">Done</button>

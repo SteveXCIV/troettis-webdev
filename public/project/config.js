@@ -66,6 +66,17 @@
                 controllerAs: 'model',
                 resolve: { loggedIn: checkLoggedIn },
             })
+            .when('/c/:communityName', {
+                templateUrl: 'views/community/community.view.client.html',
+                controller: 'CommunityViewController',
+                controllerAs: 'model',
+            })
+            .when('/community/:communityId/thread/new', {
+                templateUrl: 'views/thread/thread-create.view.client.html',
+                controller: 'ThreadCreateController',
+                controllerAs: 'model',
+                resolve: { loggedIn: checkLoggedIn },
+            })
             .otherwise({
                 redirectTo: '/'
             });

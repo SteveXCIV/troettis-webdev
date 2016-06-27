@@ -2,7 +2,8 @@
     angular
         .module('Project')
         .controller('CommunityExploreController', CommunityExploreController)
-        .controller('CommunityCreateController', CommunityCreateController);
+        .controller('CommunityCreateController', CommunityCreateController)
+        .controller('CommunityViewController', CommunityViewController);
 
     function CommunityExploreController($http, CommunityService) {
         var vm = this;
@@ -25,6 +26,42 @@
                 .then(
                     function (response) {
                         vm.communities = response.data;
+                    },
+                    function (error) {
+                        vm.alert = error.data;
+                    });
+        }
+        init();
+    }
+
+    function CommunityViewController($http, $routeParams, CommunityService, ThreadService) {
+        var communityName = $routeParams['communityName'];
+        var vm = this;
+        vm.community = null;
+        vm.threads = [];
+
+        function init() {
+            vm.alert = null;
+
+            $http
+                .get('/api/loggedin')
+                .success(
+                    function (user) {
+                        if (user !== '0') {
+                            vm.currentUser = user;
+                        }
+                    });
+
+            CommunityService
+                .findCommunityByName(communityName)
+                .then(
+                    function (response) {
+                        vm.community = response.data;
+                        return ThreadService.findThreadByCommunity(vm.community._id);
+                    })
+                .then(
+                    function (response) {
+                        vm.threads = response.data;
                     },
                     function (error) {
                         vm.alert = error.data;
